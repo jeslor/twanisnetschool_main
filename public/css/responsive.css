@@ -5,11 +5,38 @@
   --mainwhite: 255, 255, 255;
   --mainFont: "Poppins", sans-serif;
   --falbackFont: "Source Serif Pro", serif;
+  --headersFont: "Raleway', sans-serif";
+  --normalBorderRadius: 10px;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--mainFont);
+  /* font-family: var(--mainFont); */
   font-size: 16px;
+  line-height: 2;
+}
+
+.main_button {
+  background-color: rgb(var(--mainColor));
+  color: rgb(var(--mainwhite));
+  border: none;
+  padding: 0.5rem 3rem;
+  border-radius: var(--normalBorderRadius);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.secondary_button {
+  background-color: rgb(var(--secondaryColor));
+  color: rgb(var(--mainwhite));
+  border: none;
+  padding: 0.5rem 3rem;
+  border-radius: var(--normalBorderRadius);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }

@@ -1,11 +1,11 @@
 @import url("./Components/navbar.css");
 
 .landingPage {
-  background: rgb(var(--mainColor));
+  background: rgb(var(--secondaryColor));
   background: linear-gradient(
-    -50deg,
-    rgb(18, 12, 5) 0%,
-    rgb(4, 21, 37) 45%,
+    50deg,
+    rgb(18, 12, 5, 1) 20%,
+    rgb(13, 52, 89) 70%,
     rgba(6, 81, 125, 1) 100%
   );
   background-size: 400% 400%;
@@ -16,7 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: animateBg 20s infinite;
+  animation: animateBg 18s infinite;
   color: rgb(var(--mainwhite));
 }
 
@@ -25,24 +25,55 @@
     background-position: 0% 50%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 100% 30%;
   }
   100% {
     background-position: 0% 50%;
   }
 }
 
+.landingPage_content {
+  background-color: rgba(var(--mainwhite), 0.2);
+  padding: 2rem 1rem;
+  height: 100%;
+  border-radius: var(--normalBorderRadius);
+}
 .landingPage__title {
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
 }
 
 .landingPage__title .landingPage__title--highlight {
   font-weight: 900;
-  font-size: 3.5rem;
+  font-size: 3.9rem;
   display: block;
   text-transform: capitalize;
+  font-family: var(--headersFont);
+  letter-spacing: 0.8mm;
+  padding: 0.4rem 0rem;
+}
+
+.landing_page_user_buttons .btn {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+}
+.landing_page_user_buttons .btn:hover {
+  color: rgb(var(--mainwhite));
+}
+.landing_page_user_buttons a {
+  display: inline-flex;
+  align-items: center;
+}
+
+.landing_page_user_buttons .btn span {
+  padding-left: 0.2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.landing_page_user_buttons .btn:hover span {
+  padding-left: 1rem;
 }
 
 .landingPage__image {
