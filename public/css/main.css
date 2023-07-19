@@ -32,6 +32,7 @@
 }
 
 .landingPage .landingPage_rotate .container {
+  padding-top: 5rem;
   transform: rotate(5deg);
 }
 
@@ -188,6 +189,7 @@
 .sample_video {
   background-color: rgba(var(--mainColor), 0.05);
   border-radius: 0px 0px 5px 5px;
+  margin-bottom: 1.5rem;
 }
 
 .sample_video .sample_video__image {
