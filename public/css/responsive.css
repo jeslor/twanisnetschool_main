@@ -3,7 +3,8 @@
   --mainColor: 6, 81, 125;
   --secondaryColor: 244, 129, 49;
   --mainwhite: 255, 255, 255;
-  --mainFont: "Poppins", sans-serif;
+  --mainblack: 0, 0, 0;
+  --mainFont: "Nunito", sans-serif;
   --falbackFont: "Source Serif Pro", serif;
   --headersFont: "Raleway', sans-serif";
   --normalBorderRadius: 10px;
@@ -13,9 +14,13 @@
 body {
   margin: 0;
   padding: 0;
-  /* font-family: var(--mainFont); */
-  font-size: 16px;
-  line-height: 2;
+  font-family: var(--mainFont);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.main-body-holder {
+  overflow-x: hidden;
 }
 
 a {

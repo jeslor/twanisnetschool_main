@@ -6,6 +6,7 @@
   top: 0;
   left: 0;
   background-color: rgb(var(--mainwhite));
+  z-index: 100;
 }
 
 .navbar.container {
@@ -18,9 +19,26 @@
   column-gap: 20px;
 }
 
-.navbar_logo {
+.navLogo {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  grid-column: 1;
+}
+
+.navLogo span {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgb(var(--secondaryColor));
+  text-decoration: none;
+  transition: var(--themeTransition);
+  padding-left: 0.5rem;
+}
+
+.navbar_logo img {
   width: 60px;
-  grid-column: -3;
+  /* grid-column: -3; */
 }
 
 .navbar_extend {

@@ -1,47 +1,174 @@
 <%(layout('layout/boilerplate')) %>
 
 <div class="landingPage">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="landingPage_content">
-          <h1 class="landingPage__title">
-            Welcome to
-            <span class="landingPage__title--highlight"
-              >Twani's Net School</span
-            >
-          </h1>
-          <p class="landingPage__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            voluptatum voluptatibus, quibusdam, quos, voluptates quae quia quod
-            doloribus quas voluptate voluptatem consequatur nesciunt. Quisquam
-            voluptatum voluptatibus, quibusdam, quos, voluptates quae quia quod
-            doloribus quas voluptate voluptatem consequatur nesciunt.
-          </p>
-          <div class="landing_page_user_buttons">
-            <a href="/register" class="btn main_button"
-              >Register
-              <span class="material-symbols-outlined"> face_3 </span></a
-            >
-            <a href="/login" class="btn secondary_button"
-              >Login
-              <span class="material-symbols-outlined">
-                lock_open_right
-              </span></a
-            >
+  <div class="landingPage_rotate">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="landingPage_content">
+            <h1 class="landingPage__title">
+              <span class="landingPage__title--highlight"
+                >Twani's Net School</span
+              >
+              We are Uganda's Biggest Secondary School Video Library
+            </h1>
+            <p class="landingPage__description">
+              Study anywhere, anytime. Make learning and teaching more effective
+              with active participation and student collaboration
+            </p>
+            <div class="landing_page_user_buttons">
+              <a href="/register" class="btn main_button"
+                >Register
+                <span class="material-symbols-outlined"> face_3 </span></a
+              >
+              <a href="/login" class="btn secondary_button"
+                >Login
+                <span class="material-symbols-outlined">
+                  lock_open_right
+                </span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="landingPage__image">
+            <lottie-player
+              src="/images/lottiefiles/landing_page_animation.json"
+              background="transparent"
+              speed="1"
+              style="width: 90%; height: 90%"
+              loop
+              autoplay
+            ></lottie-player>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="landingPage__image">
-          <lottie-player
-            src="/images/lottiefiles/landing_page_animation.json"
-            background="transparent"
-            speed="1"
-            style="width: 90%; height: 90%"
-            loop
-            autoplay
-          ></lottie-player>
+    </div>
+  </div>
+</div>
+<div class="subjects section_gap">
+  <div class="container">
+    <div class="subject_slider_overlay"></div>
+    <div class="subject_slider owl-carousel owl-theme">
+      <div class="single_subject_slider">
+        <div class="subject_slider__image">
+          <span class="material-symbols-outlined"> science </span>
+        </div>
+        <div class="subject_slider__content">
+          <h4 class="subject_slider__title">Chemistry</h4>
+        </div>
+      </div>
+      <div class="single_subject_slider">
+        <div class="subject_slider__image">
+          <span class="material-symbols-outlined"> psychiatry </span>
+        </div>
+        <div class="subject_slider__content">
+          <h4 class="subject_slider__title">Biology</h4>
+        </div>
+      </div>
+      <div class="single_subject_slider">
+        <div class="subject_slider__image">
+          <span class="material-symbols-outlined"> calculate </span>
+        </div>
+        <div class="subject_slider__content">
+          <h4 class="subject_slider__title">Mathematics</h4>
+        </div>
+      </div>
+      <div class="single_subject_slider">
+        <div class="subject_slider__image">
+          <span class="material-symbols-outlined"> scale </span>
+        </div>
+        <div class="subject_slider__content">
+          <h4 class="subject_slider__title">Physics</h4>
+        </div>
+      </div>
+      <div class="single_subject_slider">
+        <div class="subject_slider__image">
+          <span class="material-symbols-outlined"> history </span>
+        </div>
+        <div class="subject_slider__content">
+          <h4 class="subject_slider__title">History</h4>
+        </div>
+      </div>
+      <div class="single_subject_slider">
+        <div class="subject_slider__image">
+          <span class="material-symbols-outlined"> contract_edit </span>
+        </div>
+        <div class="subject_slider__content">
+          <h4 class="subject_slider__title">English</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sample_videos section_gap">
+  <div class="container">
+    <h2 class="sectionSubtitle">
+      Sample Videos
+      <span class="material-symbols-outlined"> play_circle </span>
+    </h2>
+    <div class="sample_video_content">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="sample_video">
+            <div class="sample_video__image">
+              <img src="/images/sample_video_1.jpg" alt="" />
+              <span class="material-symbols-outlined"> play_circle </span>
+            </div>
+            <div class="sample_video__content">
+              <h4 class="sample_video__title">Senior One: History</h4>
+              <p class="sample_video__description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
+                voluptatum, quibusdam
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="sample_video">
+            <div class="sample_video__image">
+              <img src="/images/sample_video_1.jpg" alt="" />
+              <span class="material-symbols-outlined"> play_circle </span>
+            </div>
+            <div class="sample_video__content">
+              <h4 class="sample_video__title">Senior One: History</h4>
+              <p class="sample_video__description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
+                voluptatum, quibusdam
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="sample_video">
+            <div class="sample_video__image">
+              <img src="/images/sample_video_1.jpg" alt="" />
+              <span class="material-symbols-outlined"> play_circle </span>
+            </div>
+            <div class="sample_video__content">
+              <h4 class="sample_video__title">Senior One: History</h4>
+              <p class="sample_video__description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
+                voluptatum, quibusdam
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="sample_video">
+            <div class="sample_video__image">
+              <img src="/images/sample_video_1.jpg" alt="" />
+              <span class="material-symbols-outlined"> play_circle </span>
+            </div>
+            <div class="sample_video__content">
+              <h4 class="sample_video__title">Senior One: History</h4>
+              <p class="sample_video__description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
+                voluptatum, quibusdam
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

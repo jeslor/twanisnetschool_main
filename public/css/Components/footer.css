@@ -1,0 +1,37 @@
+.mainfooter {
+  background-color: rgb(18, 12, 5, 1);
+  color: #fff;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  margin-top: 40px;
+}
+
+.foooter_content {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footerLogo {
+  width: 90px;
+  margin-left: 50%;
+}
+
+.footerdetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.footerdetails .separator {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(var(--mainwhite), 0.5);
+  margin: 1rem 0;
+  margin-top: 0rem;
+}
+
+.footerdetails h6 {
+  font-weight: 200;
+}
