@@ -7,6 +7,7 @@
   --falbackFont: "Source Serif Pro", serif;
   --headersFont: "Raleway', sans-serif";
   --normalBorderRadius: 10px;
+  --themeTransition: 0.25s ease-in-out;
 }
 
 body {
@@ -17,16 +18,25 @@ body {
   line-height: 2;
 }
 
+a {
+  text-decoration: none;
+}
+
 .main_button {
   background-color: rgb(var(--mainColor));
   color: rgb(var(--mainwhite));
   border: none;
   padding: 0.5rem 3rem;
-  border-radius: var(--normalBorderRadius);
+  border-radius: 0px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: var(--themeTransition);
+}
+
+.main_button:hover {
+  color: rgb(var(--secondaryColor));
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .secondary_button {
@@ -34,9 +44,14 @@ body {
   color: rgb(var(--mainwhite));
   border: none;
   padding: 0.5rem 3rem;
-  border-radius: var(--normalBorderRadius);
+  border-radius: 0px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: var(--themeTransition);
+}
+
+.secondary_button:hover {
+  color: rgb(var(--mainColor));
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }

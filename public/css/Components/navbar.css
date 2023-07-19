@@ -29,3 +29,20 @@
   justify-content: start;
   grid-column: 1;
 }
+
+.open_menu {
+  display: none;
+}
+
+.navbar_links a {
+  margin-left: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(var(--mainColor));
+  text-decoration: none;
+  transition: var(--themeTransition);
+}
+
+.navbar_links a:hover {
+  color: rgb(var(--mainColor), 0.5);
+}

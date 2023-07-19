@@ -3,12 +3,12 @@
 .landingPage {
   background: rgb(var(--secondaryColor));
   background: linear-gradient(
-    50deg,
-    rgb(18, 12, 5, 1) 20%,
+    30deg,
+    rgb(18, 12, 5, 1) 40%,
     rgb(13, 52, 89) 70%,
     rgba(6, 81, 125, 1) 100%
   );
-  background-size: 400% 400%;
+  background-size: 200% 200%;
   padding-top: 85px;
   height: 100vh;
   width: 100%;
@@ -16,7 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: animateBg 18s infinite;
+  animation: animateBg 15s infinite;
   color: rgb(var(--mainwhite));
 }
 
@@ -59,9 +59,7 @@
   margin-left: 1rem;
   font-size: 1.5rem;
 }
-.landing_page_user_buttons .btn:hover {
-  color: rgb(var(--mainwhite));
-}
+
 .landing_page_user_buttons a {
   display: inline-flex;
   align-items: center;
@@ -70,6 +68,7 @@
 .landing_page_user_buttons .btn span {
   padding-left: 0.2rem;
   transition: all 0.3s ease-in-out;
+  font-weight: 600;
 }
 
 .landing_page_user_buttons .btn:hover span {
