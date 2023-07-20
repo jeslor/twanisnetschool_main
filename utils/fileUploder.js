@@ -13,7 +13,7 @@ require('aws-sdk/lib/maintenance_mode_message').suppress = true,
       module.exports.uploadVideo = multer({
         storage: multerS3({
           s3: s3,
-          bucket: 'asbatlibrary',
+          bucket: 'twanis-net-school/videos',
           acl: 'public-read',
           metadata: function (req, file, cb) {
             const filePath = `${uuid()}-${file.originalname}`
