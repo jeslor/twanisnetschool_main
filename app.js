@@ -76,5 +76,5 @@ const express = require('express'),
     });
 
     app.get('/platformadmin/adddata', (req, res) => {
-      res.render('content/platformadmin/adddata');
+      res.render('content/adddata');
     });

@@ -1,0 +1,105 @@
+<%(layout('layout/boilerplate'))%>
+<div class="addData">
+  <div class="container">
+    <div class="addData_content">
+      <header class="header">
+        <h1 id="title" class="text-center">Add another video</h1>
+      </header>
+      <div class="form-wrap">
+        <form
+          id="Content-form"
+          enctype="multipart/form-data"
+          action="/platformadmin/adddata"
+          method="post"
+          novalidate
+          class="needs-validation"
+        >
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label id="name-label" for="name">Lesson title</label>
+                <input
+                  type="text"
+                  name="documentname"
+                  id="name"
+                  placeholder="Enter name of the video file"
+                  class="form-control"
+                  aria-describedby="name-suggestion"
+                  minlength="3"
+                  required
+                />
+
+                <div
+                  style="color: rgba(6, 81, 125, 1); font-size: 12px"
+                  id="name-suggestion"
+                  class="form-text"
+                >
+                  Your email is important when you forget your password.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="btn float-left form_file_select">
+                  <input type="file" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label id="email-label" for="subject">Choose subject</label>
+                <select
+                  name="subject"
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="subject"
+                >
+                  <option value="chemistry" selected>chemistry</option>
+                  <option value="physics">physics</option>
+                  <option value="biology">biology</option>
+                  <option value="english">english</option>
+                  <option value="history">history</option>
+                  <option value="mathematics">mathematics</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label id="email-label" for="level">Choose level</label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="level"
+                >
+                  <option value="senior one" selected>senior one</option>
+                  <option value="senior two">senior two</option>
+                  <option value="senior three">senior three</option>
+                  <option value="senior four">senior four</option>
+                  <option value="senior five">senior five</option>
+                  <option value="senior six">senior six</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <button type="submit" id="submit" class="btn secondary_button">
+                Upload video
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -44,16 +44,23 @@ a {
   text-transform: capitalize;
 }
 
-.main_button:hover {
-  color: rgb(var(--secondaryColor));
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+.main_button:hover,
+.main_button:focus,
+.main_button:active {
+  color: rgb(var(--mainColor));
+  background-color: rgb(var(--mainwhite));
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 .secondary_button {
   background-color: rgb(var(--secondaryColor));
 }
 
-.secondary_button:hover {
-  color: rgb(var(--mainColor));
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+.secondary_button:hover,
+.secondary_button:focus,
+.secondary_button:active {
+  color: rgb(var(--secondaryColor));
+  background-color: rgb(var(--mainwhite));
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
