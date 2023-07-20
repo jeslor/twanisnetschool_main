@@ -21,43 +21,60 @@ const express = require('express'),
     db.once('open', () => console.log('Connected to Database!'));
 
 
-    app.use(express.json())
-app.use(cors())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(__dirname))
-// app.use(favicon(__dirname + '/public/images/favicon.ico'))
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(methodOverride('_method'))
-app.use(
-  expressSsession({
-    secret: 'tampernot',
-    resave: false,
-    saveUninitialized: true,
-    // cookie: { secure: true }
-  }),
-)
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(flash())
+  app.use(express.json())
+  app.use(cors())
+  app.use(express.urlencoded({ extended: true }))
+  app.use(express.static(__dirname))
+  // app.use(favicon(__dirname + '/public/images/favicon.ico'))
+  app.use(express.static(path.join(__dirname, 'public')))
+  app.use(methodOverride('_method'))
+  app.use(
+    expressSsession({
+      secret: 'tampernot',
+      resave: false,
+      saveUninitialized: true,
+      // cookie: { secure: true }
+    }),
+  )
+  app.use(passport.initialize())
+  app.use(passport.session())
+  app.use(flash())
 
-// passport.use(new LocalStrategy(User.authenticate()))
-// passport.serializeUser(User.serializeUser())
-// passport.deserializeUser(User.deserializeUser())
+  // passport.use(new LocalStrategy(User.authenticate()))
+  // passport.serializeUser(User.serializeUser())
+  // passport.deserializeUser(User.deserializeUser())
 
-app.set('view engine', 'ejs')
-app.engine('ejs', ejsmate)
-app.set('vews', path.join(__dirname, 'views'))
-app.use((req, res, next) => {
-  res.locals.success = req.flash('success')
-  res.locals.error = req.flash('error')
-  res.locals.currUser = req.user
-  next()
-})
-
-
+  app.set('view engine', 'ejs')
+  app.engine('ejs', ejsmate)
+  app.set('vews', path.join(__dirname, 'views'))
+  app.use((req, res, next) => {
+    res.locals.success = req.flash('success')
+    res.locals.error = req.flash('error')
+    res.locals.currUser = req.user
+    next()
+  })
 
 
-app.listen(3000, () => console.log(`Server is running on port ${port}!`));
-    app.get('/', (req, res) => {
-        res.render('home');
+
+
+  app.listen(3000, () => console.log(`Server is running on port ${port}!`));
+      app.get('/', (req, res) => {
+          res.render('home');
+      });
+
+    app.get('/login', (req, res) => {
+      res.render('user/login');
+    }
+    );
+
+    app.get('/register', (req, res) => {
+      res.render('user/register');
+    })
+
+    app.get('/about', (req, res) => {
+      res.render('about');
+    });
+
+    app.get('/platformadmin/adddata', (req, res) => {
+      res.render('content/platformadmin/adddata');
     });

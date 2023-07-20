@@ -1,0 +1,38 @@
+<%(layout('layout/boilerplate'))%>
+<div class="loginPage">
+  <div class="container">
+    <div class="loginContainer">
+      <h4>Sign up for an account</h4>
+      <form action="/login" method="post">
+        <div class="mb-4">
+          <label for="userAccount" class="form-label">Mobile number</label>
+          <input
+            type="number"
+            class="form-control"
+            id="userAccount"
+            placeholder="Enter your mobile number"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="userEmail" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="userEmail"
+            aria-describedby="numberHelp"
+            placeholder="Enter your email address"
+          />
+          <div id="numberHelp" class="form-text">
+            Your email is important when you forget your password.
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="userPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="userPassword" />
+        </div>
+
+        <button type="submit" class="btn secondary_button">Register</button>
+      </form>
+    </div>
+  </div>
+</div>

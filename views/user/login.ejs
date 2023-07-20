@@ -1,0 +1,28 @@
+<%(layout('layout/boilerplate'))%>
+<div class="loginPage">
+  <div class="container">
+    <div class="loginContainer">
+      <h4>Sign into your account</h4>
+      <form action="/login" method="post">
+        <div class="mb-4">
+          <label for="userAccount" class="form-label">Mobile number</label>
+          <input
+            type="number"
+            class="form-control"
+            id="userAccount"
+            placeholder="Enter your mobile number"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="userPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="userPassword" />
+        </div>
+        <button type="submit" class="btn secondary_button">Login</button>
+      </form>
+      <div class="extras">
+        <a href="/register">Don't have an account? Register</a>
+        <a href="/forgot-password">Forgot password?</a>
+      </div>
+    </div>
+  </div>
+</div>

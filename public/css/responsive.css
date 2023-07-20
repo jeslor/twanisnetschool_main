@@ -1,12 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,800;0,900;1,1000&family=Noto+Sans:ital,wght@0,200;0,400;0,500;0,700;0,800;1,300;1,400&display=swap");
 @import url("./main.css");
 :root {
   --mainColor: 6, 81, 125;
   --secondaryColor: 244, 129, 49;
   --mainwhite: 255, 255, 255;
   --mainblack: 0, 0, 0;
-  --mainFont: "Nunito", sans-serif;
+  --bodyBlack: 60, 66, 87;
+  --mainFont: "Noto Sans", sans-serif;
   --falbackFont: "Source Serif Pro", serif;
-  --headersFont: "Raleway', sans-serif";
   --normalBorderRadius: 10px;
   --themeTransition: 0.25s ease-in-out;
 }
@@ -17,9 +18,11 @@ body {
   font-family: var(--mainFont);
   font-size: 17px;
   line-height: 1.5;
+  color: rgb(var(--bodyBlack));
 }
 
 .main-body-holder {
+  padding-top: 95px;
   overflow-x: hidden;
 }
 
@@ -27,16 +30,18 @@ a {
   text-decoration: none;
 }
 
-.main_button {
+.main_button,
+.secondary_button {
   background-color: rgb(var(--mainColor));
   color: rgb(var(--mainwhite));
   border: none;
-  padding: 0.5rem 3rem;
+  padding: 0.8rem 3rem;
   border-radius: 0px;
   font-size: 1rem;
-  font-weight: bold;
+  /* font-weight: bold; */
   cursor: pointer;
   transition: var(--themeTransition);
+  text-transform: capitalize;
 }
 
 .main_button:hover {
@@ -46,14 +51,6 @@ a {
 
 .secondary_button {
   background-color: rgb(var(--secondaryColor));
-  color: rgb(var(--mainwhite));
-  border: none;
-  padding: 0.5rem 3rem;
-  border-radius: 0px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: var(--themeTransition);
 }
 
 .secondary_button:hover {

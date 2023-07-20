@@ -20,7 +20,6 @@
     rgba(6, 81, 125, 1) 100%
   );
   background-size: 200% 200%;
-  padding-top: 85px;
   height: 113%;
   width: 120%;
   display: flex;
@@ -34,6 +33,10 @@
 .landingPage .landingPage_rotate .container {
   padding-top: 5rem;
   transform: rotate(5deg);
+  text-align: center;
+  margin-top: 95px;
+  top: 0;
+  position: absolute;
 }
 
 @keyframes animateBg {
@@ -51,28 +54,23 @@
 .landingPage_content {
   background-color: rgba(var(--mainwhite), 0.1);
   padding: 2rem 1rem;
-  height: 100%;
+  /* height: 100%; */
   border-radius: var(--normalBorderRadius);
 }
 .landingPage__title {
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   padding-bottom: 2rem;
 }
 
 .landingPage__title .landingPage__title--highlight {
   font-weight: 900;
-  font-size: 3.9rem;
+  font-size: 3rem;
   display: block;
   text-transform: capitalize;
   font-family: var(--headersFont);
-  letter-spacing: 0.8mm;
   padding: 0.4rem 0rem;
-}
-
-.landing_page_user_buttons .btn {
-  font-size: 1.5rem;
 }
 
 .landing_page_user_buttons .btn:first-child {
@@ -95,10 +93,10 @@
 }
 
 .landingPage__image {
-  width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  height: 100%;
+  padding-top: 5rem;
 }
 
 .section_gap {
@@ -157,7 +155,7 @@
 
 .single_subject_slider span {
   font-size: 3.5rem;
-  font-weight: bold;
+
   padding-bottom: 1rem;
   transition: var(--themeTransition);
 }
@@ -195,7 +193,7 @@
 .sample_video .sample_video__image {
   height: 250px;
   width: 100%;
-  background-color: rgb(42, 35, 42);
+  background-color: rgb(13, 52, 89);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,4 +229,212 @@
 .sample_video__content {
   padding: 1rem;
   padding-bottom: 1.5rem;
+}
+
+.loginPage {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(
+    30deg,
+    rgb(18, 12, 5, 1) 40%,
+    rgb(13, 52, 89) 70%,
+    rgba(6, 81, 125, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginContainer {
+  background-color: rgba(var(--mainblack), 0.5);
+  padding: 5rem 3.5rem;
+  border-radius: var(--normalBorderRadius);
+  color: rgb(var(--mainwhite));
+  max-width: 500px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.loginContainer h4 {
+  padding-bottom: 2rem;
+  font-weight: 200;
+  font-size: 2rem;
+}
+
+.loginContainer label {
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.loginContainer button {
+  margin-top: 2rem;
+}
+
+.loginContainer > input::-webkit-outer-spin-button,
+.loginContainer > input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.loginContainer .extras {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.loginContainer .extras a {
+  display: block;
+  color: rgba(var(--mainwhite), 0.4);
+  font-size: 0.9rem;
+  transition: var(--themeTransition);
+}
+
+.loginContainer .extras a:hover {
+  color: rgba(var(--mainwhite), 0.7);
+}
+
+.addData {
+  min-height: 100vh;
+  overflow-y: scroll;
+}
+.addData .addData_content {
+  padding: 2rem 1rem;
+  border-radius: var(--normalBorderRadius);
+
+  margin-top: 3rem;
+  max-width: 1230px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 45px;
+}
+
+.header {
+  margin-bottom: 80px;
+}
+#description {
+  font-size: 24px;
+}
+
+.form-wrap {
+  background: rgba(255, 255, 255, 1);
+  /* width: 100%;
+  max-width: 850px; */
+  padding: 50px;
+  margin: 0 auto;
+  position: relative;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+}
+.form-wrap:before {
+  content: "";
+  width: 90%;
+  height: calc(100% + 60px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  position: absolute;
+  top: -30px;
+  background: #00bcd9;
+  z-index: -1;
+  opacity: 0.8;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
+}
+.form-group {
+  margin-bottom: 25px;
+}
+.form-group > label {
+  display: block;
+  font-size: 18px;
+  color: #000;
+}
+.custom-control-label {
+  color: #000;
+  font-size: 16px;
+}
+.form-control {
+  height: 50px;
+  background: #ecf0f4;
+  border-color: transparent;
+  padding: 0 15px;
+  font-size: 16px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.form-control:focus {
+  border-color: #00bcd9;
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+textarea.form-control {
+  height: 160px;
+  padding-top: 15px;
+  resize: none;
+}
+
+.btn {
+  padding: 0.657rem 0.75rem;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #00bcd9;
+  border-color: #00bcd9;
+}
+
+.btn-primary:hover {
+  color: #00bcd9;
+  background-color: #ffffff;
+  border-color: #00bcd9;
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  color: #00bcd9;
+  background-color: #ffffff;
+  border-color: #00bcd9;
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #00bcd9;
+  background-color: #ffffff;
+  border-color: #00bcd9;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
