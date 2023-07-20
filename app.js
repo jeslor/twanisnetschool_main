@@ -10,7 +10,10 @@ const express = require('express'),
     passportLocalMongoose = require('passport-local-mongoose'),
     ejsmate = require('ejs-mate'),
     flash = require('connect-flash'),
+
+    {upladimage, uploadVideo} = require('./utils/fileUploder'),
     app = express();
+    
 
     const DBURL = process.env.DBURL || 'mongodb://localhost:27017/twanis_net_school';
     const port = process.env.PORT || 3000;
@@ -78,3 +81,7 @@ const express = require('express'),
     app.get('/platformadmin/adddata', (req, res) => {
       res.render('content/adddata');
     });
+
+    app.post('/platformadmin/adddata', uploadVideo.single('uploadedvideo'), (req, res) => {
+      console.log(req);
+    })
