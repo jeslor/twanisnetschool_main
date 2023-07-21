@@ -10,13 +10,16 @@ const express = require('express'),
     expressSsession = require('express-session'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
-    passportLocalMongoose = require('passport-local-mongoose'),
     ejsmate = require('ejs-mate'),
     flash = require('connect-flash'),
 
-    {upladimage, uploadVideo} = require('./config/fileUploder'),
     asyncWrapper = require('./utils/asyncWrapper'),
     AppError = require('./utils/appError'),
+    {upladimage, uploadVideo} = require('./config/fileUploder'),
+    {getVideo} = require('./config/fileGetter'),
+
+    User = require('./models/user'),
+    Content = require('./models/content'),
     app = express();
     
 
@@ -33,7 +36,7 @@ const express = require('express'),
   app.use(cors())
   app.use(express.urlencoded({ extended: true }))
   app.use(express.static(__dirname))
-  // app.use(favicon(__dirname + '/public/images/favicon.ico'))
+  // app.use(favicon(__dirname + '/public/images/favicon/favicon.ico'))
   app.use(express.static(path.join(__dirname, 'public')))
   app.use(methodOverride('_method'))
   app.use(
@@ -48,9 +51,9 @@ const express = require('express'),
   app.use(passport.session())
   app.use(flash())
 
-  // passport.use(new LocalStrategy(User.authenticate()))
-  // passport.serializeUser(User.serializeUser())
-  // passport.deserializeUser(User.deserializeUser())
+  passport.use(new LocalStrategy(User.authenticate()))
+  passport.serializeUser(User.serializeUser())
+  passport.deserializeUser(User.deserializeUser())
 
   app.set('view engine', 'ejs')
   app.engine('ejs', ejsmate)
