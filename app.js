@@ -15,6 +15,8 @@ const express = require('express'),
     flash = require('connect-flash'),
 
     {upladimage, uploadVideo} = require('./config/fileUploder'),
+    asyncWrapper = require('./utils/asyncWrapper'),
+    AppError = require('./utils/appError'),
     app = express();
     
 
@@ -85,6 +87,8 @@ const express = require('express'),
       res.render('content/adddata');
     });
 
-    app.post('/platformadmin/adddata', uploadVideo.single('uploadedvideo'), (req, res) => {
-      console.log(req);
-    })
+    app.post('/platformadmin/adddata', uploadVideo.single('uploadedvideo'), asyncWrapper(async(req, res) => {
+      console.log(req.file);
+      console.log(req.body);
+      res.send('done')
+    }));
