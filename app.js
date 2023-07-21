@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: '/server.env' })
+}
 const express = require('express'),
     mongoose = require('mongoose'),
     cors = require('cors'),
@@ -11,7 +14,7 @@ const express = require('express'),
     ejsmate = require('ejs-mate'),
     flash = require('connect-flash'),
 
-    {upladimage, uploadVideo} = require('./utils/fileUploder'),
+    {upladimage, uploadVideo} = require('./config/fileUploder'),
     app = express();
     
 
