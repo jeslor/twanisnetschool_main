@@ -3,7 +3,7 @@
   <div class="container">
     <div class="addData_content">
       <header class="header">
-        <h1 id="title" class="text-center">Edit video description</h1>
+        <h1 id="title" class="text-center">Edit video details</h1>
       </header>
       <div class="form-wrap">
         <form id="Content-form">
@@ -18,6 +18,7 @@
                   placeholder="Enter name of the video file"
                   class="form-control"
                   aria-describedby="name-suggestion"
+                  value="<%=data.title%>"
                   required
                 />
 
@@ -26,7 +27,7 @@
                   id="name-suggestion"
                   class="form-text"
                 >
-                  Your email is important when you forget your password.
+                  The lesson title should be unique.
                 </div>
               </div>
             </div>
@@ -34,6 +35,7 @@
 
           <div class="row">
             <div class="col-md-6">
+             
               <div class="form-group">
                 <div class="btn float-left form_file_select">
                   <input type="file" />
@@ -46,13 +48,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label id="email-label" for="email">Choose subject</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option value="chemistry" selected>chemistry</option>
-                  <option value="physics">physics</option>
-                  <option value="biology">biology</option>
-                  <option value="english">english</option>
-                  <option value="history">history</option>
-                  <option value="mathematics">mathematics</option>
+                <select name="subject" class="form-select" aria-label="Default select example">
+                  <option <%= data.subject==='chemistry'? 'selected' : ''%> value="chemistry" selected>chemistry</option>
+                  <option <%= data.subject === 'physics'? 'selected' : ''%> value="physics">physics</option>
+                  <option <%= data.subject === 'biology'? 'selected' : ''%> value="biology">biology</option>
+                  <option <%= data.subject === 'english'? 'selected' : ''%> value="english">english</option>
+                  <option <%= data.subject === 'history'? 'selected' : ''%> value="history">history</option>
+                  <option <%= data.subject === 'mathematics'? 'selected' : ''%> value="mathematics">mathematics</option>
                 </select>
               </div>
             </div>
@@ -62,13 +64,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label id="email-label" for="email">Choose level</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option value="senior one" selected>senior one</option>
-                  <option value="senior two">senior two</option>
-                  <option value="senior three">senior three</option>
-                  <option value="senior four">senior four</option>
-                  <option value="senior five">senior five</option>
-                  <option value="senior six">senior six</option>
+                <select name="level" class="form-select" aria-label="Default select example">
+                  <option <%= data.level === 'senior one'?'selected' : '' %> value="senior one" selected>senior one</option>
+                  <option <%= data.level === 'senior two'?'selected' : '' %> value="senior two">senior two</option>
+                  <option <%= data.level === 'senior three'?'selected' : '' %> value="senior three">senior three</option>
+                  <option <%= data.level === 'senior four'?'selected' : '' %> value="senior four">senior four</option>
+                  <option <%= data.level === 'senior five'?'selected' : '' %> value="senior five">senior five</option>
+                  <option <%= data.level === 'senior six'?'selected' : '' %> value="senior six">senior six</option>
                 </select>
               </div>
             </div>

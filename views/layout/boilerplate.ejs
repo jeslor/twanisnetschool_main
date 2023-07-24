@@ -52,11 +52,9 @@
     <title>Twan's Net School</title>
   </head>
   <body>
-    <%-include('../partials/Navbar') %>
-    <!-- <% if(success.length){%>
-    <%-include('../partials/successflash')%> <% } %> 
-    <% if(error.length){%>
-    <%-include('../partials/errorflash')%> <% } %> -->
+    <%-include('../partials/Navbar') %> <% if(success.length){%>
+    <%-include('../partials/successflash')%> <% } %> <% if(error.length){%>
+    <%-include('../partials/errorflash')%> <% } %>
     <main class="main-body-holder"><%- body %></main>
     <%- include('../partials/Footer') %>
     <!-- <script src="/js/libs/popper.min.js"></script> -->

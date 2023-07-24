@@ -20,7 +20,7 @@
                 <label id="name-label" for="name">Lesson title</label>
                 <input
                   type="text"
-                  name="documentname"
+                  name="title"
                   id="name"
                   placeholder="Enter name of the video file"
                   class="form-control"
@@ -34,7 +34,7 @@
                   id="name-suggestion"
                   class="form-text"
                 >
-                  Your email is important when you forget your password.
+                  The lesson title should be unique.
                 </div>
               </div>
             </div>
@@ -88,6 +88,39 @@
                   <option value="senior five">senior five</option>
                   <option value="senior six">senior six</option>
                 </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Will this video cost money to watch?</label>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="customRadioInline1"
+                    value="paid"
+                    name="cost"
+                    class="custom-control-input"
+                    checked=""
+                  />
+                  <label class="custom-control-label" for="customRadioInline1"
+                    >Definitely</label
+                  >
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="customRadioInline2"
+                    value="free"
+                    name="cost"
+                    class="custom-control-input"
+                  />
+                  <label class="custom-control-label" for="customRadioInline2"
+                    >Free</label
+                  >
+                </div>
               </div>
             </div>
           </div>

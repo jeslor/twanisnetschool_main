@@ -1,3 +1,5 @@
+const { log } = require('util');
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
 }
@@ -41,8 +43,8 @@ const express = require('express'),
   app.use(methodOverride('_method'))
   app.use(
     expressSsession({
-      secret: 'tampernot',
-      resave: false,
+      secret: 'correctcard',
+      resave: true,
       saveUninitialized: true,
       // cookie: { secure: true }
     }),
@@ -90,8 +92,29 @@ const express = require('express'),
       res.render('content/adddata');
     });
 
+
+    app.get('/dashboard/:user', asyncWrapper(async(req, res) => {
+      const data = await Content.find({});
+      res.render('dashboard', {data});
+
+    }));
+
     app.post('/platformadmin/adddata', uploadVideo.single('uploadedvideo'), asyncWrapper(async(req, res) => {
-      console.log(req.file);
-      console.log(req.body);
-      res.send('done')
+      let newVideo  = new Content({
+        title: req.body.title,
+        cost: req.body.cost,
+        level: req.body.level,
+        subject: req.body.subject,
+        videoKey: req.file.key,
+        viewedTimes: 0
+    
+      });
+      await newVideo.save();
+      req.flash('success', 'Video added successfully');
+      res.redirect('/platformadmin/adddata');
+    }));
+
+    app.get('/platformadmin/editdata/:id', asyncWrapper(async(req, res) => {
+      const data = await Content.findById(req.params.id);
+      res.render('content/editdata', {data})
     }));
