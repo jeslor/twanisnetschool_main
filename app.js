@@ -1,5 +1,3 @@
-const { log } = require('util');
-
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
 }
@@ -14,11 +12,11 @@ const express = require('express'),
     LocalStrategy = require('passport-local'),
     ejsmate = require('ejs-mate'),
     flash = require('connect-flash'),
-
+    fs = require('fs'),
     asyncWrapper = require('./utils/asyncWrapper'),
     AppError = require('./utils/appError'),
-    {upladimage, uploadVideo} = require('./config/fileUploder'),
-    {getVideo} = require('./config/fileGetter'),
+    {upladimage, uploadVideo} = require('./config/videoUploder'),
+    {getVideo} = require('./config/videoGetter'),
 
     User = require('./models/user'),
     Content = require('./models/content'),
@@ -75,6 +73,36 @@ const express = require('express'),
           res.render('home');
       });
 
+
+
+      // app.get('/videocomponent', (req, res) => {
+      //   console.log('reached here');
+        // const range = req.headers.range
+        // const videoPath = './samplevideos/sample-5s.mp4';
+        // const videoSize = fs.statSync(videoPath).size
+        // console.log(videoSize);
+        // const chunkSize = 1 * 1e6;
+        // const start = Number(range.replace(/\D/g, ""))
+        // const end = Math.min(start + chunkSize, videoSize - 1)
+        // const contentLength = end - start + 1;
+        // const headers = {
+        //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+        //     "Accept-Ranges": "bytes",
+        //     "Content-Length": contentLength,
+        //     "Content-Type": "video/mp4"
+        // }
+        // res.writeHead(206, headers)
+        // const stream = fs.createReadStream(videoPath, {
+        //     start,
+        //     end
+        // })
+        // stream.pipe(res)
+        // const videoKey = req.params.id;
+        // const videoStream = getVideo(videoKey);
+        // console.log(videoStream);
+        // videoStream.pipe(res);
+      // });
+
     app.get('/login', (req, res) => {
       res.render('user/login');
     }
@@ -92,20 +120,21 @@ const express = require('express'),
       res.render('content/adddata');
     });
 
-
     app.get('/dashboard/:user', asyncWrapper(async(req, res) => {
       const data = await Content.find({});
-      res.render('dashboard', {data});
+      res.render('user/dashboard', {data});
 
     }));
 
-    app.post('/platformadmin/adddata', uploadVideo.single('uploadedvideo'), asyncWrapper(async(req, res) => {
+    app.post('/platformadmin/adddata', uploadVideo.single('uploadedvideo'),
+     asyncWrapper(async(req, res) => {
       let newVideo  = new Content({
         title: req.body.title,
         cost: req.body.cost,
         level: req.body.level,
         subject: req.body.subject,
         videoKey: req.file.key,
+        videoSize: Number(req.file.size),
         viewedTimes: 0
     
       });
@@ -115,6 +144,40 @@ const express = require('express'),
     }));
 
     app.get('/platformadmin/editdata/:id', asyncWrapper(async(req, res) => {
-      const data = await Content.findById(req.params.id);
+      const data = await Content.findById(req.params.id); 
       res.render('content/editdata', {data})
     }));
+
+    app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
+      const videoFileDocuent = await Content.findById(req.params.fileId);
+        // const range = req.headers.range
+        // if (!range) {
+        //     res.status(400).send("Requires Range header");
+        // }
+        const videoKey = videoFileDocuent.videoKey;
+        // const videoSize = videoFileDocuent.videoSize;
+        // const chunkSize = 1 * 1e6;
+        // const start = Number(range.replace(/\D/g, ""))
+        // const end = Math.min(start + chunkSize, videoSize - 1)
+        // const contentLength = end - start + 1;
+        // const headers = {
+        //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+        //     "Accept-Ranges": "bytes",
+        //     "Content-Length": contentLength,
+        //     "Content-Type": "video/mp4"
+        // }
+        // res.writeHead(206, headers)
+
+        const videoStream = getVideo(videoKey);
+
+        // const stream = fs.createReadStream(videoKey, {
+        //     start,
+        //     end
+        // })
+        // stream.pipe(res)
+
+       
+        videoStream.pipe(res);
+    }))
+    
+    

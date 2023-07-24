@@ -35,12 +35,16 @@
 
           <div class="row">
             <div class="col-md-6">
-             
-              <div class="form-group">
-                <div class="btn float-left form_file_select">
-                  <input type="file" />
+              <div class="edit-fileContent">
+                <%-include('../partials/components/videoplayer', {fileId:data._id}) %>
+                <label for="choose_video">Choose video</label>
+                <div class="form-group">
+                  <div class="btn float-left form_file_select">
+                    <input id="choose_video" type="file" />
+                  </div>
                 </div>
               </div>
+            
             </div>
           </div>
 
@@ -49,7 +53,7 @@
               <div class="form-group">
                 <label id="email-label" for="email">Choose subject</label>
                 <select name="subject" class="form-select" aria-label="Default select example">
-                  <option <%= data.subject==='chemistry'? 'selected' : ''%> value="chemistry" selected>chemistry</option>
+                  <option <%= data.subject==='chemistry'? 'selected' : ''%> value="chemistry">chemistry</option>
                   <option <%= data.subject === 'physics'? 'selected' : ''%> value="physics">physics</option>
                   <option <%= data.subject === 'biology'? 'selected' : ''%> value="biology">biology</option>
                   <option <%= data.subject === 'english'? 'selected' : ''%> value="english">english</option>

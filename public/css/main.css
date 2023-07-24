@@ -1,5 +1,7 @@
 @import url("./Components/navbar.css");
 @import url("./Components/footer.css");
+@import url("./Components/videoplayer.css");
+@import url("./Components/dashboard.css");
 
 .landingPage {
   height: 105vh;
@@ -465,4 +467,8 @@ h1 {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
+}
+.edit-fileContent {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,0 +1,70 @@
+.dashboard {
+  background-color: rgba(var(--mainColor), 0.1);
+  height: calc(100vh - 95px);
+  overflow-y: scroll;
+}
+
+.dashboard .container-fluid {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sidebar {
+  background-color: rgb(var(--mainwhite));
+  height: 95%;
+  overflow-y: scroll;
+  display: block;
+  width: 100%;
+  max-width: 270px;
+  overflow-y: auto;
+  z-index: 50;
+  border-radius: 0;
+  transition: all 0.2s ease-in-out;
+  padding: 2rem 1.5rem;
+  border-radius: var(--normalBorderRadius);
+}
+
+.sidebar .profile {
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  color: rgb(var(--mainColor));
+}
+
+.sidebar .profilepic {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+.sidebar .profilepic img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.sidebar .sidebarsections {
+  padding-top: 2rem;
+}
+
+.sidebar .sidebarsections h5 {
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.sidebarsections ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+.sidebarsections ul li {
+  padding: 0.5rem 0;
+}
+.sidebarsections ul li a {
+  color: rgb(var(--mainColor));
+  font-size: 1.1rem;
+  font-weight: 400;
+  transition: var(--themeTransition);
+}

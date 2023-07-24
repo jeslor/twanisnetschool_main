@@ -25,6 +25,10 @@ const contentSchema = new Schema({
     dateAdded:{
         type: Date, default: Date.now
     },
+    videoSize:{
+        type: Number,
+        default: 0,
+    } ,
     viewedTimes:{
         type: Number,
         default: 0,

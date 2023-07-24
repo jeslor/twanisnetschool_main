@@ -1,0 +1,57 @@
+<%=(layout('layout/boilerplate')) %>
+
+<div class="dashboard">
+  <div class="container-fluid">
+    <div class="sidebar">
+      <div class="profile">
+        <div class="profilepic">
+          <img src="https://placehold.co/100" alt="profilepic" />
+        </div>
+        <div class="profileinfo">
+          <h5>John Doe</h5>
+          <p>Student</p>
+        </div>
+        <a href=""> logout </a>
+      </div>
+      <div class="sidebarsections">
+        <h5>Menu</h5>
+        <div class="ul">
+          <ul>
+            <li>
+              <span class="material-symbols-outlined"> team_dashboard </span>
+              <a href="/user/dashboard">Dashboard</a>
+            </li>
+            <li>
+              <span class="material-symbols-outlined"> chart_data </span
+              ><a href="/user/profile">Trending</a>
+            </li>
+            <li>
+              <span class="material-symbols-outlined"> hotel_class </span
+              ><a href="/user/lessons">Favorite</a>
+            </li>
+            <li>
+              <span class="material-symbols-outlined"> add_business </span>
+              <a href="/user/quiz">Latest</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sidebarsections">
+        <h5>Categories</h5>
+        <div class="ul">
+          <ul>
+            <li><a href="/user/dashboard">English</a></li>
+            <li><a href="/user/profile">Mathematics</a></li>
+            <li><a href="/user/lessons">Physics</a></li>
+            <li>
+              <span class="material-symbols-outlined"> science </span>
+              <a href="/user/quiz">Chemistry</a>
+            </li>
+            <li><a href="/user/quiz">Biology</a></li>
+            <li><a href="/user/quiz">History</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

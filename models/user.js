@@ -8,7 +8,15 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    studentName:{
+        type: String,
+
+    },
+    favorite:[
+        {type:Schema.Types.ObjectId, ref:'Content'}
+    ],
+    profilePhoto:String
 });
 
 UserSchema.plugin(passportLocalMongoose);
