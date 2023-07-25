@@ -42,7 +42,8 @@
                 <h6>Select level</h6>
                 <ul>
                   <li>
-                    <a href="/dashboard/<%=currUser%>/english/senior one"
+                    <a
+                      href="/dashboard/<%=currUser.username%>/english/senior one"
                       >Senior one</a
                     >
                   </li>
@@ -234,7 +235,7 @@
         <div class="extraMenu">
           <ul>
             <li>
-              <a href="/user/dashboard"
+              <a href="/dashboard/<%=currUser.username%>"
                 ><span class="material-symbols-outlined"> team_dashboard </span
                 >Dashboard</a
               >

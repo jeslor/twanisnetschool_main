@@ -121,6 +121,7 @@ const express = require('express'),
     });
 
     app.post('/register', asyncWrapper(async(req, res) => {
+      console.log(req.body);
       try {
         const {username, email, password} = req.body;
         const registerUser = new User({username, email});
@@ -147,13 +148,13 @@ const express = require('express'),
 
     app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
       const data = await Content.find({});
-      res.render('user/dashboard', {data:[]});
+      res.render('user/dashboard', {data});
 
     }));
 
     app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
       const data = await Content.find({subject: req.params.subject, level: req.params.level});
-      res.render('content/dashboard', {data});
+      res.render('user/dashboard', {data});
 
     }));
 

@@ -3,11 +3,12 @@
   <div class="container">
     <div class="loginContainer">
       <h4>Sign up for an account</h4>
-      <form action="/login" method="post">
+      <form action="/register" method="post">
         <div class="mb-4">
           <label for="userAccount" class="form-label">Mobile number</label>
           <input
             type="number"
+            name="username"
             class="form-control removeArrow"
             id="userAccount"
             placeholder="Enter your mobile number"
@@ -18,6 +19,7 @@
           <input
             type="email"
             class="form-control"
+            name="email"
             id="userEmail"
             aria-describedby="numberHelp"
             placeholder="Enter your email address"
@@ -28,7 +30,12 @@
         </div>
         <div class="mb-4">
           <label for="userPassword" class="form-label">Password</label>
-          <input type="password" class="form-control" id="userPassword" />
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="userPassword"
+          />
         </div>
 
         <button type="submit" class="btn secondary_button">Register</button>
