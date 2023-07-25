@@ -105,8 +105,10 @@ const express = require('express'),
       // });
 
     app.get('/login', (req, res) => {
+      if(req.isAuthenticated()){ 
+        return res.redirect(`/dashboard/${req.user.username}`)};
       res.render('user/login');
-    }
+      }
     );
 
     app.post('/login', passport.authenticate('local',
@@ -117,6 +119,8 @@ const express = require('express'),
     });
 
     app.get('/register', (req, res) => {
+      if(req.isAuthenticated()){ 
+        return res.redirect(`/dashboard/${req.user.username}`)};
       res.render('user/register');
     });
 

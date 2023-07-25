@@ -233,6 +233,11 @@
   background-color: rgba(var(--mainColor), 0.1);
   border-radius: var(--normalBorderRadius);
   color: rgb(var(--mainColor));
+  transition: var(--themeTransition);
+}
+
+.dashboardBody .dashboardBodyElement:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .dashboardBody .ElementDetails h5 {

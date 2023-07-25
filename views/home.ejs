@@ -17,6 +17,12 @@
             with active participation and student collaboration
           </p>
           <div class="landing_page_user_buttons">
+            <% if(currUser && currUser.username) {%>
+            <a href="/dashboard/<%=currUser.username%>" class="btn main_button">
+              Go to Dashboard
+              <span class="material-symbols-outlined"> team_dashboard </span>
+            </a>
+            <% } else { %>
             <a href="/register" class="btn main_button"
               >Register
               <span class="material-symbols-outlined"> face_3 </span></a
@@ -27,6 +33,7 @@
                 lock_open_right
               </span></a
             >
+            <% } %>
           </div>
         </div>
       </div>
