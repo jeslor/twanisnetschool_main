@@ -13,8 +13,18 @@
       <div class="navbar_links">
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
+        <%if(currUser && currUser.username){%>
+        <a href="/dashboard/<%=currUser.username%>"
+          ><span class="material-symbols-outlined"> account_circle </span
+          ><%=currUser.username%></a
+        >
+        <a href="/logout"
+          ><span class="material-symbols-outlined"> move_item </span> logout</a
+        >
+        <%}else{%>
         <a href="/login">Login</a>
         <a href="/register">Register</a>
+        <% } %>
         <button class="navbarSearch">
           <span class="material-symbols-outlined"> search </span>
         </button>

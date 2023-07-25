@@ -136,6 +136,14 @@ const express = require('express'),
       }
     })); 
 
+    app.get('/logout', (req, res) => {
+      req.logout((err)=>{
+        if(err) return next(err);
+      });
+      req.flash('success', 'Goodbye!');
+      res.redirect('/');
+    })
+
 
 
     app.get('/about', (req, res) => {

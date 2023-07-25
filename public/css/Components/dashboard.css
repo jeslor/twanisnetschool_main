@@ -126,8 +126,15 @@
   list-style-type: none;
 }
 
-.sidebarsections .accordion-body ul li {
+.sidebarsections .accordion-body ul li a {
+  display: block;
+  color: rgb(var(--mainColor));
   padding-bottom: 0.8rem;
+  transition: var(--themeTransition);
+}
+
+.sidebarsections .accordion-body ul li a:hover {
+  color: rgb(var(--secondaryColor));
 }
 
 .sidebarsections .extraMenu ul {

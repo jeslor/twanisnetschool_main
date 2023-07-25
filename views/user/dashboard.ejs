@@ -8,9 +8,9 @@
           <img src="https://placehold.co/100" alt="profilepic" />
         </div>
         <div class="profileinfo">
-          <h5>Student</h5>
+          <h5><%=currUser.username? currUser.username: 'Student'%></h5>
         </div>
-        <a class="logout" href="">
+        <a class="logout" href="/logout">
           logout <span class="material-symbols-outlined"> move_item </span></a
         >
       </div>
@@ -255,7 +255,11 @@
       <div class="dashboardMenu">
         <div class="searchbar">
           <form action="">
-            <input class="input-elevated" type="text" placeholder="Search" />
+            <input
+              class="input-elevated"
+              type="text"
+              placeholder="Search for a topic"
+            />
             <input type="submit" hidden />
           </form>
         </div>

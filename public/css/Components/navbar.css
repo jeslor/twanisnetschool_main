@@ -61,6 +61,8 @@
 
 .navbar_links a,
 .navbarSearch span {
+  display: flex;
+  align-items: center;
   margin-left: 20px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -77,6 +79,11 @@
 .navbar_links a:hover,
 .navbarSearch span:hover {
   color: rgb(var(--secondaryColor), 0.7);
+}
+
+.navbar_links a span {
+  font-weight: 700;
+  padding-right: 0.2rem;
 }
 
 .navbarSearch {
