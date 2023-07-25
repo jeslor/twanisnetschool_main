@@ -22,6 +22,7 @@
   border-radius: 0;
   transition: all 0.2s ease-in-out;
   border-radius: 0px 10px 10px 0px;
+  padding-bottom: 2rem;
 }
 
 .sidebar .profile {

@@ -1,0 +1,480 @@
+<%=(layout('layout/boilerplate')) %>
+
+<div class="dashboard">
+  <div class="container">
+    <div class="sidebar">
+      <div class="profile">
+        <div class="profilepic">
+          <img src="https://placehold.co/100" alt="profilepic" />
+        </div>
+        <div class="profileinfo">
+          <h5><%=currUser.username? currUser.username: 'Student'%></h5>
+        </div>
+        <a class="logout" href="/logout">
+          logout <span class="material-symbols-outlined"> move_item </span></a
+        >
+      </div>
+
+      <div class="sidebarsections">
+        <h5>Menu</h5>
+        <div class="extraMenu">
+          <ul>
+            <li>
+              <a href="/dashboard/<%=currUser.username%>"
+                ><span class="material-symbols-outlined"> team_dashboard </span
+                >Dashboard</a
+              >
+            </li>
+
+            <li>
+              <a href="/user/lessons"
+                ><span class="material-symbols-outlined"> hotel_class </span>
+                Favorite</a
+              >
+            </li>
+
+            <li>
+              <a href="/platformadmin/adddata">
+                <span class="material-symbols-outlined"> video_call </span>
+                Add a video</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr />
+      <div class="sidebarsections">
+        <h5>Subjects</h5>
+
+        <div class="accordion" id="subjects">
+          <div class="accordion-item">
+            <h2 id="englishHEader" class="accordion-header">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#english"
+                aria-expanded="true"
+                aria-controls="english"
+              >
+                <span class="material-symbols-outlined"> contract_edit </span>
+                English
+              </button>
+            </h2>
+            <div
+              id="english"
+              class="accordion-collapse collapse show"
+              aria-labelledby="englishHEader"
+              data-bs-parent="#subjects"
+            >
+              <div class="accordion-body">
+                <h6>Select level</h6>
+                <ul>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/english/senior one"
+                      >Senior one</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/english/senior two"
+                      >Senior two</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/english/senior three"
+                      >Senior three</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/english/senior four"
+                      >Senior four</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/english/senior five"
+                      >Senior five</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/english/senior six"
+                      >Senior six</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 id="historyHEader" class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#history"
+                aria-expanded="false"
+                aria-controls="history"
+              >
+                <span class="material-symbols-outlined"> history </span>
+                History
+              </button>
+            </h2>
+            <div
+              id="history"
+              class="accordion-collapse collapse"
+              aria-labelledby="historyHEader"
+              data-bs-parent="#subjects"
+            >
+              <div class="accordion-body">
+                <h6>Select level</h6>
+                <ul>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/history/senior one"
+                      >Senior one</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/history/senior two"
+                      >Senior two</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/history/senior three"
+                      >Senior three</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/history/senior four"
+                      >Senior four</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/history/senior five"
+                      >Senior five</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/history/senior six"
+                      >Senior six</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 id="mathematicsHeader" class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mathematics"
+                aria-expanded="false"
+                aria-controls="mathematics"
+              >
+                <span class="material-symbols-outlined"> calculate </span>
+                Mathematics
+              </button>
+            </h2>
+            <div
+              id="mathematics"
+              class="accordion-collapse collapse"
+              aria-labelledby="mathematicsHeader"
+              data-bs-parent="#subjects"
+            >
+              <div class="accordion-body">
+                <h6>Select level</h6>
+                <ul>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/mathematics/senior one"
+                      >Senior one</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/mathematics/senior two"
+                      >Senior two</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/mathematics/senior three"
+                      >Senior three</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/mathematics/senior four"
+                      >Senior four</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/mathematics/senior five"
+                      >Senior five</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/mathematics/senior six"
+                      >Senior six</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 id="physicsHeader" class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#physcis"
+                aria-expanded="false"
+                aria-controls="physcis"
+              >
+                <span class="material-symbols-outlined"> scale </span>
+                Physics
+              </button>
+            </h2>
+            <div
+              id="physcis"
+              class="accordion-collapse collapse"
+              aria-labelledby="physicsHeader"
+              data-bs-parent="#subjects"
+            >
+              <div class="accordion-body">
+                <h6>Select level</h6>
+                <ul>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/physics/senior one"
+                      >Senior one</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/physics/senior two"
+                      >Senior two</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/physics/senior three"
+                      >Senior three</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/physics/senior four"
+                      >Senior four</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/physics/senior five"
+                      >Senior five</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/physics/senior six"
+                      >Senior six</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 id="chemistryHeader" class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#chemistry"
+                aria-expanded="true"
+                aria-controls="chemistry"
+              >
+                <span class="material-symbols-outlined"> science </span>
+                Chemistry
+              </button>
+            </h2>
+            <div
+              id="chemistry"
+              class="accordion-collapse collapse"
+              aria-labelledby="chemistryHeader"
+              data-bs-parent="#subjects"
+            >
+              <div class="accordion-body">
+                <h6>Select level</h6>
+                <ul>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/chemistry/senior one"
+                      >Senior one</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/chemistry/senior two"
+                      >Senior two</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/chemistry/senior three"
+                      >Senior three</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/chemistry/senior four"
+                      >Senior four</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/chemistry/senior five"
+                      >Senior five</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/chemistry/senior six"
+                      >Senior six</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 id="biologyheader" class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#biology"
+                aria-expanded="false"
+                aria-controls="biology"
+              >
+                <span class="material-symbols-outlined"> psychiatry </span>
+                Biology
+              </button>
+            </h2>
+            <div
+              id="biology"
+              class="accordion-collapse collapse"
+              aria-labelledby="biologyheader"
+              data-bs-parent="#subjects"
+            >
+              <div class="accordion-body">
+                <h6>Select level</h6>
+                <ul>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/biology/senior one"
+                      >Senior one</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/biology/senior two"
+                      >Senior two</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/biology/senior three"
+                      >Senior three</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/biology/senior four"
+                      >Senior four</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/biology/senior five"
+                      >Senior five</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="/dashboard/<%=currUser.username%>/biology/senior six"
+                      >Senior six</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboardContent">
+      <div class="dashboardMenu">
+        <div class="searchbar">
+          <form action="">
+            <input
+              class="input-elevated"
+              type="text"
+              placeholder="Search for a topic"
+            />
+            <input type="submit" hidden />
+          </form>
+        </div>
+      </div>
+      <div class="dashboardBody">
+        <div class="row">
+          <% if (data.length) {%> <%for(const videoLesson of data){%>
+          <div class="col-md-6">
+            <div class="dashboardBodyElement">
+              <div class="row">
+                <div class="col-7 col-sm-12 col-lg-7">
+                  <div class="ElementDetails">
+                    <h5><%=videoLesson.subject%></h5>
+                    <h6><%=videoLesson.level%></h6>
+                    <p><strong>Topic:</strong> <%=videoLesson.topic%></p>
+                    <small> <%=videoLesson.title%> </small>
+                  </div>
+                </div>
+                <div
+                  class="col-5 col-sm-12 col-lg-5 d-flex justify-content-center align-items-center"
+                >
+                  <div class="videoImage">
+                    <a class="play-btn" href="#"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %> <% } else{%>
+          <h2>No videos found</h2>
+
+          <%}%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

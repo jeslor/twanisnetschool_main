@@ -1,3 +1,5 @@
+const { log } = require('console');
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
 }
@@ -160,8 +162,19 @@ const express = require('express'),
 
     app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
       const data = await Content.find({});
-      res.render('user/dashboard', {data});
+ const {username, email} = req.user;
+      if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
+        res.render('user/adminDashboard', {data});
+      }else{
+        res.render('user/dashboard', {data});
+      }
+   
 
+    }));
+
+    app.get('/fovarites/:userId/:videoId', isLoggedIn, asyncWrapper(async(req, res) => {
+      const {userID, videoId} = req.params;
+      console.log(userID, videoId);
     }));
 
     app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
