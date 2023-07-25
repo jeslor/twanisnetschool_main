@@ -41,7 +41,11 @@
               <div class="accordion-body">
                 <h6>Select level</h6>
                 <ul>
-                  <li>senior one</li>
+                  <li>
+                    <a href="/dashboard/<%=currUser%>/english/senior one"
+                      >Senior one</a
+                    >
+                  </li>
                   <li>senior two</li>
                   <li>senior three</li>
                   <li>senior four</li>
@@ -257,18 +261,16 @@
       </div>
       <div class="dashboardBody">
         <div class="row">
+          <% if (data.length) {%> <%for(const videoLesson of data){%>
           <div class="col-md-6">
             <div class="dashboardBodyElement">
               <div class="row">
                 <div class="col-7 col-sm-12 col-lg-7">
                   <div class="ElementDetails">
-                    <h5>English</h5>
-                    <h5>Senior four</h5>
-                    <h6><strong>Topic:</strong> Light</h6>
-                    <small>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Blanditiis, eligendi!
-                    </small>
+                    <h5><%=videoLesson.subject%></h5>
+                    <h6><%=videoLesson.level%></h6>
+                    <p><strong>Topic:</strong> <%=videoLesson.topic%></p>
+                    <small> <%=videoLesson.title%> </small>
                   </div>
                 </div>
                 <div
@@ -281,6 +283,10 @@
               </div>
             </div>
           </div>
+          <% } %> <% } else{%>
+          <h2>No videos found</h2>
+
+          <%}%>
         </div>
       </div>
     </div>

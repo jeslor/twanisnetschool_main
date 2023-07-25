@@ -16,6 +16,7 @@ const express = require('express'),
     asyncWrapper = require('./utils/asyncWrapper'),
     AppError = require('./utils/appError'),
     {upladimage, uploadVideo} = require('./config/videoUploder'),
+    {isLoggedIn} =require('./middleware/userMiddleware'),
     {getVideo} = require('./config/videoGetter'),
 
     User = require('./models/user'),
@@ -108,9 +109,33 @@ const express = require('express'),
     }
     );
 
+    app.post('/login', passport.authenticate('local',
+     { failureFlash: true, failureRedirect: '/login' }), 
+     (req, res) => {
+      req.flash('success', 'Welcome back!');
+      res.redirect(`/dashboard/${req.user.username}`);
+    });
+
     app.get('/register', (req, res) => {
       res.render('user/register');
-    })
+    });
+
+    app.post('/register', asyncWrapper(async(req, res) => {
+      try {
+        const {username, email, password} = req.body;
+        const registerUser = new User({username, email});
+        const registeredUser = await User.register(registerUser, password);
+        req.login(registeredUser, err => {
+          if (err) return next(err);
+          req.flash('success', 'Welcome to Twanis Net School');
+          res.redirect(`/dashboard/${registeredUser.username}`);
+        });
+      } catch (error) {
+        res.redirect('/register');
+      }
+    })); 
+
+
 
     app.get('/about', (req, res) => {
       res.render('about');
@@ -120,9 +145,15 @@ const express = require('express'),
       res.render('content/adddata');
     });
 
-    app.get('/dashboard/:user', asyncWrapper(async(req, res) => {
-      // const data = await Content.find({});
-      res.render('user/dashboard');
+    app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
+      const data = await Content.find({});
+      res.render('user/dashboard', {data:[]});
+
+    }));
+
+    app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
+      const data = await Content.find({subject: req.params.subject, level: req.params.level});
+      res.render('content/dashboard', {data});
 
     }));
 
@@ -181,4 +212,15 @@ const express = require('express'),
         videoStream.pipe(res);
     }))
     
+
+
+
+    app.all('*', (req, res, next) => {
+      next(new AppError('The page was not found', 404))
+    })
+    
+    app.use((err, req, res, next) => {
+      const { status = 500, message = 'Something went wrong' } = err
+      res.status(status).send(message)
+    })
     
