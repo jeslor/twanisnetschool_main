@@ -39,6 +39,12 @@
                 Add a video</a
               >
             </li>
+            <li>
+              <a href="/platformadmin/allusers">
+                <span class="material-symbols-outlined"> group </span>
+                All users</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -457,6 +463,18 @@
                     <h6><%=videoLesson.level%></h6>
                     <p><strong>Topic:</strong> <%=videoLesson.topic%></p>
                     <small> <%=videoLesson.title%> </small>
+                  </div>
+                  <div class="actionButtons">
+                    <a
+                      class="btn main_button"
+                      href="/platformadmin/editdata/<%=videoLesson._id%>"
+                      >edit</a
+                    >
+                    <a
+                      class="btn secondary_button"
+                      href="/dashboard/<%=currUser.username%>/video/<%=videoLesson._id%>/delete"
+                      >Delete</a
+                    >
                   </div>
                 </div>
                 <div

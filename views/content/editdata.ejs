@@ -36,8 +36,9 @@
           <div class="row">
             <div class="col-md-6">
               <div class="edit-fileContent">
+                <label for="">Current video</label>
                 <%-include('../partials/components/videoplayer', {fileId:data._id}) %>
-                <label for="choose_video">Choose video</label>
+                <label for="choose_video">Choose a new video</label>
                 <div class="form-group">
                   <div class="btn float-left form_file_select">
                     <input id="choose_video" type="file" />
@@ -76,6 +77,59 @@
                   <option <%= data.level === 'senior five'?'selected' : '' %> value="senior five">senior five</option>
                   <option <%= data.level === 'senior six'?'selected' : '' %> value="senior six">senior six</option>
                 </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label id="name-label" for="topic">Name of the topic</label>
+                <input
+                  type="text"
+                  value="<%=data.topic%>"
+                  name="topic"
+                  id="topic"
+                  placeholder="eg 'Light'"
+                  class="form-control"
+                  aria-describedby="name-suggestion"
+                  minlength="3"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Will this video cost money to watch?</label>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="customRadioInline1"
+                    value="paid"
+                    name="cost"
+                    class="custom-control-input"
+                    checked="<%data.cost ==='paid'? true: false%>"
+                  />
+                  <label class="custom-control-label" for="customRadioInline1"
+                    >Definitely</label
+                  >
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    id="customRadioInline2"
+                    value="free"
+                    name="cost"
+                    class="custom-control-input"
+                    checked="<%data.cost ==='free'? true: false%>"
+                  />
+                  <label class="custom-control-label" for="customRadioInline2"
+                    >Free</label
+                  >
+                </div>
               </div>
             </div>
           </div>

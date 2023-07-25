@@ -18,7 +18,7 @@ const express = require('express'),
     asyncWrapper = require('./utils/asyncWrapper'),
     AppError = require('./utils/appError'),
     {upladimage, uploadVideo} = require('./config/videoUploder'),
-    {isLoggedIn} =require('./middleware/userMiddleware'),
+    {isLoggedIn, isAdministrator} =require('./middleware/userMiddleware'),
     {getVideo} = require('./config/videoGetter'),
 
     User = require('./models/user'),
@@ -156,56 +156,6 @@ const express = require('express'),
       res.render('about');
     });
 
-    app.get('/platformadmin/adddata', (req, res) => {
-      res.render('content/adddata');
-    });
-
-    app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
-      const data = await Content.find({});
- const {username, email} = req.user;
-      if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data});
-      }else{
-        res.render('user/dashboard', {data});
-      }
-   
-
-    }));
-
-    app.get('/fovarites/:userId/:videoId', isLoggedIn, asyncWrapper(async(req, res) => {
-      const {userID, videoId} = req.params;
-      console.log(userID, videoId);
-    }));
-
-    app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
-      const data = await Content.find({subject: req.params.subject, level: req.params.level});
-      res.render('user/dashboard', {data});
-
-    }));
-
-    app.post('/platformadmin/adddata', uploadVideo.single('uploadedvideo'),
-     asyncWrapper(async(req, res) => {
-      let newVideo  = new Content({
-        title: req.body.title,
-        cost: req.body.cost,
-        level: req.body.level,
-        subject: req.body.subject,
-        topic: req.body.topic,
-        videoKey: req.file.key,
-        videoSize: Number(req.file.size),
-        viewedTimes: 0
-    
-      });
-      await newVideo.save();
-      req.flash('success', 'Video added successfully');
-      res.redirect('/platformadmin/adddata');
-    }));
-
-    app.get('/platformadmin/editdata/:id', asyncWrapper(async(req, res) => {
-      const data = await Content.findById(req.params.id); 
-      res.render('content/editdata', {data})
-    }));
-
     app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
       const videoFileDocuent = await Content.findById(req.params.fileId);
         // const range = req.headers.range
@@ -237,8 +187,58 @@ const express = require('express'),
        
         videoStream.pipe(res);
     }))
-    
 
+    app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
+      const data = await Content.find({});
+      const {username, email} = req.user;
+      if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
+        res.render('user/adminDashboard', {data});
+      }else{
+        res.render('user/dashboard', {data});
+      }
+   
+
+    }));
+
+
+    app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {
+      res.render('content/adddata');
+    });
+
+    app.post('/platformadmin/adddata',isLoggedIn, isAdministrator, uploadVideo.single('uploadedvideo'),
+    asyncWrapper(async(req, res) => {
+     let newVideo  = new Content({
+       title: req.body.title,
+       cost: req.body.cost,
+       level: req.body.level,
+       subject: req.body.subject,
+       topic: req.body.topic,
+       videoKey: req.file.key,
+       videoSize: Number(req.file.size),
+       viewedTimes: 0
+   
+     });
+     await newVideo.save();
+     req.flash('success', 'Video added successfully');
+     res.redirect('/platformadmin/adddata');
+   }));
+
+   app.get('/platformadmin/editdata/:id',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+    const data = await Content.findById(req.params.id); 
+    res.render('content/editdata', {data})
+   }));
+
+    
+    app.get('/fovarites/:userId/:videoId', isLoggedIn, asyncWrapper(async(req, res) => {
+      const {userID, videoId} = req.params;
+      console.log(userID, videoId);
+    }));
+
+    app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
+      const data = await Content.find({subject: req.params.subject, level: req.params.level});
+      res.render('user/dashboard', {data});
+
+    }));
 
 
     app.all('*', (req, res, next) => {
