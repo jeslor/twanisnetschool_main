@@ -121,8 +121,8 @@ const express = require('express'),
     });
 
     app.get('/dashboard/:user', asyncWrapper(async(req, res) => {
-      const data = await Content.find({});
-      res.render('user/dashboard', {data});
+      // const data = await Content.find({});
+      res.render('user/dashboard');
 
     }));
 
@@ -133,6 +133,7 @@ const express = require('express'),
         cost: req.body.cost,
         level: req.body.level,
         subject: req.body.subject,
+        topic: req.body.topic,
         videoKey: req.file.key,
         videoSize: Number(req.file.size),
         viewedTimes: 0

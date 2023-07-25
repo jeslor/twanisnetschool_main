@@ -4,41 +4,47 @@
 @import url("./Components/dashboard.css");
 
 .landingPage {
-  height: 105vh;
   width: 100%;
   position: relative;
+  height: fit-content;
+  overflow-y: hidden;
+  padding-bottom: 8rem;
 }
+
+/* .landingPage:after {
+  content: "";
+  position: absolute;
+  bottom: -4%;
+  left: 0;
+  width: 110%;
+  height: 50%;
+  background-color: rgb(var(--mainwhite));
+  z-index: 2; */
+/* border-radius: 50%; */
+/* transform: translateY(50%) rotate(-7deg); */
+/* } */
 
 .landingPage .landingPage_rotate {
   position: absolute;
-  left: -10%;
+  height: 120%;
+  margin-bottom: 10px;
+  left: -15%;
   top: -10%;
-  transform: rotate(-5deg);
+  /* transform: rotate(-5deg); */
   background: rgb(var(--secondaryColor));
   background: linear-gradient(
     30deg,
-    rgb(18, 12, 5, 1) 40%,
-    rgb(13, 52, 89) 70%,
+    rgba(18, 12, 5, 1) 40%,
+    rgba(13, 52, 89, 1) 70%,
     rgba(6, 81, 125, 1) 100%
   );
   background-size: 200% 200%;
-  height: 113%;
   width: 120%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   animation: animateBg 15s infinite;
-  color: rgb(var(--mainwhite));
-}
-
-.landingPage .landingPage_rotate .container {
-  padding-top: 5rem;
-  transform: rotate(5deg);
-  text-align: center;
-  margin-top: 95px;
-  top: 0;
-  position: absolute;
 }
 
 @keyframes animateBg {
@@ -54,16 +60,22 @@
 }
 
 .landingPage_content {
-  background-color: rgba(var(--mainblack), 0.5);
+  color: rgb(var(--mainwhite));
+  position: relative;
+  background-color: rgba(var(--mainblack), 0.2);
   padding: 2rem 1rem;
-  /* height: 100%; */
   border-radius: var(--normalBorderRadius);
+  margin-top: 95px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .landingPage__title {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.9rem;
   padding-bottom: 2rem;
+  text-align: center;
 }
 
 .landingPage__title .landingPage__title--highlight {
@@ -73,6 +85,9 @@
   text-transform: capitalize;
   font-family: var(--headersFont);
   padding: 0.4rem 0rem;
+}
+.landing_page_user_buttons {
+  padding-top: 2rem;
 }
 
 .landing_page_user_buttons .btn:first-child {
@@ -97,12 +112,13 @@
 .landingPage__image {
   display: flex;
   justify-content: center;
-  height: 100%;
   padding-top: 5rem;
+  position: relative;
+  padding-bottom: 5rem;
 }
 
 .section_gap {
-  padding-top: 8rem;
+  padding-top: 5rem;
   padding-bottom: 2rem;
 }
 

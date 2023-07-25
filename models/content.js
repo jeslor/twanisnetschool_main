@@ -19,6 +19,9 @@ const contentSchema = new Schema({
     subject:{
         type: String,
     },
+    topic:{
+        type: String,
+    },
     videoKey:{
         type: String,
     },
