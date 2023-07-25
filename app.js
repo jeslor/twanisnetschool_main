@@ -1,5 +1,3 @@
-const { log } = require('console');
-
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
 }
@@ -16,6 +14,7 @@ const express = require('express'),
     flash = require('connect-flash'),
     fs = require('fs'),
     asyncWrapper = require('./utils/asyncWrapper'),
+    AWS  = require('aws-sdk'),
     AppError = require('./utils/appError'),
     {upladimage, uploadVideo} = require('./config/videoUploder'),
     {isLoggedIn, isAdministrator} =require('./middleware/userMiddleware'),
@@ -66,6 +65,13 @@ const express = require('express'),
     res.locals.error = req.flash('error')
     res.locals.currUser = req.user
     next()
+  });
+
+
+  const s3 = new AWS.S3({
+    accessKeyId: process.env.AmazonS3_Access_Key_ID,
+    secretAccessKey: process.env.AmazonS3_Secret_Access_Key,
+    region: process.env.AmazonS3_Region,
   })
 
 
@@ -226,6 +232,28 @@ const express = require('express'),
    app.get('/platformadmin/editdata/:id',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
     const data = await Content.findById(req.params.id); 
     res.render('content/editdata', {data})
+   }));
+
+   app.put('/platformadmin/editdata/:id',isLoggedIn, isAdministrator,
+   uploadVideo.single('uploadedvideo'), asyncWrapper(async(req, res) => {
+    const {id} = req.params;
+    const {body, file} = req;
+    if (file === undefined) {
+      await Content.findByIdAndUpdate(id, body);
+    }else{
+      const videotoUpdate = await Content.findById(id);
+      const params = {
+        Bucket: `${process.env.AmazonS3_Bucket_Name}/videos`,
+        Key: videotoUpdate.videoKey,
+      }
+      s3.deleteObject(params, function (err, data) {
+        if (err) console.log(err, err.stack)
+      })
+      body.videoKey = file.key;
+      await Content.findByIdAndUpdate(id, body);
+
+    }
+    res.redirect(`/dashboard/${req.user.username}`);
    }));
 
     

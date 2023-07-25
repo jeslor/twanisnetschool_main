@@ -13,6 +13,8 @@ require('aws-sdk/lib/maintenance_mode_message').suppress = true,
         secretAccessKey: process.env.AmazonS3_Secret_Access_Key,
         region: process.env.AmazonS3_Region,
       })
+
+      module.exports.s3 = s3;
       
       module.exports.uploadVideo = multer({
         storage: multerS3({

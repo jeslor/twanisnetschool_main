@@ -6,14 +6,18 @@
         <h1 id="title" class="text-center">Edit video details</h1>
       </header>
       <div class="form-wrap">
-        <form id="Content-form">
+        <form id="Content-form" action="/platformadmin/editdata/<%=data._id%>?_method=PUT" method="post"
+          enctype="multipart/form-data"
+          novalidate
+          class="needs-validation"
+          >
           <div class="row">
             <div class="col">
               <div class="form-group">
                 <label id="name-label" for="name">Lesson title</label>
                 <input
                   type="text"
-                  name="name"
+                  name="title"
                   id="name"
                   placeholder="Enter name of the video file"
                   class="form-control"
@@ -41,7 +45,7 @@
                 <label for="choose_video">Choose a new video</label>
                 <div class="form-group">
                   <div class="btn float-left form_file_select">
-                    <input id="choose_video" type="file" />
+                    <input id="choose_video" name="uploadedvideo" type="file" />
                   </div>
                 </div>
               </div>
@@ -104,32 +108,61 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Will this video cost money to watch?</label>
+                <% if (data.cost ==='paid') {%>
                 <div class="custom-control custom-radio custom-control-inline">
                   <input
                     type="radio"
-                    id="customRadioInline1"
+                    id="paidRadioButton"
                     value="paid"
                     name="cost"
                     class="custom-control-input"
-                    checked="<%data.cost ==='paid'? true: false%>"
+                    checked
                   />
-                  <label class="custom-control-label" for="customRadioInline1"
+                  <label class="custom-control-label" for="paidRadioButton"
                     >Definitely</label
                   >
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
                   <input
                     type="radio"
-                    id="customRadioInline2"
+                    id="freeRadioButton"
                     value="free"
                     name="cost"
                     class="custom-control-input"
-                    checked="<%data.cost ==='free'? true: false%>"
+                    
                   />
-                  <label class="custom-control-label" for="customRadioInline2"
+                  <label class="custom-control-label" for="freeRadioButton"
                     >Free</label
                   >
                 </div>
+                <%} else {%>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input
+                      type="radio"
+                      id="paidRadioButton"
+                      value="paid"
+                      name="cost"
+                      class="custom-control-input"
+                 
+                    />
+                    <label class="custom-control-label" for="paidRadioButton"
+                      >Definitely</label
+                    >
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input
+                      type="radio"
+                      id="freeRadioButton"
+                      value="free"
+                      name="cost"
+                      class="custom-control-input"
+                      checked
+                    />
+                    <label class="custom-control-label" for="freeRadioButton"
+                      >Free</label
+                    >
+                  </div>
+                <%} %>
               </div>
             </div>
           </div>
@@ -137,7 +170,7 @@
           <div class="row">
             <div class="col-md-4">
               <button type="submit" id="submit" class="btn secondary_button">
-                Upload video
+                Update video
               </button>
             </div>
           </div>

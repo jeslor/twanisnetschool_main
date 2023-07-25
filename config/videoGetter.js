@@ -14,6 +14,7 @@ require('aws-sdk/lib/maintenance_mode_message').suppress = true,
         region: process.env.AmazonS3_Region,
       })
 
+
       module.exports.getVideo = (key) => {
         const params = {
           Bucket: `${process.env.AmazonS3_Bucket_Name}/videos`,
