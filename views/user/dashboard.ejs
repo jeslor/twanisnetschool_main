@@ -452,6 +452,13 @@
                     <p><strong>Topic:</strong> <%=videoLesson.topic%></p>
                     <small> <%=videoLesson.title%> </small>
                   </div>
+                  <div class="actionButtons">
+                    <a
+                      class="btn main_button"
+                      href="/platformadmin/editdata/<%=videoLesson._id%>"
+                      >Play</a
+                    >
+                  </div>
                 </div>
                 <div
                   class="col-5 col-sm-12 col-lg-5 d-flex justify-content-center align-items-center"
@@ -464,8 +471,12 @@
             </div>
           </div>
           <% } %> <% } else{%>
-          <h2>No videos found</h2>
-
+          <div class="noVideosFound">
+            <h5>No videos found</h5>
+            <span class="material-symbols-outlined">
+              sentiment_dissatisfied
+            </span>
+          </div>
           <%}%>
         </div>
       </div>

@@ -4,7 +4,7 @@
   <div class="landingPage_rotate"></div>
   <div class="container">
     <div class="row">
-      <div class="col-12">
+      <div class="col-md-8">
         <div class="landingPage_content">
           <h1 class="landingPage__title">
             <span class="landingPage__title--highlight"
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 offset-lg-2 justify-content-center">
+      <!-- <div class="col-lg-8 offset-lg-2 justify-content-center">
         <div class="landingPage__image">
           <lottie-player
             src="/images/lottiefiles/landing_page_animation.json"
@@ -48,7 +48,7 @@
             autoplay
           ></lottie-player>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -116,66 +116,25 @@
     </h2>
     <div class="sample_video_content">
       <div class="row">
+        <% for(const sampleVideo of sampleVideos){%>
         <div class="col-sm-6 col-lg-3">
           <div class="sample_video">
-            <div class="sample_video__image">
+            <a href="" class="sample_video__image">
               <img src="/images/sample_video_1.jpg" alt="" />
               <span class="material-symbols-outlined"> play_circle </span>
-            </div>
+            </a>
             <div class="sample_video__content">
-              <h4 class="sample_video__title">Senior One: History</h4>
-              <p class="sample_video__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                voluptatum, quibusdam
-              </p>
+              <h5 class="sample_video__title">
+                <%=sampleVideo.subject%>: <%=sampleVideo.level%>
+              </h5>
+              <h6><strong>Topic</strong>: <%=sampleVideo.topic%></h6>
+              <small class="sample_video__description">
+                <%=sampleVideo.title%>
+              </small>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="sample_video">
-            <div class="sample_video__image">
-              <img src="/images/sample_video_1.jpg" alt="" />
-              <span class="material-symbols-outlined"> play_circle </span>
-            </div>
-            <div class="sample_video__content">
-              <h4 class="sample_video__title">Senior One: History</h4>
-              <p class="sample_video__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                voluptatum, quibusdam
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="sample_video">
-            <div class="sample_video__image">
-              <img src="/images/sample_video_1.jpg" alt="" />
-              <span class="material-symbols-outlined"> play_circle </span>
-            </div>
-            <div class="sample_video__content">
-              <h4 class="sample_video__title">Senior One: History</h4>
-              <p class="sample_video__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                voluptatum, quibusdam
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="sample_video">
-            <div class="sample_video__image">
-              <img src="/images/sample_video_1.jpg" alt="" />
-              <span class="material-symbols-outlined"> play_circle </span>
-            </div>
-            <div class="sample_video__content">
-              <h4 class="sample_video__title">Senior One: History</h4>
-              <p class="sample_video__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                voluptatum, quibusdam
-              </p>
-            </div>
-          </div>
-        </div>
+        <%} %>
       </div>
     </div>
   </div>

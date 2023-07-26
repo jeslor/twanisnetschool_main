@@ -6,76 +6,36 @@
 .landingPage {
   width: 100%;
   position: relative;
-  height: fit-content;
+  min-height: 900px;
   overflow-y: hidden;
+  background-size: cover;
+  background-position: center center;
   padding-bottom: 8rem;
-}
-
-/* .landingPage:after {
-  content: "";
-  position: absolute;
-  bottom: -4%;
-  left: 0;
-  width: 110%;
-  height: 50%;
-  background-color: rgb(var(--mainwhite));
-  z-index: 2; */
-/* border-radius: 50%; */
-/* transform: translateY(50%) rotate(-7deg); */
-/* } */
-
-.landingPage .landingPage_rotate {
-  position: absolute;
-  height: 120%;
-  margin-bottom: 10px;
-  left: -15%;
-  top: -10%;
-  /* transform: rotate(-5deg); */
-  background: rgb(var(--secondaryColor));
-  background: linear-gradient(
-    30deg,
-    rgba(18, 12, 5, 1) 40%,
-    rgba(13, 52, 89, 1) 70%,
-    rgba(6, 81, 125, 1) 100%
-  );
-  background-size: 200% 200%;
-  width: 120%;
+  background-image: url("../images/educationTwani.webp");
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  animation: animateBg 15s infinite;
 }
 
-@keyframes animateBg {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 30%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.landingPage .container {
+  height: 100%;
 }
 
 .landingPage_content {
   color: rgb(var(--mainwhite));
   position: relative;
-  background-color: rgba(var(--mainblack), 0.2);
   padding: 2rem 1rem;
   border-radius: var(--normalBorderRadius);
   margin-top: 95px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
+  text-shadow: 1px 1px 15px rgba(0, 0, 0, 0.5);
 }
 .landingPage__title {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.9rem;
   padding-bottom: 2rem;
-  text-align: center;
 }
 
 .landingPage__title .landingPage__title--highlight {
@@ -247,32 +207,49 @@
 .sample_video__content {
   padding: 1rem;
   padding-bottom: 1.5rem;
+  color: rgb(var(--mainColor));
 }
 
 .loginPage {
   height: 100vh;
   width: 100%;
-  background: linear-gradient(
-    30deg,
-    rgb(18, 12, 5, 1) 40%,
-    rgb(13, 52, 89) 70%,
-    rgba(6, 81, 125, 1) 100%
-  );
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .loginContainer {
-  background-color: rgba(var(--mainblack), 0.5);
   padding: 5rem 3.5rem;
   border-radius: var(--normalBorderRadius);
   color: rgb(var(--mainwhite));
-  max-width: 500px;
+  max-width: 450px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 7rem;
+  background: rgb(var(--secondaryColor));
+  background: linear-gradient(
+    30deg,
+    rgba(18, 12, 5, 1) 40%,
+    rgba(13, 52, 89, 1) 70%,
+    rgba(6, 81, 125, 1) 100%
+  );
+  background-size: 200% 200%;
+  width: 120%;
+  animation: animateBg 15s infinite;
 }
+
+@keyframes animateBg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 30%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .loginContainer h4 {
   padding-bottom: 2rem;
   font-weight: 200;
@@ -294,9 +271,6 @@
   margin: 0;
 }
 .loginContainer .extras {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding-top: 2rem;
 }
 
@@ -305,6 +279,8 @@
   color: rgba(var(--mainwhite), 0.4);
   font-size: 0.9rem;
   transition: var(--themeTransition);
+  padding-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 .loginContainer .extras a:hover {

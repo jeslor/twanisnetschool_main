@@ -78,9 +78,10 @@ const express = require('express'),
 
 
   app.listen(3000, () => console.log(`Server is running on port ${port}!`));
-      app.get('/', (req, res) => {
-          res.render('home');
-      });
+      app.get('/', asyncWrapper(async(req, res) => {
+        const sampleVideos = await Content.find({cost:'free'}).limit(4);
+          res.render('home', {sampleVideos});
+      }));
 
 
 
@@ -264,7 +265,11 @@ const express = require('express'),
 
     app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
       const data = await Content.find({subject: req.params.subject, level: req.params.level});
-      res.render('user/dashboard', {data});
+      if(req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com' ){
+        res.render('user/adminDashboard', {data});
+      }else{
+        res.render('user/dashboard', {data});
+      }
 
     }));
 
