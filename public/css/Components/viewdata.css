@@ -16,10 +16,19 @@
 
 .similarVideos {
   background-color: rgb(var(--mainwhite));
-  padding: 2rem 2rem;
   padding-bottom: 1rem;
   height: 100%;
   margin-bottom: 1.5rem;
+}
+
+.similarVideos h4 {
+  padding: 1.5rem 2rem;
+  background-color: rgb(var(--mainColor));
+  color: rgb(var(--mainwhite));
+}
+
+.similarVideos .sameVideoList {
+  padding-right: 2rem;
 }
 
 .similarVideos .main_button,

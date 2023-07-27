@@ -41,7 +41,7 @@
             <div class="col-md-6">
               <div class="edit-fileContent">
                 <label for="">Current video</label>
-                <%-include('../partials/components/videoplayer', {fileId:data._id, height:'350px'}) %>
+                <%-include('../partials/components/videoplayer', {fileId:data._id, height:'350px', autoplayControl:'false'}) %>
                 <label for="choose_video">Choose a new video</label>
                 <div class="form-group">
                   <div class="btn float-left form_file_select">
