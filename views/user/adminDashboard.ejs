@@ -20,6 +20,13 @@
         <div class="extraMenu">
           <ul>
             <li>
+              <a href="/platformadmin/allusers">
+                <span class="material-symbols-outlined"> group </span>
+                All users</a
+              >
+            </li>
+
+            <li>
               <a href="/dashboard/<%=currUser.username%>"
                 ><span class="material-symbols-outlined"> team_dashboard </span
                 >Dashboard</a
@@ -37,12 +44,6 @@
               <a href="/platformadmin/adddata">
                 <span class="material-symbols-outlined"> video_call </span>
                 Add a video</a
-              >
-            </li>
-            <li>
-              <a href="/platformadmin/allusers">
-                <span class="material-symbols-outlined"> group </span>
-                All users</a
               >
             </li>
           </ul>
@@ -453,7 +454,11 @@
       </div>
       <div class="dashboardBody">
         <div class="row">
-          <% if (data.length) {%> <%for(const videoLesson of data){%>
+          <% if (isAllUsers) {%>
+          <h1>All users</h1>
+
+          <%} else {%> <% if (data.length) {%> <%for(const videoLesson of
+          data){%>
           <div class="col-md-6">
             <div class="dashboardBodyElement">
               <div class="row">
@@ -461,7 +466,7 @@
                   <div class="ElementDetails">
                     <h5><%=videoLesson.subject%></h5>
                     <h6><%=videoLesson.level%></h6>
-                    <p><strong>Topic:</strong> <%=videoLesson.topic%></p>
+                    <p><strong>Topic: <%=videoLesson.topic%> </strong></p>
                     <small> <%=videoLesson.title%> </small>
                   </div>
                   <div class="actionButtons">
@@ -494,7 +499,7 @@
               sentiment_dissatisfied
             </span>
           </div>
-          <%}%>
+          <%}%> <%} %>
         </div>
       </div>
     </div>

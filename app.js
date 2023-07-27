@@ -163,7 +163,7 @@ const express = require('express'),
       res.render('about');
     });
 
-    app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
+    app.get('/videoplayer/:fileId', isLoggedIn, asyncWrapper(async(req, res) => {
       const videoFileDocuent = await Content.findById(req.params.fileId);
         // const range = req.headers.range
         // if (!range) {
@@ -199,13 +199,17 @@ const express = require('express'),
       const data = await Content.find({});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data});
+        res.render('user/adminDashboard', {data, isAllUsers: false});
       }else{
         res.render('user/dashboard', {data});
       }
-   
 
     }));
+
+    app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+      const users = await User.find({});
+      res.render('user/adminDashboard', {data: users, isAllUsers: true});
+     }));
 
 
     app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {
@@ -225,6 +229,7 @@ const express = require('express'),
        viewedTimes: 0
    
      });
+
      await newVideo.save();
      req.flash('success', 'Video added successfully');
      res.redirect('/platformadmin/adddata');
@@ -266,7 +271,7 @@ const express = require('express'),
     app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
       const data = await Content.find({subject: req.params.subject, level: req.params.level});
       if(req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data});
+        res.render('user/adminDashboard', {data, isAllUsers: false});
       }else{
         res.render('user/dashboard', {data});
       }
