@@ -265,7 +265,7 @@
   padding: 1.5rem 1rem;
 }
 
-.dashboardBody .dashboardBodyElement {
+.dashboardBodyElement {
   margin: 1rem;
   padding: 0.8rem;
   background-color: rgba(var(--mainColor), 0.1);
@@ -274,28 +274,28 @@
   transition: var(--themeTransition);
 }
 
-.dashboardBody .dashboardBodyElement:hover {
+.dashboardBodyElement:hover {
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.dashboardBody .ElementDetails h5 {
+.ElementDetails h5 {
   color: rgba(var(--mainColor), 0.7);
   text-transform: capitalize;
   margin-bottom: 0.2rem;
 }
 
-.dashboardBody .ElementDetails h6 {
+.ElementDetails h6 {
   font-weight: 700;
   text-transform: capitalize;
   margin-bottom: 0.2rem;
 }
 
-.dashboardBody .ElementDetails p {
+.ElementDetails p {
   font-size: 0.9rem;
   color: rgba(var(--mainColor), 0.7);
 }
 
-.dashboard .actionButtons {
+.actionButtons {
   display: flex;
   align-items: center;
   padding-top: 1rem;

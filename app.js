@@ -200,13 +200,17 @@ const express = require('express'),
     app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn, asyncWrapper(async(req, res) => {
   
       const data = await Content.findById(req.params.videoID);
-      const similarVideos = await Content.find({topic:data.topic});
+      let similarVideos = await Content.find({topic:data.topic})
+      similarVideos = similarVideos.filter(video => video.id !== req.params.videoID);
       res.render('content/viewdata', {data, similarVideos});
      }))
 
      app.get('/dashboard/free/video/playnow/:videoID', asyncWrapper(async(req, res) => {
        const data = await Content.findById(req.params.videoID);
-       const similarVideos = await Content.find({topic:data.topic});
+       let similarVideos = (await Content.find({topic:data.topic}))
+       similarVideos = similarVideos.filter(video => {
+        return video.id !== req.params.videoID
+       });
       res.render('content/viewdata', {data, similarVideos});
      }))
 
