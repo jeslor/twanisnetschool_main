@@ -1,0 +1,80 @@
+<%(layout('layout/boilerplate'))%>
+<div class="viewdata">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="viewDataContent">
+          <div class="viewDataVideo">
+            <%-include('../partials/components/videoplayer', {fileId:data._id})
+            %>
+          </div>
+          <div class="viewDataDetails">
+            <div class="h5">
+              <h5><%=data.title%></h5>
+              <h6><%=data.topic%></h6>
+              <h6><%=data.level%></h6>
+              <h6><%=data.subject%></h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="similarVideos">
+          <h3>videos from the same topic</h3>
+          <% if (similarVideos.length) {%>
+          <div class="row">
+            <%for(const videoLesson of similarVideos){%>
+            <div class="col">
+              <div class="dashboardBodyElement">
+                <div class="row">
+                  <div class="col-7 col-sm-12 col-lg-7">
+                    <div class="ElementDetails">
+                      <h5><%=videoLesson.subject%></h5>
+                      <h6><%=videoLesson.level%></h6>
+                      <p><strong>Topic: <%=videoLesson.topic%> </strong></p>
+                      <small> <%=videoLesson.title%> </small>
+                    </div>
+                    <div class="actionButtons">
+                      <a
+                        class="btn main_button"
+                        href="/platformadmin/editdata/<%=videoLesson._id%>"
+                        >edit</a
+                      >
+                      <a
+                        class="btn secondary_button openDeleteModal"
+                        deleteUrl="/platformadmin/deletedata/<%=videoLesson._id%>?_method=DELETE"
+                        videoName="<%=videoLesson.title%>"
+                        >Delete</a
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="col-5 col-sm-12 col-lg-5 d-flex justify-content-center align-items-center"
+                  >
+                    <div class="videoImage">
+                      <% if(videoLesson.cost === 'paid'){%>
+                      <a
+                        class="play-btn"
+                        href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
+                      ></a>
+                      <%} else {%>
+                      <a
+                        class="play-btn"
+                        href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
+                      ></a>
+                      <%}%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <%}%>
+          </div>
+          <% } else {%>
+          <h3>No videos to show</h3>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

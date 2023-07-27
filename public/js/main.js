@@ -10,7 +10,7 @@ $( document ).ready(function() {
         dots:false,
         responsive:{
             0:{
-                items:1
+                items:2
             },
             600:{
                 items:4
@@ -38,12 +38,9 @@ openDeleteModalButtons.forEach(button => {
         const form = deleteVideoModal.getElementsByTagName('form')[0];
         const videoName = e.target.attributes['videoName'].value;
         form.action = url;
-        deleteVideoModal.querySelector('#videoName').innerHTML = videoName;
-
-        
+        deleteVideoModal.querySelector('#videoName').innerHTML = videoName;     
     });
 });
-
 
 deleteVideoModal.addEventListener('click', (e) => {
     e.stopPropagation();

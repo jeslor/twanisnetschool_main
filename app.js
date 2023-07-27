@@ -165,7 +165,7 @@ const express = require('express'),
       res.render('about');
     });
 
-    app.get('/videoplayer/:fileId', isLoggedIn, asyncWrapper(async(req, res) => {
+    app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
       const videoFileDocuent = await Content.findById(req.params.fileId);
         // const range = req.headers.range
         // if (!range) {
@@ -197,6 +197,19 @@ const express = require('express'),
         videoStream.pipe(res);
     }))
 
+    app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn, asyncWrapper(async(req, res) => {
+  
+      const data = await Content.findById(req.params.videoID);
+      const similarVideos = await Content.find({topic:data.topic});
+      res.render('content/viewdata', {data, similarVideos});
+     }))
+
+     app.get('/dashboard/free/video/playnow/:videoID', asyncWrapper(async(req, res) => {
+       const data = await Content.findById(req.params.videoID);
+       const similarVideos = await Content.find({topic:data.topic});
+      res.render('content/viewdata', {data, similarVideos});
+     }))
+
     app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
       const data = await Content.find({});
       const {username, email} = req.user;
@@ -212,6 +225,8 @@ const express = require('express'),
       const users = await User.find({});
       res.render('user/adminDashboard', {data: users, isAllUsers: true});
      }));
+
+
 
 
     app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {

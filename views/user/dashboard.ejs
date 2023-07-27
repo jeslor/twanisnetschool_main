@@ -489,21 +489,36 @@
                     <small> <%=videoLesson.title%> </small>
                   </div>
                   <div class="actionButtons">
+                    <% if(videoLesson.cost === 'paid'){%>
                     <a
                       class="btn main_button"
-                      href="/dashboard/<%=currUser.username%>/video/<%=videoLesson._id%>"
+                      href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
                       >Play</a
                     >
+                    <%} else {%>
+                    <a
+                      class="btn main_button"
+                      href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
+                      >Play</a
+                    >
+                    <%}%>
                   </div>
                 </div>
                 <div
                   class="col-5 col-sm-12 col-lg-5 d-flex justify-content-center align-items-center"
                 >
                   <div class="videoImage">
+                    <% if(videoLesson.cost === 'paid'){%>
                     <a
                       class="play-btn"
-                      href="/dashboard/<%=currUser.username%>/video/<%=videoLesson._id%>"
+                      href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
                     ></a>
+                    <%} else {%>
+                    <a
+                      class="play-btn"
+                      href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
+                    ></a>
+                    <%}%>
                   </div>
                 </div>
               </div>
