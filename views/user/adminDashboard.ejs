@@ -1,6 +1,20 @@
 <%=(layout('layout/boilerplate')) %>
 
 <div class="dashboard">
+  <div id="deleteVideoOverlay" class="deleteVideoOverlay">
+    <div class="deleteVideoModal">
+      <div class="deleteVideoBody">
+        <p>Are you sure you want to delete this video?</p>
+        <h6 id="videoName"><Strong>name:</Strong></h6>
+        <div class="deleteVideoButtons">
+          <a id="closeDeleteModal" class="btn secondary_button">Cancel</a>
+          <form action="" method="post">
+            <button class="btn main_button">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div class="sidebar">
       <div class="profile">
@@ -469,8 +483,9 @@
                       >edit</a
                     >
                     <a
-                      class="btn secondary_button"
-                      href="/dashboard/<%=currUser.username%>/video/<%=videoLesson._id%>/delete"
+                      class="btn secondary_button openDeleteModal"
+                      deleteUrl="/platformadmin/deletedata/<%=videoLesson._id%>?_method=DELETE"
+                      videoName="<%=videoLesson.title%>"
                       >Delete</a
                     >
                   </div>
@@ -479,7 +494,10 @@
                   class="col-5 col-sm-12 col-lg-5 d-flex justify-content-center align-items-center"
                 >
                   <div class="videoImage">
-                    <a class="play-btn" href="#"></a>
+                    <a
+                      class="play-btn"
+                      href="/dashboard/<%=currUser.username%>/video/<%=videoLesson._id%>"
+                    ></a>
                   </div>
                 </div>
               </div>

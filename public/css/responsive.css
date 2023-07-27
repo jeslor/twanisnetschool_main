@@ -38,10 +38,10 @@ a {
   padding: 0.8rem 3rem;
   border-radius: 0px;
   font-size: 1rem;
-  /* font-weight: bold; */
   cursor: pointer;
   transition: var(--themeTransition);
   text-transform: capitalize;
+  border: 1px solid transparent;
 }
 
 .main_button:hover,
@@ -51,6 +51,7 @@ a {
   background-color: rgb(var(--mainwhite));
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
     rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  border: 1px solid rgba(var(--mainblack), 0.2);
 }
 
 .secondary_button {
@@ -63,6 +64,7 @@ a {
   color: rgb(var(--secondaryColor));
   background-color: rgb(var(--mainwhite));
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 1px solid rgba(var(--mainblack), 0.2);
 }
 
 .flash-alerts {

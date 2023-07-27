@@ -26,6 +26,37 @@ $( document ).ready(function() {
     });
 });
 
+const openDeleteModalButtons = document.querySelectorAll('.openDeleteModal');
+const deleteModal = document.getElementById('deleteVideoOverlay');
+const deleteVideoModal = document.querySelector('.deleteVideoModal');
+const closeDeleteModalButton = document.getElementById('closeDeleteModal');
+
+openDeleteModalButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        deleteModal.classList.add('show');
+        const url  = e.target.attributes['deleteUrl'].value;
+        const form = deleteVideoModal.getElementsByTagName('form')[0];
+        const videoName = e.target.attributes['videoName'].value;
+        form.action = url;
+        deleteVideoModal.querySelector('#videoName').innerHTML = videoName;
+
+        
+    });
+});
+
+
+deleteVideoModal.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
+deleteModal.addEventListener('click', (e) => {
+    deleteModal.classList.remove('show');
+});
+closeDeleteModalButton.addEventListener('click', (e) => {
+    deleteModal.classList.remove('show');
+});
+
+
 
 
 

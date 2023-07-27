@@ -134,7 +134,8 @@
   transition: var(--themeTransition);
 }
 
-.sidebarsections .accordion-body ul li a:hover {
+.sidebarsections .accordion-body ul li a:hover,
+.sidebarsections .accordion-body ul li a.active {
   color: rgb(var(--secondaryColor));
 }
 
@@ -165,6 +166,42 @@
   margin-left: 1rem;
   margin-top: 1rem;
   border-radius: var(--normalBorderRadius);
+  position: relative;
+}
+
+.deleteVideoOverlay {
+  position: absolute;
+  display: none;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(var(--mainblack), 0.5);
+  z-index: 99;
+}
+
+.deleteVideoOverlay.show {
+  display: block;
+}
+
+.deleteVideoOverlay .deleteVideoModal {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(var(--mainwhite));
+  padding: 2rem;
+  border-radius: var(--normalBorderRadius);
+  width: 500px;
+  max-width: 90%;
+}
+.deleteVideoOverlay #videoName {
+  color: rgba(var(--secondaryColor), 0.8);
+  font-weight: 700;
+}
+
+.deleteVideoOverlay .deleteVideoButtons {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 1rem;
 }
 
 .dashboardContent .dashboardMenu {
@@ -268,6 +305,10 @@
 .dashboard .actionButtons .secondary_button {
   padding: 0.3rem 1rem;
   cursor: pointer;
+}
+
+.videoImage {
+  z-index: 10;
 }
 
 .play-btn {

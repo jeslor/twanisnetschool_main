@@ -21,11 +21,11 @@
           <div class="accordion-item">
             <h2 id="englishHEader" class="accordion-header">
               <button
-                class="accordion-button"
+                class="accordion-button <%=subject !=='english'?'collapsed':''%>"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#english"
-                aria-expanded="true"
+                aria-expanded="<%=subject ==='english'?'true':'false'%>"
                 aria-controls="english"
               >
                 <span class="material-symbols-outlined"> contract_edit </span>
@@ -34,7 +34,7 @@
             </h2>
             <div
               id="english"
-              class="accordion-collapse collapse show"
+              class="accordion-collapse collapse <%=subject==='english'?'show':''%>"
               aria-labelledby="englishHEader"
               data-bs-parent="#subjects"
             >
@@ -43,36 +43,42 @@
                 <ul>
                   <li>
                     <a
+                      class="<%=(level==='senior one'&& subject ==='english')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/english/senior one"
                       >Senior one</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior two'&& subject ==='english')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/english/senior two"
                       >Senior two</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior three'&& subject ==='english')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/english/senior three"
                       >Senior three</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior four'&& subject ==='english')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/english/senior four"
                       >Senior four</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior five'&& subject ==='english')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/english/senior five"
                       >Senior five</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior six'&& subject ==='english')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/english/senior six"
                       >Senior six</a
                     >
@@ -85,11 +91,11 @@
           <div class="accordion-item">
             <h2 id="historyHEader" class="accordion-header">
               <button
-                class="accordion-button collapsed"
+                class="accordion-button <%=subject !=='history'?'collapsed':''%>"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#history"
-                aria-expanded="false"
+                aria-expanded="<%=subject ==='history'?'true':'false'%>"
                 aria-controls="history"
               >
                 <span class="material-symbols-outlined"> history </span>
@@ -98,7 +104,7 @@
             </h2>
             <div
               id="history"
-              class="accordion-collapse collapse"
+              class="accordion-collapse collapse <%=subject==='history'?'show':''%>"
               aria-labelledby="historyHEader"
               data-bs-parent="#subjects"
             >
@@ -107,36 +113,42 @@
                 <ul>
                   <li>
                     <a
+                      class="<%=(level==='senior one'&& subject ==='history')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/history/senior one"
                       >Senior one</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior two'&& subject ==='history')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/history/senior two"
                       >Senior two</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior three'&& subject ==='history')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/history/senior three"
                       >Senior three</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior four'&& subject ==='history')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/history/senior four"
                       >Senior four</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior five'&& subject ==='history')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/history/senior five"
                       >Senior five</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior six'&& subject ==='history')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/history/senior six"
                       >Senior six</a
                     >
@@ -149,11 +161,11 @@
           <div class="accordion-item">
             <h2 id="mathematicsHeader" class="accordion-header">
               <button
-                class="accordion-button collapsed"
+                class="accordion-button <%=subject !=='mathematics'?'collapsed':''%>"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#mathematics"
-                aria-expanded="false"
+                aria-expanded="<%=subject ==='mathematics'?'true':'false'%>"
                 aria-controls="mathematics"
               >
                 <span class="material-symbols-outlined"> calculate </span>
@@ -162,7 +174,7 @@
             </h2>
             <div
               id="mathematics"
-              class="accordion-collapse collapse"
+              class="accordion-collapse collapse <%=subject==='mathematics'?'show':''%>"
               aria-labelledby="mathematicsHeader"
               data-bs-parent="#subjects"
             >
@@ -171,36 +183,42 @@
                 <ul>
                   <li>
                     <a
+                      class="<%=(level==='senior one'&& subject ==='mathematics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/mathematics/senior one"
                       >Senior one</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior two'&& subject ==='mathematics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/mathematics/senior two"
                       >Senior two</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior three'&& subject ==='mathematics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/mathematics/senior three"
                       >Senior three</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior four'&& subject ==='mathematics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/mathematics/senior four"
                       >Senior four</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior five'&& subject ==='mathematics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/mathematics/senior five"
                       >Senior five</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior six'&& subject ==='mathematics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/mathematics/senior six"
                       >Senior six</a
                     >
@@ -213,11 +231,11 @@
           <div class="accordion-item">
             <h2 id="physicsHeader" class="accordion-header">
               <button
-                class="accordion-button collapsed"
+                class="accordion-button <%=subject !=='physics'?'collapsed':''%>"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#physcis"
-                aria-expanded="false"
+                aria-expanded="<%=subject ==='physics'?'true':'false'%>"
                 aria-controls="physcis"
               >
                 <span class="material-symbols-outlined"> scale </span>
@@ -226,7 +244,7 @@
             </h2>
             <div
               id="physcis"
-              class="accordion-collapse collapse"
+              class="accordion-collapse collapse <%=subject==='physics'?'show':''%>"
               aria-labelledby="physicsHeader"
               data-bs-parent="#subjects"
             >
@@ -235,36 +253,42 @@
                 <ul>
                   <li>
                     <a
+                      class="<%=(level==='senior one'&& subject ==='physics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/physics/senior one"
                       >Senior one</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior two'&& subject ==='physics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/physics/senior two"
                       >Senior two</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior three'&& subject ==='physics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/physics/senior three"
                       >Senior three</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior four'&& subject ==='physics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/physics/senior four"
                       >Senior four</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior five'&& subject ==='physics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/physics/senior five"
                       >Senior five</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior six'&& subject ==='physics')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/physics/senior six"
                       >Senior six</a
                     >
@@ -277,11 +301,11 @@
           <div class="accordion-item">
             <h2 id="chemistryHeader" class="accordion-header">
               <button
-                class="accordion-button collapsed"
+                class="accordion-button <%=subject !=='chemistry'?'collapsed':''%>"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#chemistry"
-                aria-expanded="true"
+                aria-expanded="<%=subject ==='chemistry'?'true':'false'%>"
                 aria-controls="chemistry"
               >
                 <span class="material-symbols-outlined"> science </span>
@@ -290,7 +314,7 @@
             </h2>
             <div
               id="chemistry"
-              class="accordion-collapse collapse"
+              class="accordion-collapse collapse <%=subject==='chemistry'?'show':''%>"
               aria-labelledby="chemistryHeader"
               data-bs-parent="#subjects"
             >
@@ -299,36 +323,42 @@
                 <ul>
                   <li>
                     <a
+                      class="<%=(level==='senior one'&& subject ==='chemistry')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/chemistry/senior one"
                       >Senior one</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior two'&& subject ==='chemistry')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/chemistry/senior two"
                       >Senior two</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior three'&& subject ==='chemistry')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/chemistry/senior three"
                       >Senior three</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior four'&& subject ==='chemistry')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/chemistry/senior four"
                       >Senior four</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior five'&& subject ==='chemistry')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/chemistry/senior five"
                       >Senior five</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior six'&& subject ==='chemistry')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/chemistry/senior six"
                       >Senior six</a
                     >
@@ -340,11 +370,11 @@
           <div class="accordion-item">
             <h2 id="biologyheader" class="accordion-header">
               <button
-                class="accordion-button collapsed"
+                class="accordion-button <%=subject !=='biology'?'collapsed':''%>"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#biology"
-                aria-expanded="false"
+                aria-expanded="<%=subject ==='biology'?'true':'false'%>"
                 aria-controls="biology"
               >
                 <span class="material-symbols-outlined"> psychiatry </span>
@@ -353,7 +383,7 @@
             </h2>
             <div
               id="biology"
-              class="accordion-collapse collapse"
+              class="accordion-collapse collapse <%=subject==='biology'?'show':''%>"
               aria-labelledby="biologyheader"
               data-bs-parent="#subjects"
             >
@@ -362,36 +392,42 @@
                 <ul>
                   <li>
                     <a
+                      class="<%=(level==='senior one'&& subject ==='biology')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/biology/senior one"
                       >Senior one</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior two'&& subject ==='biology')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/biology/senior two"
                       >Senior two</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior three'&& subject ==='biology')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/biology/senior three"
                       >Senior three</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior four'&& subject ==='biology')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/biology/senior four"
                       >Senior four</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior five'&& subject ==='biology')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/biology/senior five"
                       >Senior five</a
                     >
                   </li>
                   <li>
                     <a
+                      class="<%=(level==='senior six'&& subject ==='biology')?'active':''%>"
                       href="/dashboard/<%=currUser.username%>/biology/senior six"
                       >Senior six</a
                     >
@@ -455,7 +491,7 @@
                   <div class="actionButtons">
                     <a
                       class="btn main_button"
-                      href="/platformadmin/editdata/<%=videoLesson._id%>"
+                      href="/dashboard/<%=currUser.username%>/video/<%=videoLesson._id%>"
                       >Play</a
                     >
                   </div>
@@ -464,7 +500,10 @@
                   class="col-5 col-sm-12 col-lg-5 d-flex justify-content-center align-items-center"
                 >
                   <div class="videoImage">
-                    <a class="play-btn" href="#"></a>
+                    <a
+                      class="play-btn"
+                      href="/dashboard/<%=currUser.username%>/video/<%=videoLesson._id%>"
+                    ></a>
                   </div>
                 </div>
               </div>

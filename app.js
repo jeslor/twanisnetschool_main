@@ -1,3 +1,5 @@
+const { log } = require('console');
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
 }
@@ -199,9 +201,9 @@ const express = require('express'),
       const data = await Content.find({});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false});
+        res.render('user/adminDashboard', {data, isAllUsers: false, level:'senior one', subject:'english'});
       }else{
-        res.render('user/dashboard', {data});
+        res.render('user/dashboard', {data, level:'dummy', subject:'english'});
       }
 
     }));
@@ -259,7 +261,23 @@ const express = require('express'),
       await Content.findByIdAndUpdate(id, body);
 
     }
+    req.flash('success', 'Video updated successfully');
     res.redirect(`/dashboard/${req.user.username}`);
+   }));
+
+   app.delete('/platformadmin/deletedata/:videoId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+      const videoToDelete = await Content.findById(req.params.videoId);
+      const params = {
+        Bucket: `${process.env.AmazonS3_Bucket_Name}/videos`,
+        Key: videoToDelete.videoKey,
+      }
+      s3.deleteObject(params, function (err, data) {
+        if (err) console.log(err, err.stack)
+      });
+      await Content.findByIdAndDelete(req.params.videoId);
+      req.flash('success', 'Video deleted successfully');
+      res.redirect(`/dashboard/${req.user.username}`);
+        
    }));
 
     
@@ -269,11 +287,12 @@ const express = require('express'),
     }));
 
     app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
-      const data = await Content.find({subject: req.params.subject, level: req.params.level});
+      const {subject, level} = req.params;
+      const data = await Content.find({subject: subject, level: level});
       if(req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false});
+        res.render('user/adminDashboard', {data, isAllUsers: false, subject, level});
       }else{
-        res.render('user/dashboard', {data});
+        res.render('user/dashboard', {data, subject, level});
       }
 
     }));
