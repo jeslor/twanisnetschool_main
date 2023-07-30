@@ -222,6 +222,10 @@
   justify-content: center;
 }
 
+.resultDescription {
+  color: rgba(var(--mainwhite), 0.8);
+}
+
 /* input {
   margin-bottom: 40px;
 } */

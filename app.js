@@ -219,13 +219,13 @@ const express = require('express'),
     app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
       const {search} = req.query;
      if (search) {
-      const data = await Content.find({$text: {$search: search}});
+      const data = await Content.find({$text: {$search: search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
+        res.render('user/adminDashboard', {data, isAllUsers: false, level:'dummy', subject:'english', activeMenuItem: 'dashboard'});
       }else{
-
+        res.render('user/dashboard', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard'});
       }
-    
      }else{
       const data = await Content.find({});
       const {username, email} = req.user;
