@@ -42,16 +42,27 @@ openDeleteModalButtons.forEach(button => {
     });
 });
 
-deleteVideoModal.addEventListener('click', (e) => {
-    e.stopPropagation();
-});
 
-deleteModal.addEventListener('click', (e) => {
-    deleteModal.classList.remove('show');
-});
-closeDeleteModalButton.addEventListener('click', (e) => {
-    deleteModal.classList.remove('show');
-});
+if (deleteVideoModal) {
+    deleteVideoModal.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+}
+
+if (deleteModal) {
+    deleteModal.addEventListener('click', (e) => {
+        deleteModal.classList.remove('show');
+    });
+}
+
+if (closeDeleteModalButton) {
+    closeDeleteModalButton.addEventListener('click', (e) => {
+        deleteModal.classList.remove('show');
+    });
+}
+
+
+
 
 
 

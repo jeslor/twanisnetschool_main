@@ -446,10 +446,17 @@
         <div class="extraMenu">
           <ul>
             <li>
+              <% if(activeMenuItem && activeMenuItem ==='dashboard') {%>
+              <a class="activesideMenu" href="/dashboard/<%=currUser.username%>"
+                ><span class="material-symbols-outlined"> team_dashboard </span
+                >Dashboard</a
+              >
+              <%} else{%>
               <a href="/dashboard/<%=currUser.username%>"
                 ><span class="material-symbols-outlined"> team_dashboard </span
                 >Dashboard</a
               >
+              <% } %>
             </li>
 
             <li>
@@ -469,6 +476,7 @@
             <input
               class="input-elevated"
               type="text"
+              name="search"
               placeholder="Search for a topic"
             />
             <input type="submit" hidden />

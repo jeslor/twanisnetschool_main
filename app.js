@@ -217,6 +217,16 @@ const express = require('express'),
      }))
 
     app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
+      const {search} = req.query;
+     if (search) {
+      const data = await Content.find({$text: {$search: search}});
+      const {username, email} = req.user;
+      if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
+      }else{
+
+      }
+    
+     }else{
       const data = await Content.find({});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
@@ -224,8 +234,10 @@ const express = require('express'),
       }else{
         res.render('user/dashboard', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard'});
       }
-
+     }
+     
     }));
+
 
     app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
       const users = await User.find({});
