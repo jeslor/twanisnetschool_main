@@ -302,7 +302,9 @@
 }
 
 .dashboard .actionButtons .main_button,
-.dashboard .actionButtons .secondary_button {
+.dashboard .actionButtons .secondary_button,
+.dashboardUserElement .main_button,
+.dashboardUserElement .secondary_button {
   padding: 0.3rem 1rem;
   cursor: pointer;
 }
@@ -412,4 +414,38 @@
 
 .noVideosFound span {
   font-size: 2.5rem;
+}
+
+.dashboardUserElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(var(--mainColor), 0.2);
+  border-radius: var(--normalBorderRadius);
+  color: rgb(var(--mainColor));
+  transition: var(--themeTransition);
+  margin: 0.5rem;
+}
+
+.dashboardUserElement:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.dashboardUserElement .userIcon span {
+  font-size: 4rem;
+  color: rgba(var(--mainColor), 0.7);
+  padding-bottom: 2rem;
+}
+
+.dashboardUserElement h5 {
+  padding-bottom: 0rem;
+  margin-bottom: 0rem;
+}
+
+.dashboardUserElement h6 {
+  font-size: 0.9rem;
+  padding-bottom: 1rem;
+  font-weight: 200;
 }

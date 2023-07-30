@@ -41,14 +41,21 @@
             </li>
 
             <li>
+              <% if(activeMenuItem && activeMenuItem ==='adddata') {%>
+              <a class="activesideMenu" href="/dashboard/<%=currUser.username%>"
+                ><span class="material-symbols-outlined"> team_dashboard </span
+                >Dashboard</a
+              >
+              <%} else{%>
               <a href="/dashboard/<%=currUser.username%>"
                 ><span class="material-symbols-outlined"> team_dashboard </span
                 >Dashboard</a
               >
+              <% } %>
             </li>
 
             <li>
-              <a href="/platformadmin/adddata">
+              <a class="<%=active%>" href="/platformadmin/adddata">
                 <span class="material-symbols-outlined"> video_call </span>
                 Add a video</a
               >
@@ -461,11 +468,35 @@
       </div>
       <div class="dashboardBody">
         <div class="row">
-          <% if (isAllUsers) {%>
-          <h1>All users</h1>
-
-          <%} else {%> <% if (data.length) {%> <%for(const videoLesson of
+          <% if (isAllUsers) {%> <%if(data.length){%> <%for(const user of
           data){%>
+          <div class="col-xl-4 col-sm-6">
+            <div class="dashboardUserElement">
+              <div class="userIcon">
+                <span class="material-symbols-outlined">
+                  contact_emergency
+                </span>
+              </div>
+              <h5><%=user.username%></h5>
+              <h6><%=user.email%></h6>
+              <div class="userButtons">
+                <a
+                  class="btn main_button"
+                  href="/platformadmin/edituser/<%=user._id%>"
+                  >Activate</a
+                >
+                <a
+                  class="btn secondary_button openDeleteModal"
+                  deleteUrl="/platformadmin/deleteuser/<%=user._id%>?_method=DELETE"
+                  videoName="<%=user.username%>"
+                  >Delete</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <% } %> <% } %> <%} else {%> <% if (data.length) {%> <%for(const
+          videoLesson of data){%>
           <div class="col-md-6">
             <div class="dashboardBodyElement">
               <div class="row">

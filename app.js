@@ -81,7 +81,7 @@ const express = require('express'),
 
   app.listen(3000, () => console.log(`Server is running on port ${port}!`));
 
-  
+
       app.get('/', asyncWrapper(async(req, res) => {
         const sampleVideos = await Content.find({cost:'free'}).limit(4);
           res.render('home', {sampleVideos});
@@ -233,7 +233,7 @@ const express = require('express'),
      }));
 
     app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {
-      res.render('content/adddata');
+      res.render('content/adddata', {activeMenuItem: 'adddata'});
     });
 
     app.post('/platformadmin/adddata',isLoggedIn, isAdministrator, uploadVideo.single('uploadedvideo'),
@@ -323,4 +323,8 @@ const express = require('express'),
       const { status = 500, message = 'Something went wrong' } = err
       res.status(status).send(message)
     })
+
+
+
+
     
