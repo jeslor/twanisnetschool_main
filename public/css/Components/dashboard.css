@@ -268,7 +268,7 @@
 .dashboardBodyElement {
   margin: 1rem;
   padding: 0.8rem;
-  background-color: rgba(var(--mainColor), 0.1);
+  background-color: rgba(var(--mainColor), 0.2);
   border-radius: var(--normalBorderRadius);
   color: rgb(var(--mainColor));
   transition: var(--themeTransition);
@@ -292,7 +292,7 @@
 
 .ElementDetails p {
   font-size: 0.9rem;
-  color: rgba(var(--mainColor), 0.7);
+  color: rgba(var(--secondaryColor), 0.9);
 }
 
 .actionButtons {
