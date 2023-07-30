@@ -34,14 +34,21 @@
         <div class="extraMenu">
           <ul>
             <li>
+              <% if(activeMenuItem && activeMenuItem ==='allUsers') {%>
+              <a class="activesideMenu" href="/platformadmin/allusers">
+                <span class="material-symbols-outlined"> group </span>
+                All users</a
+              >
+              <%} else{%>
               <a href="/platformadmin/allusers">
                 <span class="material-symbols-outlined"> group </span>
                 All users</a
               >
+              <% } %>
             </li>
 
             <li>
-              <% if(activeMenuItem && activeMenuItem ==='adddata') {%>
+              <% if(activeMenuItem && activeMenuItem ==='dashboard') {%>
               <a class="activesideMenu" href="/dashboard/<%=currUser.username%>"
                 ><span class="material-symbols-outlined"> team_dashboard </span
                 >Dashboard</a
@@ -55,10 +62,17 @@
             </li>
 
             <li>
-              <a class="<%=active%>" href="/platformadmin/adddata">
+              <% if(activeMenuItem && activeMenuItem ==='adddata') {%>
+              <a class="activesideMenu" href="/platformadmin/adddata">
                 <span class="material-symbols-outlined"> video_call </span>
                 Add a video</a
               >
+              <% }else{%>
+              <a class="" href="/platformadmin/adddata">
+                <span class="material-symbols-outlined"> video_call </span>
+                Add a video</a
+              >
+              <%} %>
             </li>
           </ul>
         </div>

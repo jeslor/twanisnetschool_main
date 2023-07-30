@@ -220,16 +220,16 @@ const express = require('express'),
       const data = await Content.find({});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'senior one', subject:'english'});
+        res.render('user/adminDashboard', {data, isAllUsers: false, level:'senior one', subject:'english', activeMenuItem: 'dashboard'});
       }else{
-        res.render('user/dashboard', {data, level:'dummy', subject:'english'});
+        res.render('user/dashboard', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard'});
       }
 
     }));
 
     app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
       const users = await User.find({});
-      res.render('user/adminDashboard', {data: users, isAllUsers: true});
+      res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers'});
      }));
 
     app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {
@@ -308,15 +308,28 @@ const express = require('express'),
       const {subject, level} = req.params;
       const data = await Content.find({subject: subject, level: level});
       if(req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false, subject, level});
+        res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: ''});
       }else{
-        res.render('user/dashboard', {data, subject, level});
+        res.render('user/dashboard', {data, subject, level, activeMenuItem: ''});
       }
 
     }));
 
     app.all('*', (req, res, next) => {
-      next(new AppError('The page was not found', 404))
+      next(new AppError('The page was not found', 404));
+      if (req.accepts('html')) {
+        res.render('404', { url: req.url });
+        return;
+      }
+    
+      // respond with json
+      if (req.accepts('json')) {
+        res.json({ error: 'Not found' });
+        return;
+      }
+    
+      // default to plain-text. send()
+      res.type('txt').send('Not found');
     })
     
     app.use((err, req, res, next) => {
