@@ -316,7 +316,7 @@ const express = require('express'),
     }));
 
     app.all('*', (req, res, next) => {
-      next(new AppError('The page was not found', 404));
+      // next(new AppError('The page was not found', 404));
       if (req.accepts('html')) {
         res.render('404', { url: req.url });
         return;
