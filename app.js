@@ -167,12 +167,13 @@ const express = require('express'),
       res.render('about');
     });
 
-
-    app.post('/SearchInput', asyncWrapper(async(req, res) => {
+    app.post('/searchInput', asyncWrapper(async(req, res) => {
       const {searchSuggestion} = req.body;
-      const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-      res.json(data);
-    }))
+      const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
+      const suggestions = data.map(video => video.title);
+      res.send(suggestions);
+    }));
+
 
     app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
       const videoFileDocuent = await Content.findById(req.params.fileId);
@@ -248,7 +249,7 @@ const express = require('express'),
 
     app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
       const users = await User.find({});
-      res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers'});
+      res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:''});
      }));
 
     app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {

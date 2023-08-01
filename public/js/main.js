@@ -64,6 +64,7 @@ if (closeDeleteModalButton) {
 
 
 const SearchInput = document.getElementById('searchInput');
+const searchSuggestions = document.querySelector('.search_suggestions')
 
 
 if (SearchInput) {
@@ -75,17 +76,18 @@ if (SearchInput) {
         searchSuggestions.innerHTML = ''
       }
       if (e.target.value !== '' && match[0] === e.target.value) {
-        const data = await fetch('mainSearch', {
+        const data = await fetch('/searchInput', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ searchSuggestion: e.target.value }),
         })
+ 
         const suggestions = await data.json()
         searchSuggestions.innerHTML = ''
         if (suggestions.length) {
           suggestions.forEach((element) => {
             searchSuggestions.style.display = 'block'
-            searchSuggestions.innerHTML += `<button type="submit" form="main_search_homeform" class="search_select_li">${element} </button>`
+            searchSuggestions.innerHTML += `<button onClick="openSugestion()" type="submit" form="main_search_homeform" class="search_select_li">${element} </button>`
             return
           })
         } else {
@@ -93,6 +95,16 @@ if (SearchInput) {
         }
       }
     })
+  }
+
+  const eachSuggestions  = document.querySelectorAll('.eachSuggestion');
+  if (eachSuggestions.length) {
+    console.log(eachSuggestions);
+  }
+
+
+  const openSugestion = (e) => {
+    alert('hello');
   }
 
 

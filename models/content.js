@@ -40,5 +40,6 @@ const contentSchema = new Schema({
 });
 
 contentSchema.index({title: 'text', subject: 'text', topic: 'text', level: 'text'});
+contentSchema.index({subject: 1, topic: 1, level: 1});
 
 module.exports = mongoose.model('Content', contentSchema);
