@@ -63,6 +63,40 @@ if (closeDeleteModalButton) {
 
 
 
+const SearchInput = document.getElementById('searchInput');
+
+
+if (SearchInput) {
+    SearchInput.addEventListener('keyup', async (e) => {
+      let match = e.target.value.match(/^[a-zA-Z ]*/)
+      let match2 = e.target.value.match(/\s*/)
+      if (match2[0] === e.target.value) {
+        searchSuggestions.style.display = 'none'
+        searchSuggestions.innerHTML = ''
+      }
+      if (e.target.value !== '' && match[0] === e.target.value) {
+        const data = await fetch('mainSearch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ searchSuggestion: e.target.value }),
+        })
+        const suggestions = await data.json()
+        searchSuggestions.innerHTML = ''
+        if (suggestions.length) {
+          suggestions.forEach((element) => {
+            searchSuggestions.style.display = 'block'
+            searchSuggestions.innerHTML += `<button type="submit" form="main_search_homeform" class="search_select_li">${element} </button>`
+            return
+          })
+        } else {
+          searchSuggestions.style.display = 'none'
+        }
+      }
+    })
+  }
+
+
+
 
 
 

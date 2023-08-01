@@ -167,6 +167,13 @@ const express = require('express'),
       res.render('about');
     });
 
+
+    app.post('/SearchInput', asyncWrapper(async(req, res) => {
+      const {searchSuggestion} = req.body;
+      const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
+      res.json(data);
+    }))
+
     app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
       const videoFileDocuent = await Content.findById(req.params.fileId);
         // const range = req.headers.range
@@ -321,8 +328,9 @@ const express = require('express'),
       const {subject, level} = req.params;
       if (search) {
         const data = await Content.find({$text: {$search: search}, subject: subject, level: level}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
+        console.log(data);
         const {username, email} = req.user;
-        if (req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com') {
+        if (username==='0775527077' && email ==='twaninetschool@gmail.com') {
           res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
         }else{
           res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
