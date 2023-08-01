@@ -219,16 +219,123 @@
   padding: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
+
+/* Suggestions solution1 */
+/* ***************************************************** */
+/* .autocomplete {
+  position: relative;
+  display: inline-block;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type="text"] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type="submit"] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+} */
+
+/* ***************************************************** */
+
+/* autoComplete solution 2 */
+/* ***************************************************** */
+
+.searchbar form {
+  max-width: 600px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.searchbar #the-basics,
+.searchbar .twitter-typeahead,
+.searchbar .tt-hint,
+.searchbar .tt-input {
+  width: 100%;
+}
+
+.searchbar .tt-input,
+.searchbar .tt-hint {
+  height: 36px;
+  padding: 8px 12px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px 8px 2px 2px;
+  outline: none;
+}
+
+.searchbar button {
+  background-color: rgba(var(--secondaryColor), 0.8);
+  color: rgba(var(--mainwhite), 0.9);
+  border: none;
+  margin-left: -4px;
+  padding-left: 0.8rem;
+  transition: var(--themeTransition);
+}
+.searchbar button:hover {
+  background-color: rgba(var(--secondaryColor), 1);
+  color: rgba(var(--mainwhite), 1);
+}
+
+.searchbar .tt-menu {
+  background-color: rgba(var(--mainwhite), 1);
+  padding: 1rem;
+  padding-left: 0rem;
+  width: 100%;
+  border: 1px solid rgba(var(--mainColor), 0.2);
+  border-top: none;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.searchbar .tt-suggestion {
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 0px 10px 10px 0px;
+  transition: var(--themeTransition);
+  cursor: pointer;
+}
+
+.searchbar .tt-suggestion.tt-cursor {
+  background-color: rgba(var(--mainColor), 0.4);
+}
+/* ***************************************************** */
 
 .resultDescription {
   color: rgba(var(--mainwhite), 0.8);
 }
-
-/* input {
-  margin-bottom: 40px;
-} */
 
 .input-elevated {
   font-size: 16px;

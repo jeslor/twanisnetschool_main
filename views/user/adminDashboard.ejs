@@ -506,18 +506,28 @@
     <div class="dashboardContent">
       <div class="dashboardMenu">
         <div class="searchbar">
-          <form action="">
+          <form action="" autocomplete="off" method="get">
+            <!-- solution1 -->
+            <!-- <div class="autocomplete" style="width: 300px">
             <input
               id="searchInput"
               class="input-elevated"
-              type="text"
+              type="search"
               name="search"
               placeholder="Search for a topic"
             />
-            <!-- <ul class="search_suggestions">
-              <hr />
-            </ul> -->
-            <input type="submit" hidden />
+            </div> -->
+
+            <div id="the-basics">
+              <input
+                class="typeahead"
+                type="text"
+                placeholder="search for a video"
+                name="search"
+              />
+            </div>
+
+            <button type="submit">search</button>
           </form>
         </div>
         <div class="container resultDescription">

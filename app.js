@@ -1,4 +1,4 @@
-const { log } = require('console');
+
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
@@ -170,9 +170,21 @@ const express = require('express'),
     app.post('/searchInput', asyncWrapper(async(req, res) => {
       const {searchSuggestion} = req.body;
       const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
-      const suggestions = data.map(video => video.title);
+      const suggestions =[];
+       data.map(video => {
+suggestions.push(video.title);
+suggestions.push(video.subject);
+suggestions.push(video.topic);
+suggestions.push(video.level);
+      });
       res.send(suggestions);
     }));
+
+    // app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
+    //   console.log(req.query);
+    //   console.log(req.params);
+    //   console.log(req.body);
+    // }))
 
 
     app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
