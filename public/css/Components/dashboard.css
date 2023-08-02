@@ -276,6 +276,7 @@ input[type="submit"] {
   margin-left: auto;
   margin-right: auto;
   display: flex;
+  padding-bottom: 1rem;
 }
 
 .searchbar #the-basics,

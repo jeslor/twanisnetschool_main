@@ -63,7 +63,7 @@ if (closeDeleteModalButton) {
 
 
 
-const SearchInput = document.getElementById('searchInput');
+const InPutParent = document.getElementById('the-basics');
 const searchSuggestions = document.querySelector('.search_suggestions')
 
 // Solution 1
@@ -149,8 +149,25 @@ const searchSuggestions = document.querySelector('.search_suggestions')
 // Solution 2
 // ===============================
 
+
+let suggestions = []
 var substringMatcher = function(strs) {
+
     return function findMatches(q, cb) {
+       let searchInput  =  InPutParent.getElementsByClassName('tt-input');
+       searchInput[0].addEventListener('input', async (e) => {
+                if (e.target.value !== '') {
+                    const data = await fetch('/searchInput', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ searchSuggestion: e.target.value }),
+                    })
+            
+                    const  moreSuggestions = await data.json()
+                        suggestions = [...suggestions, ...moreSuggestions]
+                }
+            })
+         
       var matches, substringRegex;
   
       // an array that will be populated with substring matches
@@ -171,6 +188,7 @@ var substringMatcher = function(strs) {
     };
   };
   
+  
   var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
     'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
     'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
@@ -189,7 +207,7 @@ var substringMatcher = function(strs) {
   },
   {
     name: 'states',
-    source: substringMatcher(states)
+    source: substringMatcher(suggestions)
   });
 
 
