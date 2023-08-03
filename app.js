@@ -248,17 +248,17 @@ suggestions.push(video.level);
       const data = await Content.find({$text: {$search: search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`});
+        res.render('user/adminDashboardV2', {data, isAllUsers: false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`});
       }else{
-        res.render('user/dashboard', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`});
+        res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`});
       }
      }else{
       const data = await Content.find({});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:''});
+        res.render('user/adminDashboardV2', {data, isAllUsers: false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:''});
       }else{
-        res.render('user/dashboard', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:''});
+        res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:''});
       }
      }
      
