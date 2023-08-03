@@ -245,7 +245,6 @@
     rgba(6, 81, 125, 1) 100%
   );
   background-size: 200% 200%;
-  width: 120%;
   animation: animateBg 15s infinite;
 }
 
