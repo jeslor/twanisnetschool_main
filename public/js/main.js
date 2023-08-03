@@ -211,6 +211,14 @@ var substringMatcher = function(strs) {
   });
 
 
+  const userEmail = document.getElementById('userEmail');
+  if (userEmail) {
+    userEmail.addEventListener('input', (e) => {
+        alert('hello')
+    })
+  }
+
+
 
 
 

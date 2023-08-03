@@ -138,10 +138,9 @@ const express = require('express'),
     });
 
     app.post('/register', asyncWrapper(async(req, res) => {
-      console.log(req.body);
       try {
-        const {username, email, password} = req.body;
-        const registerUser = new User({username, email});
+        const {username, email, password,studentLevel,firstName,lastName, schoolName} = req.body;
+        const registerUser = new User({username, email,studentLevel,firstName,lastName, schoolName });
         const registeredUser = await User.register(registerUser, password);
         req.login(registeredUser, err => {
           if (err) return next(err);
@@ -149,6 +148,7 @@ const express = require('express'),
           res.redirect(`/dashboard/${registeredUser.username}`);
         });
       } catch (error) {
+        console.log(error);
         let {message} = error;
         if(message.includes('given username is already registered')){
         message = 'This phone number is already registered';

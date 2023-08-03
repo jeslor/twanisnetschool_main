@@ -248,6 +248,10 @@
   animation: animateBg 15s infinite;
 }
 
+.loginContainer.onlyLogin {
+  max-width: 450px;
+}
+
 @keyframes animateBg {
   0% {
     background-position: 0% 50%;
