@@ -4,6 +4,7 @@
     <div class="loginContainer">
       <h4>Sign up for an account</h4>
       <form
+        id="registerForm"
         action="/register"
         method="post"
         class="needs-validation"
@@ -52,7 +53,14 @@
           <small class="text-danger"><%=message%>, try a different one</small>
           <%} %>
         </div>
-        <div class="mb-4">
+        <div class="mb-4 emailGuidePositionControl">
+          <div class="emailGuide">
+            <p>Do you have an Email Adress?</p>
+            <div class="guideActions">
+              <a id="closeEmailGuide" class="btn secondary_button"> Yes </a>
+              <a href="" class="btn main_button">No</a>
+            </div>
+          </div>
           <label for="userEmail" class="form-label">Email</label>
           <input
             type="email"

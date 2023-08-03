@@ -211,12 +211,34 @@ var substringMatcher = function(strs) {
   });
 
 
+
   const userEmail = document.getElementById('userEmail');
+  const emailGuide = document.querySelector('.emailGuide');
+  const closeEmailGuide = document.getElementById('closeEmailGuide');
+  const registerForm = document.getElementById('registerForm');
   if (userEmail) {
-    userEmail.addEventListener('input', (e) => {
-        alert('hello')
+    userEmail.addEventListener('click', (e) => {
+        e.stopPropagation();
+        emailGuide.classList.add('show');
     })
   }
+
+  if(closeEmailGuide){
+    closeEmailGuide.addEventListener('click', (e) => {
+        emailGuide.classList.remove('show');
+    })
+  }
+
+  if(registerForm){
+    registerForm.addEventListener('click', (e) => {
+        emailGuide.classList.remove('show');
+    })
+  }
+
+
+
+
+
 
 
 
