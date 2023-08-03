@@ -4,6 +4,31 @@
     <div class="loginContainer">
       <h4>Sign up for an account</h4>
       <form action="/register" method="post">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="mb-4">
+              <label for="firstName" class="form-label">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                class="form-control removeArrow"
+                id="firstName"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="mb-4">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                class="form-control removeArrow"
+                id="lastName"
+              />
+            </div>
+          </div>
+        </div>
+
         <div class="mb-4">
           <label for="userAccount" class="form-label">Mobile number</label>
           <input
@@ -11,7 +36,7 @@
             name="username"
             class="form-control removeArrow"
             id="userAccount"
-            placeholder="Enter your mobile number"
+            placeholder="E.g 07051234567"
           />
         </div>
         <div class="mb-4">
@@ -28,6 +53,33 @@
             Your email is important when you forget your password.
           </div>
         </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="mb-4">
+              <label for="schoolName" class="form-label"
+                >Name of your school</label
+              >
+              <input
+                type="number"
+                name="schoolName"
+                class="form-control removeArrow"
+                id="schoolName"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="mb-4">
+              <label for="studentLevel" class="form-label">Your class</label>
+              <input
+                type="text"
+                name="studentLevel"
+                class="form-control removeArrow"
+                id="studentLevel"
+              />
+            </div>
+          </div>
+        </div>
+
         <div class="mb-4">
           <label for="userPassword" class="form-label">Password</label>
           <input
