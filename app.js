@@ -134,7 +134,7 @@ const express = require('express'),
     app.get('/register', (req, res) => {
       if(req.isAuthenticated()){ 
         return res.redirect(`/dashboard/${req.user.username}`)};
-      res.render('user/register');
+      res.render('user/register', {message:''});
     });
 
     app.post('/register', asyncWrapper(async(req, res) => {
@@ -149,7 +149,13 @@ const express = require('express'),
           res.redirect(`/dashboard/${registeredUser.username}`);
         });
       } catch (error) {
-        res.redirect('/register');
+        let {message} = error;
+        if(message.includes('given username is already registered')){
+        message = 'This phone number is already registered';
+        }else{
+          message = 'invalid details';
+        }
+        res.render('user/register',{message});
       }
     })); 
 

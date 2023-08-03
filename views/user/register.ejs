@@ -3,7 +3,12 @@
   <div class="container">
     <div class="loginContainer">
       <h4>Sign up for an account</h4>
-      <form action="/register" method="post">
+      <form
+        action="/register"
+        method="post"
+        class="needs-validation"
+        novalidate
+      >
         <div class="row">
           <div class="col-lg-6">
             <div class="mb-4">
@@ -13,6 +18,7 @@
                 name="firstName"
                 class="form-control removeArrow"
                 id="firstName"
+                required
               />
             </div>
           </div>
@@ -24,6 +30,7 @@
                 name="lastName"
                 class="form-control removeArrow"
                 id="lastName"
+                required
               />
             </div>
           </div>
@@ -37,7 +44,13 @@
             class="form-control removeArrow"
             id="userAccount"
             placeholder="E.g 07051234567"
+            maxlength="10"
+            required
           />
+
+          <% if(message !== ''){%>
+          <small class="text-danger"><%=message%>, try a different one</small>
+          <%} %>
         </div>
         <div class="mb-4">
           <label for="userEmail" class="form-label">Email</label>
@@ -48,6 +61,7 @@
             id="userEmail"
             aria-describedby="numberHelp"
             placeholder="Enter your email address"
+            required
           />
           <div style="font-size: 12px" id="numberHelp" class="form-text">
             Your email is important when you forget your password.
@@ -60,10 +74,11 @@
                 >Name of your school</label
               >
               <input
-                type="number"
+                type="text"
                 name="schoolName"
                 class="form-control removeArrow"
                 id="schoolName"
+                required
               />
             </div>
           </div>
@@ -75,6 +90,7 @@
                 name="studentLevel"
                 class="form-control removeArrow"
                 id="studentLevel"
+                required
               />
             </div>
           </div>
@@ -88,6 +104,7 @@
             name="password"
             id="userPassword"
             placeholder="use a password you can remember"
+            required
           />
         </div>
 
