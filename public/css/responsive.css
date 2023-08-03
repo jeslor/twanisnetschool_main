@@ -28,6 +28,7 @@ body {
 
 a {
   text-decoration: none;
+  color: rgb(var(--mainColor));
 }
 
 .main_button,

@@ -1,0 +1,133 @@
+.dashboardheader {
+  background-color: rgb(var(--mainColor));
+  padding: 2rem 1rem;
+  color: rgb(var(--mainwhite));
+}
+.dashboardheader .userProfile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dashboardheader .userProfile img {
+  border-radius: 50%;
+}
+.dashboardheader .userProfile h5 {
+  padding-top: 0.5rem;
+}
+.dashboardheader .userProfile h6 {
+  font-size: 0.9rem;
+  color: rgba(var(--mainwhite), 0.6);
+}
+
+.dashboardheader .searchbar {
+  display: flex;
+  width: 100%;
+}
+.dashboardheader .searchbar .form-group {
+  flex-grow: 2;
+  margin-bottom: 0rem;
+}
+
+.dashboardheader .searchbar .secondary_button {
+  padding: 0.5rem 2rem;
+  margin-left: -1rem;
+}
+
+.eachSubject {
+  display: inline-block;
+  position: relative;
+  width: 300px;
+  min-width: 300px;
+  height: 300px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.3);
+  margin: 30px;
+  transition: var(--themeTransition);
+  position: relative;
+}
+
+.eachSubject:hover {
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
+}
+
+.eachSubject .topIcons {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.eachSubject .SubjectName {
+  height: 100%;
+  width: 100%;
+  color: rgb(var(--mainwhite));
+  padding-top: 30px;
+  text-align: center;
+  position: absolute;
+  top: 65%;
+  left: 0.2rem;
+  transform: rotate(-7deg);
+  border-radius: inherit;
+  transition: var(--themeTransition);
+}
+
+.eachSubject .SubjectName.chemistry {
+  background-color: #272c46;
+}
+.eachSubject .SubjectName.physics {
+  background-color: #985b1e;
+}
+.eachSubject .SubjectName.biology {
+  background-color: #8f86e9;
+}
+.eachSubject .SubjectName.mathematics {
+  background-color: #884044;
+}
+.eachSubject .SubjectName.english {
+  background-color: #61a398;
+}
+.eachSubject .SubjectName.history {
+  background-color: #363fe6;
+}
+.eachSubject:hover .SubjectName {
+  transform: rotate(0deg);
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+}
+
+.eachSubject .SubjectName h3,
+.eachSubject .SubjectName .bottomIcons {
+  transform: rotate(7deg);
+  transition: var(--themeTransition);
+}
+.eachSubject:hover .SubjectName h3,
+.eachSubject .SubjectName .bottomIcons {
+  transform: rotate(0deg);
+}
+
+.eachSubject .openSubject {
+  padding-top: 30%;
+}
+.eachSubject:hover .openSubject {
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+.eachSubject .bottomIcons {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.eachSubject .bottomicon {
+  height: 20%;
+  width: 20%;
+  padding: 0.3rem;
+}
+
+.eachSubject .bottomicon img {
+  height: 100%;
+  width: 100%;
+  opacity: 0.7;
+}
