@@ -221,11 +221,12 @@
 }
 
 .loginPage {
-  height: calc(100vh - 95px);
+  min-height: calc(100vh - 95px);
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
 }
 
 .loginContainer {
