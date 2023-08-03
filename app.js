@@ -1,3 +1,4 @@
+const { log } = require('console');
 
 
 if (process.env.NODE_ENV !== 'production') {
@@ -264,7 +265,6 @@ suggestions.push(video.level);
      
     }));
 
-
     app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
       const users = await User.find({});
       res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:''});
@@ -335,12 +335,11 @@ suggestions.push(video.level);
       res.redirect(`/dashboard/${req.user.username}`);
         
    }));
+app.get('/dashboard/:user/:subject', isLoggedIn, asyncWrapper(async(req, res) => {
+  const{subject} = req.params;
+  res.render('user/dashboardV2Class', {subject,});
+}));
 
-    
-    app.get('/fovarites/:userId/:videoId', isLoggedIn, asyncWrapper(async(req, res) => {
-      const {userID, videoId} = req.params;
-      console.log(userID, videoId);
-    }));
 
     app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
       const {search} = req.query;
