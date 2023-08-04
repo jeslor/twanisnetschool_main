@@ -15,6 +15,83 @@
           class="needs-validation"
         >
           <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="subject">Choose subject</label>
+                <select
+                  name="subject"
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="subject"
+                >
+                  <option value="chemistry" selected>chemistry</option>
+                  <option value="physics">physics</option>
+                  <option value="biology">biology</option>
+                  <option value="english">english</option>
+                  <option value="history">history</option>
+                  <option value="mathematics">mathematics</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="level">Choose level</label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="level"
+                  name="level"
+                >
+                  <option value="senior one" selected>senior one</option>
+                  <option value="senior two">senior two</option>
+                  <option value="senior three">senior three</option>
+                  <option value="senior four">senior four</option>
+                  <option value="senior five">senior five</option>
+                  <option value="senior six">senior six</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="term">Choose a school Term</label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="term"
+                  name="term"
+                >
+                  <option value="term1" selected>Term one</option>
+                  <option value="term2">Term two</option>
+                  <option value="term3">Term three</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label id="name-label" for="topic">Name of the topic</label>
+                <input
+                  type="text"
+                  name="topic"
+                  id="topic"
+                  placeholder="eg 'Light'"
+                  class="form-control"
+                  aria-describedby="name-suggestion"
+                  minlength="3"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col">
               <div class="form-group">
                 <label id="name-label" for="name">Lesson title</label>
@@ -39,6 +116,22 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="lessonNumber">Lesson number</label>
+                <input
+                  type="number"
+                  name="lessonNumber"
+                  id="lessonNumber"
+                  class="form-control"
+                  aria-describedby="name-suggestion"
+                  minlength="1"
+                  required
+                />
+              </div>
+            </div>
+          </div>
 
           <div class="row">
             <div class="col-md-6">
@@ -46,66 +139,6 @@
                 <div class="btn float-left form_file_select">
                   <input name="uploadedvideo" type="file" />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label id="email-label" for="subject">Choose subject</label>
-                <select
-                  name="subject"
-                  class="form-select"
-                  aria-label="Default select example"
-                  id="subject"
-                >
-                  <option value="chemistry" selected>chemistry</option>
-                  <option value="physics">physics</option>
-                  <option value="biology">biology</option>
-                  <option value="english">english</option>
-                  <option value="history">history</option>
-                  <option value="mathematics">mathematics</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label id="email-label" for="level">Choose level</label>
-                <select
-                  class="form-select"
-                  aria-label="Default select example"
-                  id="level"
-                  name="level"
-                >
-                  <option value="senior one" selected>senior one</option>
-                  <option value="senior two">senior two</option>
-                  <option value="senior three">senior three</option>
-                  <option value="senior four">senior four</option>
-                  <option value="senior five">senior five</option>
-                  <option value="senior six">senior six</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label id="name-label" for="topic">Name of the topic</label>
-                <input
-                  type="text"
-                  name="topic"
-                  id="topic"
-                  placeholder="eg 'Light'"
-                  class="form-control"
-                  aria-describedby="name-suggestion"
-                  minlength="3"
-                  required
-                />
               </div>
             </div>
           </div>
