@@ -156,13 +156,13 @@
 
 .eachClass .classDescription {
   position: absolute;
-  height: 100%;
+  height: max-content;
   width: 100%;
   background-color: rgb(var(--mainwhite));
   left: 0;
-  top: 70%;
+  bottom: 0;
   border-radius: inherit;
-  padding-top: 15px;
+  padding: 1rem 2rem;
 }
 
 .eachClass .classDescription p {

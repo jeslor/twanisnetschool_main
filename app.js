@@ -179,10 +179,10 @@ const express = require('express'),
       const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
       const suggestions =[];
        data.map(video => {
-suggestions.push(video.title);
-suggestions.push(video.subject);
-suggestions.push(video.topic);
-suggestions.push(video.level);
+        suggestions.push(video.title);
+        suggestions.push(video.subject);
+        suggestions.push(video.topic);
+        suggestions.push(video.level);
       });
       res.send(suggestions);
     }));
@@ -342,33 +342,42 @@ app.get('/dashboard/:user/:subject', isLoggedIn, asyncWrapper(async(req, res) =>
 
 app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
   const{subject, level} = req.params;
-  res.render('user/dashboardV2Class', {subjectSelected:subject});
+  res.render('user/dashboardV2Term', {subjectSelected:subject, levelSelected:level});
+}));
+app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async(req, res) => {
+  const {level, subject, term} = req.params;
+  const data = await Content.find({level, subject, term});
+  const topics =  [];
+  data.map(video => {
+    if(!topics.includes(video.topic)){
+      topics.push(video.topic);
+    }
+  })
+  res.render('user/dashboardV2Topic', {subjectSelected:subject, levelSelected:level, termSelected:term, topics});
 }));
 
 
-    app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
-      const {search} = req.query;
-      const {subject, level} = req.params;
-      if (search) {
-        const data = await Content.find({$text: {$search: search}, subject: subject, level: level}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-        console.log(data);
-        const {username, email} = req.user;
-        if (username==='0775527077' && email ==='twaninetschool@gmail.com') {
-          res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
-        }else{
-          res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
-        }    
-      }else{   
-        const data = await Content.find({subject: subject, level: level});
-        if(req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com' ){
-          res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:''});
-        }else{
-          res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:''});
-        }
-      }
-
-
-    }));
+    // app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
+    //   const {search} = req.query;
+    //   const {subject, level} = req.params;
+    //   if (search) {
+    //     const data = await Content.find({$text: {$search: search}, subject: subject, level: level}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
+    //     console.log(data);
+    //     const {username, email} = req.user;
+    //     if (username==='0775527077' && email ==='twaninetschool@gmail.com') {
+    //       res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
+    //     }else{
+    //       res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
+    //     }    
+    //   }else{   
+    //     const data = await Content.find({subject: subject, level: level});
+    //     if(req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com' ){
+    //       res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:''});
+    //     }else{
+    //       res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:''});
+    //     }
+    //   }
+    // }));
 
     app.all('*', (req, res, next) => {
       // next(new AppError('The page was not found', 404));

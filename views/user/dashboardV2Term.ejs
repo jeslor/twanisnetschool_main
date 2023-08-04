@@ -1,0 +1,120 @@
+<% (layout('layout/boilerplate')) %>
+
+<div class="dashboardheader">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="userProfile">
+          <div class="userProfileImage">
+            <% if (currUser.profilePhoto) {%>
+            <img
+              src="/profilePhotos/<%=currUser.profilePhoto%>"
+              alt="userProfile"
+            />
+            <%}else{%>
+            <img src="https://placehold.co/70" alt="userProfile" />
+            <%} %>
+          </div>
+          <div class="userProfileName">
+            <% if (currUser.firstName && currUser.lastName) {%>
+            <h5><%=currUser.firstName%> <%=currUser.lastName%></h5>
+            <%}else {%>
+            <h5>Student</h5>
+            <% } %>
+          </div>
+
+          <div class="userProfileEmail">
+            <% if (currUser.email) {%>
+            <h6><%=currUser.email%></h6>
+            <%}%>
+          </div>
+          <div class="userProfileEmail">
+            <% if (currUser.username) {%>
+            <h6><%=currUser.username%></h6>
+            <%}%>
+          </div>
+          <div class="userProfileEmail">
+            <% if (currUser.studentLevel) {%>
+            <small><%=currUser.studentLevel%></small>
+            <%}%>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="searchOption">
+          <div class="searchOptionHeader">
+            <h5>Search</h5>
+          </div>
+          <div class="searchOptionBody">
+            <form action="/search" method="GET">
+              <div class="searchbar">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="search"
+                    name="search"
+                    placeholder="Search"
+                  />
+                </div>
+                <button type="submit" class="btn secondary_button">
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center py-3">
+    <a
+      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>/term1"
+      class="eachClass <%=subjectSelected%>"
+    >
+      <div class="className">
+        <h3>Term 1</h3>
+      </div>
+      <div class="eachclassIcon">
+        <span class="material-symbols-outlined"> school </span>
+      </div>
+      <button class="btn main_button">select</button>
+      <div class="classDescription <%=subjectSelected%>">
+        <p><strong><%=subjectSelected%></strong> - <%=levelSelected%></p>
+      </div>
+    </a>
+    <a
+      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>/term2"
+      class="eachClass <%=subjectSelected%>"
+    >
+      <div class="className">
+        <h3>Term 2</h3>
+      </div>
+      <div class="eachclassIcon">
+        <span class="material-symbols-outlined"> school </span>
+      </div>
+      <button class="btn main_button">select</button>
+      <div class="classDescription <%=subjectSelected%>">
+        <p><strong><%=subjectSelected%></strong> - <%=levelSelected%></p>
+      </div>
+    </a>
+    <a
+      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>/term3"
+      class="eachClass <%=subjectSelected%>"
+    >
+      <div class="className">
+        <h3>Term 3</h3>
+      </div>
+      <div class="eachclassIcon">
+        <span class="material-symbols-outlined"> school </span>
+      </div>
+      <button class="btn main_button">select</button>
+      <div class="classDescription <%=subjectSelected%>">
+        <p><strong><%=subjectSelected%></strong> - <%=levelSelected%></p>
+      </div>
+    </a>
+  </div>
+</div>
