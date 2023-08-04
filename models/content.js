@@ -18,9 +18,19 @@ const contentSchema = new Schema({
     },
     subject:{
         type: String,
+        required: true
+    },
+    term:{
+        type: String,
+        required: true
+    },
+    lessonNumber:{
+        type: String,
+        required: true
     },
     topic:{
         type: String,
+        required: true
     },
     videoKey:{
         type: String,
