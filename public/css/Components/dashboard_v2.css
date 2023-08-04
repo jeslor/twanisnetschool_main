@@ -34,7 +34,8 @@
   margin-left: -1rem;
 }
 
-.eachSubject {
+.eachSubject,
+.eachClass {
   display: inline-block;
   position: relative;
   width: 300px;
@@ -72,22 +73,28 @@
   transition: var(--themeTransition);
 }
 
-.eachSubject .SubjectName.chemistry {
+.eachSubject .SubjectName.chemistry,
+.eachClass.chemistry {
   background-color: #272c46;
 }
-.eachSubject .SubjectName.physics {
+.eachSubject .SubjectName.physics,
+.eachClass.physics {
   background-color: #985b1e;
 }
-.eachSubject .SubjectName.biology {
+.eachSubject .SubjectName.biology,
+.eachClass.biology {
   background-color: #8f86e9;
 }
-.eachSubject .SubjectName.mathematics {
+.eachSubject .SubjectName.mathematics,
+.eachClass.mathematics {
   background-color: #884044;
 }
-.eachSubject .SubjectName.english {
+.eachSubject .SubjectName.english,
+.eachClass.english {
   background-color: #61a398;
 }
-.eachSubject .SubjectName.history {
+.eachSubject .SubjectName.history,
+.eachClass.history {
   background-color: #363fe6;
 }
 .eachSubject:hover .SubjectName {
@@ -130,4 +137,53 @@
   height: 100%;
   width: 100%;
   opacity: 0.7;
+}
+
+.eachClass {
+  color: rgba(var(--mainwhite), 0.7);
+  text-align: center;
+  padding-top: 30px;
+  position: relative;
+}
+
+.eachClass:hover {
+  color: rgb(var(--mainwhite));
+}
+
+.eachClass span {
+  font-size: 4rem;
+}
+
+.eachClass .classDescription {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(var(--mainwhite));
+  left: 0;
+  top: 70%;
+  border-radius: inherit;
+  padding-top: 15px;
+}
+
+.eachClass .classDescription p {
+  text-transform: capitalize;
+}
+
+.eachClass .classDescription.chemistry {
+  color: #272c46;
+}
+.eachClass .classDescription.physics {
+  color: #985b1e;
+}
+.eachClass .classDescription.biology {
+  color: #8f86e9;
+}
+.eachClass .classDescription.mathematics {
+  color: #884044;
+}
+.eachClass .classDescription.english {
+  color: #61a398;
+}
+.eachClass .classDescription.history {
+  color: #363fe6;
 }

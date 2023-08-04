@@ -337,7 +337,12 @@ suggestions.push(video.level);
    }));
 app.get('/dashboard/:user/:subject', isLoggedIn, asyncWrapper(async(req, res) => {
   const{subject} = req.params;
-  res.render('user/dashboardV2Class', {subject,});
+  res.render('user/dashboardV2Class', {subjectSelected:subject});
+}));
+
+app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
+  const{subject, level} = req.params;
+  res.render('user/dashboardV2Class', {subjectSelected:subject});
 }));
 
 
