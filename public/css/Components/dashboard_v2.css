@@ -178,6 +178,10 @@
   text-transform: capitalize;
   margin-bottom: 0.5rem;
 }
+.eachClass .classDescription p span {
+  font-size: 1rem;
+  font-weight: 600;
+}
 
 .eachClass .classDescription.chemistry {
   color: #272c46;
@@ -196,4 +200,61 @@
 }
 .eachClass .classDescription.history {
   color: #363fe6;
+}
+
+.lessonPath {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background-color: rgb(var(--mainwhite));
+}
+
+.lessonPath a {
+  background-color: rgb(var(--mainColor));
+  height: 100%;
+  padding: 0.8rem 0.5rem;
+  color: rgba(var(--mainwhite), 0.8);
+  display: inline-block;
+  border-radius: 0px 10px 10px 0px;
+  transition: var(--themeTransition);
+}
+
+.lessonPath a:hover {
+  color: rgba(var(--mainwhite), 1);
+}
+
+.lessonPath span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.lessons {
+  padding: 1rem;
+  list-style-type: none;
+  padding-left: 0rem;
+}
+
+.lessons li {
+  border-bottom: #ccc solid 1px;
+}
+
+.lessons li .lesson {
+  display: flex;
+  /* justify-content: space-between */
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 0.1rem;
+  cursor: pointer;
+  transition: var(--themeTransition);
+}
+
+.lessons li .lesson:hover {
+  background-color: rgba(var(--secondaryColor), 0.1);
+  color: rgb(var(--mainColor));
+}
+
+.lessons li .lesson span {
+  font-size: 2rem;
+  padding-right: 1rem;
 }

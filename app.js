@@ -363,7 +363,6 @@ app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, 
 
 app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async(req, res) => {
   const {level, subject, term} = req.params;
-  console.log(term);
   const data = await Content.find({level, subject, term});
   const topics =  [];
   data.map(video => {
@@ -375,8 +374,10 @@ app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async
 }));
 
 app.get('/dashboard/:user/:subject/:level/:term/:topic', isLoggedIn, asyncWrapper(async(req, res) => {
-const data  = await Content.find({subject: req.params.subject, level: req.params.level, term: req.params.term, topic: req.params.topic});
-  res.render('user/dashboardV2Topic', {subjectSelected:subject, levelSelected:level, termSelected:term, topics});
+  console.log('reached here');
+  const {level, subject, term, topic} = req.params;
+  const lessons  = await Content.find({subject: req.params.subject, level: level, term: term, topic: topic});
+  res.render('user/dashboardV2Lesson', {subject, level, term, topic, lessons});
 }));
 
 
