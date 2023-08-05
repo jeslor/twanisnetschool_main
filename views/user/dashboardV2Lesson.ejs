@@ -68,7 +68,7 @@
     </div>
   </div>
 </div>
-<div class="container">
+<div class="container lessonContent">
   <div class="lessonPath">
     <h6>
       <a href="/dashboard/<%=currUser.username%>">Dasboard</a>
@@ -110,12 +110,9 @@
               <h6><%=lesson.title%></h6>
             </div>
             <div class="lessonFooter">
-              <div class="lessonFooterLeft">
-                <small><%=lesson.duration%></small>
+              <div class="lessonFooterRight">
+                <small> Lesson <span><%=lesson.lessonNumber%></span> </small>
               </div>
-              <!-- <div class="lessonFooterRight">
-            <small> play</small>
-          </div> -->
             </div>
           </a>
           <%} else {%>
@@ -130,12 +127,9 @@
               <h6><%=lesson.title%></h6>
             </div>
             <div class="lessonFooter">
-              <div class="lessonFooterLeft">
-                <small><%=lesson.duration%></small>
+              <div class="lessonFooterRight">
+                <small> Lesson <span><%=lesson.lessonNumber%></span> </small>
               </div>
-              <!-- <div class="lessonFooterRight">
-            <small> play</small>
-          </div> -->
             </div>
           </a>
           <%} %>

@@ -36,8 +36,10 @@
 
 .topicContent,
 .termContent,
-.classContent {
+.classContent,
+.lessonContent {
   min-height: 70vh;
+  padding-bottom: 2rem;
 }
 .eachSubject,
 .eachClass {
@@ -247,6 +249,8 @@
   padding-bottom: 0.1rem;
   cursor: pointer;
   transition: var(--themeTransition);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .lessons li .lesson:hover {
@@ -254,7 +258,12 @@
   color: rgb(var(--mainColor));
 }
 
-.lessons li .lesson span {
+.lessons li .lesson .lessonImage span {
   font-size: 2rem;
   padding-right: 1rem;
+}
+
+.lessons .lessonFooter {
+  margin-left: auto;
+  font-weight: bold;
 }
