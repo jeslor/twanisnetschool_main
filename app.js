@@ -339,7 +339,14 @@ const express = require('express'),
    }));
 app.get('/dashboard/:user/:subject', isLoggedIn, asyncWrapper(async(req, res) => {
   const{subject} = req.params;
-  res.render('user/dashboardV2Class', {subjectSelected:subject});
+  const levels = await Content.find({subject});
+  const schoolLevels = [];
+  levels.map(level => {
+    if(!schoolLevels.includes(level.level)){
+      schoolLevels.push(level.level);
+    }
+  })
+  res.render('user/dashboardV2Class', {subjectSelected:subject, schoolLevels});
 }));
 
 app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
@@ -351,11 +358,12 @@ app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, 
       schoolTerms.push(term.term);
     }
   })
-  console.log(schoolTerms);
   res.render('user/dashboardV2Term', {subjectSelected:subject, levelSelected:level, schoolTerms});
 }));
+
 app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async(req, res) => {
   const {level, subject, term} = req.params;
+  console.log(term);
   const data = await Content.find({level, subject, term});
   const topics =  [];
   data.map(video => {
@@ -363,6 +371,11 @@ app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async
       topics.push(video.topic);
     }
   })
+  res.render('user/dashboardV2Topic', {subjectSelected:subject, levelSelected:level, termSelected:term, topics});
+}));
+
+app.get('/dashboard/:user/:subject/:level/:term/:topic', isLoggedIn, asyncWrapper(async(req, res) => {
+const data  = await Content.find({subject: req.params.subject, level: req.params.level, term: req.params.term, topic: req.params.topic});
   res.render('user/dashboardV2Topic', {subjectSelected:subject, levelSelected:level, termSelected:term, topics});
 }));
 

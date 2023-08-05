@@ -119,6 +119,10 @@
   transform: rotate(0deg);
 }
 
+.capitaliseText {
+  text-transform: capitalize;
+}
+
 .eachSubject .openSubject {
   padding-top: 30%;
 }
@@ -172,6 +176,7 @@
 
 .eachClass .classDescription p {
   text-transform: capitalize;
+  margin-bottom: 0.5rem;
 }
 
 .eachClass .classDescription.chemistry {

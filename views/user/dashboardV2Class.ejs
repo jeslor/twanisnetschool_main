@@ -71,12 +71,13 @@
 
 <div class="container classContent">
   <div class="row justify-content-center py-3">
+    <% if (schoolLevels.length) { %> <% for (const level of schoolLevels) {%>
     <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/senior one"
+      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=level%>"
       class="eachClass <%=subjectSelected%>"
     >
       <div class="className">
-        <h3>Senior one</h3>
+        <h3 class="capitaliseText"><%=level%></h3>
       </div>
       <div class="eachclassIcon">
         <span class="material-symbols-outlined"> school </span>
@@ -86,80 +87,13 @@
         <p><%=subjectSelected%></p>
       </div>
     </a>
-    <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/senior two"
-      class="eachClass <%=subjectSelected%>"
-    >
-      <div class="className">
-        <h3>Senior two</h3>
-      </div>
-      <div class="eachclassIcon">
-        <span class="material-symbols-outlined"> school </span>
-      </div>
-      <button class="btn main_button">select</button>
-      <div class="classDescription <%=subjectSelected%>">
-        <p><%=subjectSelected%></p>
-      </div>
-    </a>
-    <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/senior three"
-      class="eachClass <%=subjectSelected%>"
-    >
-      <div class="className">
-        <h3>Senior three</h3>
-      </div>
-      <div class="eachclassIcon">
-        <span class="material-symbols-outlined"> school </span>
-      </div>
-      <button class="btn main_button">select</button>
-      <div class="classDescription <%=subjectSelected%>">
-        <p><%=subjectSelected%></p>
-      </div>
-    </a>
-    <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/senior four"
-      class="eachClass <%=subjectSelected%>"
-    >
-      <div class="className">
-        <h3>Senior four</h3>
-      </div>
-      <div class="eachclassIcon">
-        <span class="material-symbols-outlined"> school </span>
-      </div>
-      <button class="btn main_button">select</button>
-      <div class="classDescription <%=subjectSelected%>">
-        <p><%=subjectSelected%></p>
-      </div>
-    </a>
-    <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/senior five"
-      class="eachClass <%=subjectSelected%>"
-    >
-      <div class="className">
-        <h3>Senior five</h3>
-      </div>
-      <div class="eachclassIcon">
-        <span class="material-symbols-outlined"> school </span>
-      </div>
-      <button class="btn main_button">select</button>
-      <div class="classDescription <%=subjectSelected%>">
-        <p><%=subjectSelected%></p>
-      </div>
-    </a>
-    <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/senior six"
-      class="eachClass <%=subjectSelected%>"
-    >
-      <div class="className">
-        <h3>Senior six</h3>
-      </div>
-      <div class="eachclassIcon">
-        <span class="material-symbols-outlined"> school </span>
-      </div>
-      <button class="btn main_button">select</button>
-      <div class="classDescription <%=subjectSelected%>">
-        <p><%=subjectSelected%></p>
-      </div>
-    </a>
+    <% } %> <%}else{%>
+
+    <div class="noVideosFound">
+      <h5>No videos found</h5>
+      <span class="material-symbols-outlined"> sentiment_dissatisfied </span>
+      <a href="/dashboard/<%=currUser.username%>">back to main Menu</a>
+    </div>
+    <%} %>
   </div>
 </div>
