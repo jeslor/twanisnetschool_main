@@ -71,42 +71,20 @@
 
 <div class="container termContent">
   <div class="row justify-content-center py-3">
+    <% if(schoolTerms.length){%> <% for(const term of schoolTerms){%>
+
     <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>/term1"
+      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>/<%=term%>"
       class="eachClass <%=subjectSelected%>"
     >
       <div class="className">
+        <%if (term === 'term1') {%>
         <h3>Term 1</h3>
-      </div>
-      <div class="eachclassIcon">
-        <span class="material-symbols-outlined"> school </span>
-      </div>
-      <button class="btn main_button">select</button>
-      <div class="classDescription <%=subjectSelected%>">
-        <p><strong><%=subjectSelected%></strong> - <%=levelSelected%></p>
-      </div>
-    </a>
-    <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>/term2"
-      class="eachClass <%=subjectSelected%>"
-    >
-      <div class="className">
+        <%} else if(term ==='term2') {%>
         <h3>Term 2</h3>
-      </div>
-      <div class="eachclassIcon">
-        <span class="material-symbols-outlined"> school </span>
-      </div>
-      <button class="btn main_button">select</button>
-      <div class="classDescription <%=subjectSelected%>">
-        <p><strong><%=subjectSelected%></strong> - <%=levelSelected%></p>
-      </div>
-    </a>
-    <a
-      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>/term3"
-      class="eachClass <%=subjectSelected%>"
-    >
-      <div class="className">
+        <% } else{%>
         <h3>Term 3</h3>
+        <%}%>
       </div>
       <div class="eachclassIcon">
         <span class="material-symbols-outlined"> school </span>
@@ -116,5 +94,7 @@
         <p><strong><%=subjectSelected%></strong> - <%=levelSelected%></p>
       </div>
     </a>
+
+    <%} %> <% } %>
   </div>
 </div>

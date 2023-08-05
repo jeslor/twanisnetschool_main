@@ -344,7 +344,15 @@ app.get('/dashboard/:user/:subject', isLoggedIn, asyncWrapper(async(req, res) =>
 
 app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
   const{subject, level} = req.params;
-  res.render('user/dashboardV2Term', {subjectSelected:subject, levelSelected:level});
+  const terms = await Content.find({subject, level});
+  const schoolTerms = [];
+  terms.map(term => {
+    if(!schoolTerms.includes(term.term)){
+      schoolTerms.push(term.term);
+    }
+  })
+  console.log(schoolTerms);
+  res.render('user/dashboardV2Term', {subjectSelected:subject, levelSelected:level, schoolTerms});
 }));
 app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async(req, res) => {
   const {level, subject, term} = req.params;
