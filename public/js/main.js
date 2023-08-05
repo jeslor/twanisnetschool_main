@@ -226,6 +226,7 @@ var substringMatcher = function(strs) {
   if(closeEmailGuide){
     closeEmailGuide.addEventListener('click', (e) => {
         emailGuide.classList.remove('show');
+        userEmail.focus();
     })
   }
 
