@@ -282,6 +282,8 @@ const express = require('express'),
        level: req.body.level,
        subject: req.body.subject,
        topic: req.body.topic,
+       lessonNumber: req.body.lessonNumber,
+       term: req.body.term,
        videoKey: req.file.key,
        videoSize: Number(req.file.size),
        viewedTimes: 0
