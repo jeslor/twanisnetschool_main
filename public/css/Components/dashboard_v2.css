@@ -34,6 +34,11 @@
   margin-left: -1rem;
 }
 
+.topicContent,
+.termContent,
+.classContent {
+  min-height: 70vh;
+}
 .eachSubject,
 .eachClass {
   display: inline-block;
