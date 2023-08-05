@@ -85,7 +85,7 @@ const express = require('express'),
 
       app.get('/', asyncWrapper(async(req, res) => {
         const sampleVideos = await Content.find({cost:'free'}).limit(4);
-          res.render('home', {sampleVideos});
+          res.render('home', {sampleVideos, page:'home'});
       }));
 
 
