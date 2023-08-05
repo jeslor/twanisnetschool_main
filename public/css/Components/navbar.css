@@ -70,6 +70,27 @@
   text-decoration: none;
   transition: var(--themeTransition);
 }
+.navbar_links a {
+  position: relative;
+}
+.navbar_links a:after {
+  top: 100%;
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 0px;
+  background-color: rgb(var(--secondaryColor));
+  border-radius: var(--normalBorderRadius);
+  transition: var(--themeTransition);
+}
+
+.navbar_links a.active {
+  color: rgb(var(--secondaryColor));
+}
+
+.navbar_links a.active:after {
+  width: 80%;
+}
 
 .navbarSearch span {
   font-size: 1.8rem;

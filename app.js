@@ -121,7 +121,7 @@ const express = require('express'),
     app.get('/login', (req, res) => {
       if(req.isAuthenticated()){ 
         return res.redirect(`/dashboard/${req.user.username}`)};
-      res.render('user/login');
+      res.render('user/login', {page:'login'});
       }
     );
 
@@ -135,7 +135,7 @@ const express = require('express'),
     app.get('/register', (req, res) => {
       if(req.isAuthenticated()){ 
         return res.redirect(`/dashboard/${req.user.username}`)};
-      res.render('user/register', {message:''});
+      res.render('user/register', {message:'', page:'register'});
     });
 
     app.post('/register', asyncWrapper(async(req, res) => {
@@ -171,7 +171,10 @@ const express = require('express'),
 
 
     app.get('/about', (req, res) => {
-      res.render('about');
+      res.render('about', {page:'about'});
+    });
+    app.get('/guide', (req, res) => {
+      res.render('guide',{page:'guide'});
     });
 
     app.post('/searchInput', asyncWrapper(async(req, res) => {
@@ -231,7 +234,7 @@ const express = require('express'),
       const data = await Content.findById(req.params.videoID);
       let similarVideos = await Content.find({topic:data.topic})
       similarVideos = similarVideos.filter(video => video.id !== req.params.videoID);
-      res.render('content/viewdata', {data, similarVideos});
+      res.render('content/viewdata', {data, similarVideos, page:'dashboard'});
      }))
 
      app.get('/dashboard/free/video/playnow/:videoID', asyncWrapper(async(req, res) => {
@@ -240,7 +243,7 @@ const express = require('express'),
        similarVideos = similarVideos.filter(video => {
         return video.id !== req.params.videoID
        });
-      res.render('content/viewdata', {data, similarVideos});
+      res.render('content/viewdata', {data, similarVideos,  page:'dashboard'});
      }))
 
     app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
@@ -249,17 +252,17 @@ const express = require('express'),
       const data = await Content.find({$text: {$search: search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`});
+        res.render('user/adminDashboard', {data, isAllUsers: false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
       }else{
-        res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`});
+        res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
       }
      }else{
       const data = await Content.find({});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:''});
+        res.render('user/adminDashboard', {data, isAllUsers: false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
       }else{
-        res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:''});
+        res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:'',  page:'dashboard'});
       }
      }
      
@@ -267,11 +270,11 @@ const express = require('express'),
 
     app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
       const users = await User.find({});
-      res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:''});
+      res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
      }));
 
     app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {
-      res.render('content/adddata', {activeMenuItem: 'adddata'});
+      res.render('content/adddata', {activeMenuItem: 'adddata',  page:'dashboard'});
     });
 
     app.post('/platformadmin/adddata',isLoggedIn, isAdministrator, uploadVideo.single('uploadedvideo'),
@@ -292,12 +295,12 @@ const express = require('express'),
 
      await newVideo.save();
      req.flash('success', 'Video added successfully');
-     res.redirect('/platformadmin/adddata');
+     res.redirect('/platformadmin/adddata', { page:'dashboard'});
    }));
 
    app.get('/platformadmin/editdata/:id',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
     const data = await Content.findById(req.params.id); 
-    res.render('content/editdata', {data})
+    res.render('content/editdata', {data,  page:'dashboard'})
    }));
 
    app.put('/platformadmin/editdata/:id',isLoggedIn, isAdministrator,
@@ -346,7 +349,7 @@ app.get('/dashboard/:user/:subject', isLoggedIn, asyncWrapper(async(req, res) =>
       schoolLevels.push(level.level);
     }
   })
-  res.render('user/dashboardV2Class', {subjectSelected:subject, schoolLevels});
+  res.render('user/dashboardV2Class', {subjectSelected:subject, schoolLevels,  page:'dashboard'});
 }));
 
 app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
@@ -358,7 +361,7 @@ app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, 
       schoolTerms.push(term.term);
     }
   })
-  res.render('user/dashboardV2Term', {subjectSelected:subject, levelSelected:level, schoolTerms});
+  res.render('user/dashboardV2Term', {subjectSelected:subject, levelSelected:level, schoolTerms,  page:'dashboard'});
 }));
 
 app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async(req, res) => {
@@ -370,14 +373,14 @@ app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async
       topics.push(video.topic);
     }
   })
-  res.render('user/dashboardV2Topic', {subjectSelected:subject, levelSelected:level, termSelected:term, topics});
+  res.render('user/dashboardV2Topic', {subjectSelected:subject, levelSelected:level, termSelected:term, topics,  page:'dashboard'});
 }));
 
 app.get('/dashboard/:user/:subject/:level/:term/:topic', isLoggedIn, asyncWrapper(async(req, res) => {
   console.log('reached here');
   const {level, subject, term, topic} = req.params;
   const lessons  = await Content.find({subject: req.params.subject, level: level, term: term, topic: topic});
-  res.render('user/dashboardV2Lesson', {subject, level, term, topic, lessons});
+  res.render('user/dashboardV2Lesson', {subject, level, term, topic, lessons,  page:'dashboard'});
 }));
 
 
