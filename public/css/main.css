@@ -171,6 +171,7 @@
   background-color: rgba(var(--mainColor), 0.5);
   border-radius: 0px 0px 5px 5px;
   margin-bottom: 1.5rem;
+  height: 100%;
 }
 
 .sample_video .sample_video__image {
@@ -219,6 +220,10 @@
   padding: 1rem;
   padding-bottom: 1.5rem;
   color: rgb(var(--mainwhite));
+}
+
+.sample_video__content .sample_videoSubject {
+  text-transform: capitalize;
 }
 
 .loginPage {
