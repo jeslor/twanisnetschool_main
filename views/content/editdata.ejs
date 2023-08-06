@@ -1,5 +1,5 @@
 <%(layout('layout/boilerplate'))%>
-<div class="addData">
+<div class="addData pb-5">
   <div class="container">
     <div class="addData_content">
       <header class="header">
@@ -11,47 +11,6 @@
           novalidate
           class="needs-validation"
           >
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label id="name-label" for="name">Lesson title</label>
-                <input
-                  type="text"
-                  name="title"
-                  id="name"
-                  placeholder="Enter name of the video file"
-                  class="form-control"
-                  aria-describedby="name-suggestion"
-                  value="<%=data.title%>"
-                  required
-                />
-
-                <div
-                  style="color: rgba(6, 81, 125, 1); font-size: 12px"
-                  id="name-suggestion"
-                  class="form-text"
-                >
-                  The lesson title should be unique.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="edit-fileContent">
-                <label for="">Current video</label>
-                <%-include('../partials/components/videoplayer', {fileId:data._id, height:'350px', autoplayControl:'false'}) %>
-                <label for="choose_video">Choose a new video</label>
-                <div class="form-group">
-                  <div class="btn float-left form_file_select">
-                    <input id="choose_video" name="uploadedvideo" type="file" />
-                  </div>
-                </div>
-              </div>
-            
-            </div>
-          </div>
 
           <div class="row">
             <div class="col-md-6">
@@ -88,6 +47,19 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
+                <label id="email-label" for="email">Choose a school Term</label>
+                <select name="level" class="form-select" aria-label="Default select example">
+                  <option <%= data.term === 'term1'?'selected' : '' %> value="term1" >Term 1</option>
+                  <option <%= data.term === 'term2'?'selected' : '' %> value="term2">Term 2</option>
+                  <option <%= data.term === 'term3'?'selected' : '' %> value="term3">Term 3</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
                 <label id="name-label" for="topic">Name of the topic</label>
                 <input
                   type="text"
@@ -101,6 +73,66 @@
                   required
                 />
               </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label id="name-label" for="name">Lesson title</label>
+                <input
+                  type="text"
+                  name="title"
+                  id="name"
+                  placeholder="Enter name of the video file"
+                  class="form-control"
+                  aria-describedby="name-suggestion"
+                  value="<%=data.title%>"
+                  required
+                />
+
+                <div
+                  style="color: rgba(6, 81, 125, 1); font-size: 12px"
+                  id="name-suggestion"
+                  class="form-text"
+                >
+                  The lesson title should be unique.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="lessonNumber">Lesson number</label>
+                <input
+                value="<%=data.lessonNumber%>"
+                  type="number"
+                  name="lessonNumber"
+                  id="lessonNumber"
+                  class="form-control"
+                  aria-describedby="name-suggestion"
+                  minlength="1"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="edit-fileContent">
+                <label for="">Current video</label>
+                <%-include('../partials/components/videoplayer', {fileId:data._id, height:'350px', autoplayControl:'false'}) %>
+                <label for="choose_video">Choose a new video</label>
+                <div class="form-group">
+                  <div class="btn float-left form_file_select">
+                    <input id="choose_video" name="uploadedvideo" type="file" />
+                  </div>
+                </div>
+              </div>
+            
             </div>
           </div>
 
