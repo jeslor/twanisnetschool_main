@@ -77,11 +77,12 @@
   top: 100%;
   position: absolute;
   content: "";
-  height: 3px;
+  height: 2px;
   width: 0px;
   background-color: rgb(var(--secondaryColor));
   border-radius: var(--normalBorderRadius);
   transition: var(--themeTransition);
+  left: 30%;
 }
 
 .navbar_links a.active {
@@ -89,7 +90,7 @@
 }
 
 .navbar_links a.active:after {
-  width: 100%;
+  width: 40%;
 }
 
 .navbarSearch span {

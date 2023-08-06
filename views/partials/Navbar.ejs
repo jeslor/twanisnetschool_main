@@ -11,7 +11,11 @@
         <span class="material-symbols-outlined"> menu_open </span>
       </div>
       <div class="navbar_links">
-        <a class="<%=page==='about'?'active':''%>" href="/about">About</a>
+        <a class="<%=page==='home'?'active':''%>" href="/" class="navbarSearch">
+          <span class="pr-2 material-symbols-outlined"> other_houses </span>
+          Home
+        </a>
+        <!-- <a class="<%=page==='about'?'active':''%>" href="/about">About</a> -->
         <a class="<%=page==='guide'?'active':''%>" href="/guide">Guide</a>
         <%if(currUser && currUser.username){%>
         <a
@@ -29,9 +33,6 @@
           >Register</a
         >
         <% } %>
-        <a class="<%=page==='home'?'active':''%>" href="/" class="navbarSearch">
-          <span class="material-symbols-outlined"> other_houses </span>
-        </a>
       </div>
     </div>
   </div>
