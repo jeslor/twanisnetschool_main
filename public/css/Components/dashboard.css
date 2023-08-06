@@ -560,6 +560,10 @@ input[type="submit"] {
   margin-bottom: 0rem;
 }
 
+.dashboardUserElement h6.userName {
+  text-transform: capitalize;
+}
+
 .dashboardUserElement h6 {
   font-size: 0.9rem;
   padding-bottom: 1rem;
