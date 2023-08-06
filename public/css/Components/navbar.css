@@ -89,7 +89,7 @@
 }
 
 .navbar_links a.active:after {
-  width: 80%;
+  width: 100%;
 }
 
 .navbarSearch span {
