@@ -505,8 +505,12 @@
     </div>
     <div class="dashboardContent">
       <div class="dashboardMenu">
-        <div class="searchbar">
-          <form action="" autocomplete="off" method="get">
+        <div class="searchbar adminSearchbar">
+          <form
+            autocomplete="off"
+            action="/dashboard/<%=currUser.username%>/search"
+            method="GET"
+          >
             <div class="autocomplete">
               <input
                 id="searchInput"
@@ -520,7 +524,7 @@
               <hr />
             </ul>
 
-            <button type="submit">search</button>
+            <button type="submit" class="btn secondary_button">search</button>
           </form>
         </div>
         <div class="container resultDescription">

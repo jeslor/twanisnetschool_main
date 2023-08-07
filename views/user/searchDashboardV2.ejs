@@ -46,26 +46,93 @@
             <h5>Search</h5>
           </div>
           <div class="searchOptionBody">
-            <form action="/search" method="GET">
-              <div class="searchbar">
-                <div class="form-group">
+            <div class="searchbar">
+              <form
+                autocomplete="off"
+                action="/dashboard/<%=currUser.username%>/search"
+                method="GET"
+              >
+                <div class="autocomplete">
                   <input
-                    type="text"
-                    class="form-control"
-                    id="search"
+                    id="searchInput"
+                    class="input-elevated"
+                    type="search"
                     name="search"
-                    placeholder="Search"
+                    placeholder="Search by word"
                   />
                 </div>
                 <button type="submit" class="btn secondary_button">
                   Search
                 </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
+        </div>
+        <div class="resultDescription">
+          <h5>Results for:</h5>
+          <small>"<%=resultdescription%>"</small>
         </div>
       </div>
     </div>
   </div>
 </div>
-<h1>Search page</h1>
+<div class="container searchPage">
+  <div class="row">
+    <% if (data.length) {%> <% for (const result of data) {%>
+    <div class="col-lg-6">
+      <div class="eachResult">
+        <% if (result.cost ==='free') {%>
+        <a class="lesson" href="/dashboard/free/video/playnow/<%=result._id%>">
+          <div class="eachResultHeader">
+            <div class="lessonImage">
+              <span class="material-symbols-outlined"> live_tv </span>
+            </div>
+            <div class="lessonTitle">
+              <h5><%=result.title%></h5>
+            </div>
+          </div>
+          <div class="lessonFooter">
+            <div class="lessonFooterRight">
+              <span><%=result.subject%></span>
+              <span><%=result.level%></span>
+              <span>
+                <%if (result.term === 'term1') {%> Term 1 <%} else
+                if(result.term ==='term2') {%> Term 2 <% } else{%> Term 3 <%}%>
+              </span>
+              <span><%=result.topic%></span>
+              <small> Lesson <span><%=result.lessonNumber%></span> </small>
+            </div>
+          </div>
+        </a>
+        <%} else {%>
+        <a
+          class="lesson"
+          href="/dashboard/subscription/video/playnow/<%=result._id%>"
+        >
+          <div class="eachResultHeader">
+            <div class="lessonImage">
+              <span class="material-symbols-outlined"> live_tv </span>
+            </div>
+            <div class="lessonTitle">
+              <h5><%=result.title%></h5>
+            </div>
+          </div>
+          <div class="lessonFooter">
+            <div class="lessonFooterRight">
+              <span><%=result.subject%></span>
+              <span><%=result.level%></span>
+              <span>
+                <%if (result.term === 'term1') {%> Term 1 <%} else
+                if(result.term ==='term2') {%> Term 2 <% } else{%> Term 3 <%}%>
+              </span>
+              <span><%=result.topic%></span>
+              <small> Lesson <span><%=result.lessonNumber%></span> </small>
+            </div>
+          </div>
+        </a>
+        <%} %>
+      </div>
+    </div>
+    <% }%> <%} %>
+  </div>
+</div>
