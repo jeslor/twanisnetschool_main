@@ -45,25 +45,26 @@
             <h5>Search</h5>
           </div>
           <div class="searchOptionBody">
-            <form
-              action="/dashboard/<%=currUser.username%>/search"
-              method="GET"
-            >
-              <div class="searchbar">
-                <div class="form-group">
+            <div class="searchbar">
+              <form
+                autocomplete="off"
+                action="/dashboard/<%=currUser.username%>/search"
+                method="GET"
+              >
+                <div class="autocomplete">
                   <input
-                    type="text"
-                    class="form-control"
-                    id="search"
+                    id="searchInput"
+                    class="input-elevated"
+                    type="search"
                     name="search"
-                    placeholder="Search"
+                    placeholder="Search by word"
                   />
                 </div>
                 <button type="submit" class="btn secondary_button">
                   Search
                 </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -93,7 +93,8 @@ function autocomplete(inp) {
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
         for (i = 0; i < suggestions.length; i++) {
-          if (suggestions[i].includes(val) || suggestions[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          console.log(val);
+          if (suggestions[i].toLowerCase().includes(val.toLowerCase()) || suggestions[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
             b = document.createElement("DIV");
             b.innerHTML = "<strong>" + suggestions[i].substr(0, val.length) + "</strong>";
             b.innerHTML += suggestions[i].substr(val.length);
@@ -148,69 +149,7 @@ function autocomplete(inp) {
   }
 autocomplete(searchInput)
 
-// Solution 2
-// ===============================
 
-
-// let suggestions = []
-// var substringMatcher = function(strs) {
-
-//     return function findMatches(q, cb) {
-//        let searchInput  =  InPutParent.getElementsByClassName('tt-input');
-//        searchInput[0].addEventListener('input', async (e) => {
-//                 if (e.target.value !== '') {
-//                     const data = await fetch('/searchInput', {
-//                     method: 'POST',
-//                     headers: { 'Content-Type': 'application/json' },
-//                     body: JSON.stringify({ searchSuggestion: e.target.value }),
-//                     })
-            
-//                     const  moreSuggestions = await data.json()
-//                         suggestions = [...suggestions, ...moreSuggestions]
-//                 }
-//             })
-         
-//       var matches, substringRegex;
-  
-//       // an array that will be populated with substring matches
-//       matches = [];
-  
-//       // regex used to determine if a string contains the substring `q`
-//       substrRegex = new RegExp(q, 'i');
-  
-//       // iterate through the pool of strings and for any string that
-//       // contains the substring `q`, add it to the `matches` array
-//       $.each(strs, function(i, str) {
-//         if (substrRegex.test(str)) {
-//           matches.push(str);
-//         }
-//       });
-  
-//       cb(matches);
-//     };
-//   };
-  
-  
-  var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-    'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-    'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-    'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-    'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-    'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-    'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-  ];
-  
-  $('#the-basics .typeahead').typeahead({
-    hint: true,
-    highlight: true,
-    minLength: 1
-  },
-  {
-    name: 'states',
-    source: substringMatcher(suggestions)
-  });
 
 
 
