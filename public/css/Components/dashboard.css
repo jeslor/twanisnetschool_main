@@ -338,6 +338,10 @@ input[type="submit"] {
   color: rgba(var(--mainwhite), 0.8);
 }
 
+.autocomplete {
+  width: 100%;
+}
+
 .input-elevated {
   font-size: 16px;
   line-height: 1.5;
@@ -350,7 +354,6 @@ input[type="submit"] {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   border-radius: 5px;
   width: 100%;
-  min-width: 500px;
   padding: 0.5em 1em 0.5em 2.5em;
 }
 
@@ -376,6 +379,43 @@ input[type="submit"] {
   border-radius: 8px;
   width: 300px;
   padding: 0.5em 1em 0.5em 2.5em;
+}
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.search_suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: rgb(var(--mainwhite));
+  border: 1px solid rgba(var(--mainColor), 0.2);
+  border-top: none;
+  border-radius: 0px 0px 10px 10px;
+  padding: 1rem;
+  width: 100%;
+}
+
+.autocomplete-items {
+  position: absolute;
+  background-color: rgb(var(--mainwhite));
+  width: 100%;
+  padding: 1rem 0.5rem;
+  border-top: 1px solid rgba(var(--mainColor), 0.2);
+}
+.autocomplete-items div {
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 0px 10px 10px 0px;
+  transition: var(--themeTransition);
+  cursor: pointer;
+}
+.autocomplete-items div:hover {
+  background-color: rgba(var(--mainColor), 0.4);
 }
 .dashboardBody {
   padding: 1.5rem 1rem;

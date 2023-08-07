@@ -45,7 +45,10 @@
             <h5>Search</h5>
           </div>
           <div class="searchOptionBody">
-            <form action="/search" method="GET">
+            <form
+              action="/dashboard/<%=currUser.username%>/search"
+              method="GET"
+            >
               <div class="searchbar">
                 <div class="form-group">
                   <input

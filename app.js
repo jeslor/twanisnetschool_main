@@ -180,14 +180,20 @@ const express = require('express'),
     app.post('/searchInput', asyncWrapper(async(req, res) => {
       const {searchSuggestion} = req.body;
       const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
-      const suggestions =[];
+      let suggestions =[];
        data.map(video => {
         suggestions.push(video.title);
         suggestions.push(video.subject);
         suggestions.push(video.topic);
         suggestions.push(video.level);
       });
+      suggestions = [...new Set(suggestions)];
       res.send(suggestions);
+    }));
+
+    app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
+      log(req.query);
+      res.render('user/searchDashboardV2', {page:'search'});
     }));
 
     // app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
@@ -295,7 +301,7 @@ const express = require('express'),
 
      await newVideo.save();
      req.flash('success', 'Video added successfully');
-     res.redirect('/platformadmin/adddata', { page:'dashboard'});
+     res.redirect('/platformadmin/adddata');
    }));
 
    app.get('/platformadmin/editdata/:id',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
