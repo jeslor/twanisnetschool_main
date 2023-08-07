@@ -387,7 +387,7 @@ app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async
 app.get('/dashboard/:user/:subject/:level/:term/:topic', isLoggedIn, asyncWrapper(async(req, res) => {
   console.log('reached here');
   const {level, subject, term, topic} = req.params;
-  const lessons  = await Content.find({subject: req.params.subject, level: level, term: term, topic: topic});
+  const lessons  = await Content.find({subject: req.params.subject, level: level, term: term, topic: topic}).sort({lessonNumber: -1});
   res.render('user/dashboardV2Lesson', {subject, level, term, topic, lessons,  page:'dashboard'});
 }));
 
