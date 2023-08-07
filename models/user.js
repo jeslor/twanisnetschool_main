@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     email:{
         type: String,
-        required: true,
         unique: true
     },
     firstName:{
@@ -28,6 +27,10 @@ const UserSchema = new Schema({
     profilePhoto:{
         type: String,
     },
+    secretePassword:{
+        type: String,
+        required: true,
+    }
 
 
 });

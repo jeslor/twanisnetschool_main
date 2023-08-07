@@ -17,6 +17,7 @@ const express = require('express'),
     flash = require('connect-flash'),
     fs = require('fs'),
     asyncWrapper = require('./utils/asyncWrapper'),
+    { v4: uuidv4 } = require('uuid'),
     AWS  = require('aws-sdk'),
     AppError = require('./utils/appError'),
     {upladimage, uploadVideo} = require('./config/videoUploder'),
@@ -139,9 +140,10 @@ const express = require('express'),
     });
 
     app.post('/register', asyncWrapper(async(req, res) => {
+      const secretePassword = `${uuidv4()}--${req.body.password}--${uuidv4()}`
       try {
-        const {username, email, password,studentLevel,firstName,lastName, schoolName} = req.body;
-        const registerUser = new User({username, email,studentLevel,firstName,lastName, schoolName });
+        const {username, password,studentLevel,firstName,lastName, schoolName} = req.body;
+        const registerUser = new User({username,studentLevel,firstName,lastName, schoolName, secretePassword });
         const registeredUser = await User.register(registerUser, password);
         req.login(registeredUser, err => {
           if (err) return next(err);

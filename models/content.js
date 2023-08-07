@@ -46,6 +46,10 @@ const contentSchema = new Schema({
         type: Number,
         default: 0,
         required: true
+    },
+    secretePassword:{ 
+        type: String,
+        required: true
     }
 });
 
