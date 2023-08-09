@@ -1,5 +1,3 @@
-const { log } = require('console');
-
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
@@ -25,6 +23,7 @@ const express = require('express'),
 
     User = require('./models/user'),
     Content = require('./models/content'),
+    MessageAssistant = require('./models/messageAssistant'),
     app = express();
     
 
@@ -180,6 +179,22 @@ const express = require('express'),
     app.get('/about', (req, res) => {
       res.render('about', {page:'about'});
     });
+
+    app.post('/guestUser/sendmessage', asyncWrapper(async(req, res) => {
+
+      let {guestMessage, guestName, guestPhone} = req.body;
+      guestName = guestName.trim();
+      guestPhone = guestPhone.trim();
+      guestMessage = guestMessage.trim();
+      await MessageAssistant.create({guestMessage, guestName, guestPhone});
+      req.flash('success', 'Message sent successfully');
+      res.render('about', {page:'about', message:'Message sent successfully'}); 
+
+    }));
+
+
+
+
     app.get('/guide', (req, res) => {
       res.render('guide',{page:'guide'});
     });
@@ -267,7 +282,7 @@ const express = require('express'),
       const data = await Content.find({$text: {$search: search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
+        res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
       }else{
         res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
       }
@@ -275,7 +290,7 @@ const express = require('express'),
       const data = await Content.find({});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
+        res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
       }else{
         res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:'',  page:'dashboard'});
       }
@@ -285,7 +300,11 @@ const express = require('express'),
 
     app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
       const users = await User.find({});
-      res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+      res.render('user/adminDashboard', {data: users, isAllUsers: true,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+     }));
+     app.get('/platformadmin/allGuests/messages', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+      const users = await MessageAssistant.find({});
+      res.render('user/adminDashboard', {data: users, isAllUsers: false, isAllMessages:true, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
      }));
 
      app.get('/platformadmin/deleteuser/:Id', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {

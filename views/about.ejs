@@ -54,14 +54,13 @@
       <div class="col-md-4">
         <div class="contactContent">
           <div class="whatsappContact">
-            <i class="lni lni-whatsapp"></i>
-            <a href="https://wa.me/639123456789" target="_blank">
-              <img src="/images/whatsapp.png" alt="" />
-              <p>
-                You can directly write to us, call or leave a voice note using
-                whatsapp. <span> Click the Icon</span>
-              </p>
+            <a href="https://wa.me/256775527077" target="_blank">
+              <i class="lni lni-whatsapp"></i>
             </a>
+            <p>
+              You can directly write to us, call or leave a voice note using
+              whatsapp. <span> Click the Icon</span>
+            </p>
           </div>
         </div>
       </div>
@@ -70,7 +69,11 @@
           <div class="contactform">
             <div>
               <div class="contact-form-wrapper d-flex justify-content-center">
-                <form action="#" class="contact-form">
+                <form
+                  action="/guestUser/sendmessage"
+                  class="contact-form"
+                  method="post"
+                >
                   <h5 class="title">Writeto us</h5>
                   <p class="description">
                     Feel free to contact us if you need any assistance, any help
@@ -80,15 +83,16 @@
                     <input
                       type="text"
                       class="form-control rounded border-white mb-3 form-input"
-                      id="name"
-                      placeholder="Name"
+                      placeholder="Your name"
+                      name="guestName"
                       required
                     />
                   </div>
                   <div>
                     <input
-                      type="text"
+                      type="number"
                       class="form-control rounded border-white mb-3 form-input"
+                      name="guestPhone"
                       placeholder="Your phone number"
                       required
                     />
@@ -100,6 +104,7 @@
                       rows="5"
                       cols="30"
                       placeholder="Message"
+                      name="guestMessage"
                       required
                     ></textarea>
                   </div>

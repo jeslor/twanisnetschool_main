@@ -48,6 +48,23 @@
             </li>
 
             <li>
+              <% if(activeMenuItem && activeMenuItem ==='allMessages') {%>
+              <a
+                class="activesideMenu"
+                href="/platformadmin/allGuests/messages"
+              >
+                <span class="material-symbols-outlined"> forum </span>
+                All messages</a
+              >
+              <%} else{%>
+              <a href="/platformadmin/allGuests/messages">
+                <span class="material-symbols-outlined"> forum </span>
+                All messages</a
+              >
+              <% } %>
+            </li>
+
+            <li>
               <% if(activeMenuItem && activeMenuItem ==='dashboard') {%>
               <a class="activesideMenu" href="/dashboard/<%=currUser.username%>"
                 ><span class="material-symbols-outlined"> team_dashboard </span
@@ -565,7 +582,34 @@
             </div>
           </div>
 
-          <% } %> <% } %> <%} else {%> <% if (data.length) {%> <%for(const
+          <% } %> <% } %> <%} else if(isAllMessages){%> <% if (data.length) {%>
+          <%for(const message of data){%>
+          <div class="col-">
+            <div class="dashboardBodyElement">
+              <div class="row">
+                <div class="ElementDetails">
+                  <h5 class="pb-2"><%=message.guestName%></h5>
+                  <h6><%=message.guestPhone%></h6>
+                  <small> <%=message.guestMessage%> </small>
+                </div>
+                <div class="actionButtons">
+                  <a
+                    class="btn main_button"
+                    href="/platformadmin/editdata/<%=message._id%>"
+                    >Mark as read</a
+                  >
+                  <a
+                    class="btn secondary_button openDeleteModal"
+                    metaName="video"
+                    deleteUrl="/platformadmin/deletedata/<%=message._id%>?_method=DELETE"
+                    videoName="<%=message.title%>"
+                    >Delete</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <%} %> <% }%> <% } else {%> <% if (data.length) {%> <%for(const
           videoLesson of data){%>
           <div class="col-md-6">
             <div class="dashboardBodyElement">
