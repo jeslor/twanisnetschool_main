@@ -214,9 +214,7 @@ const express = require('express'),
     }));
 
     app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
-      console.log(req.query);
       const data  = await Content.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-      console.log(data);
       res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`});
     }));
 
