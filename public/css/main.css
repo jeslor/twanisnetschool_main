@@ -567,12 +567,21 @@
 .aboutContact {
   text-align: center;
   padding: 3rem 0rem;
+  padding-bottom: 0rem;
 }
-.aboutContent h5,
+
+.aboutContact h4,
+.aboutContent h4 {
+  font-size: 1.5rem;
+  padding-bottom: 1rem;
+  color: rgb(var(--secondaryColor));
+  font-weight: 700;
+}
+.eachValue h5,
 .aboutContact h5 {
   font-size: 1.3rem;
   padding-bottom: 1rem;
-  color: rgb(var(--secondaryColor));
+  color: rgb(var(--mainColor));
   font-weight: 700;
 }
 
@@ -585,10 +594,70 @@
   padding: 1.5rem 1rem;
   border-radius: var(--normalBorderRadius);
   background-color: rgba(var(--mainColor), 0.1);
-  margin-bottom: 1rem;
   height: 100%;
+}
+
+.aboutContact {
+  padding-bottom: 3rem;
 }
 
 .contactCotent {
   display: flex;
+}
+
+.contactContent {
+  height: 100%;
+  margin-bottom: 1rem;
+}
+
+.contactform {
+  margin-left: 2rem;
+  text-align: start;
+}
+
+.whatsappContact,
+.contactform {
+  border: 1px solid rgba(var(--mainColor), 0.1);
+  padding: 2rem 1rem;
+  border-radius: var(--normalBorderRadius);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.whatsappContact i {
+  font-size: 4rem;
+  padding-right: 1rem;
+  color: green;
+  background-color: rgba(var(--mainColor), 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--normalBorderRadius);
+  transition: var(--themeTransition);
+  cursor: pointer;
+}
+.whatsappContact i:hover {
+  animation: squeezeMe 0.5s ease-in-out;
+  background-color: rgba(var(--mainColor), 0.6);
+  color: rgba(var(--mainwhite), 0.7);
+}
+
+@keyframes squeezeMe {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.whatsappContact p span {
+  font-weight: 700;
+  color: rgb(var(--mainColor));
+}
+
+.contactform .expand-textArea {
+  min-height: calc(1.5em + (11.75rem + 2px));
 }

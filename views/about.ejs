@@ -9,34 +9,38 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <div class="aboutContent">
-        <h5>Know more about us</h5>
+        <h4>Know more about us</h4>
         <p>
           We are a group of students from the University of the Philippines Los
           Baños. We are currently taking up BS Computer Science and BS Computer
           Engineering. We are currently on our 3rd year in college.
         </p>
-        <div class="moreAboutUs">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="eachValue">
-                <h5>Our core values</h5>
-                <p>
-                  We value the importance of education and we believe that
-                  education is the key to success. We also value the importance
-                  of the environment and we believe that we should take care of
-                  our environment.
-                </p>
-              </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-8 col-md-10 offset-md-1 offset-lg-2">
+      <div class="moreAboutUs">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="eachValue">
+              <h5>Our core values</h5>
+              <p>
+                We value the importance of education and we believe that
+                education is the key to success. We also value the importance of
+                the environment and we believe that we should take care of our
+                environment.
+              </p>
             </div>
-            <div class="col-md-6">
-              <div class="eachValue">
-                <h5>Our mission</h5>
-                <p>
-                  Our mission is to help the environment by planting trees and
-                  to help the students by providing them with the necessary
-                  tools for their education.
-                </p>
-              </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="eachValue">
+              <h5>Our mission</h5>
+              <p>
+                Our mission is to help the environment by planting trees and to
+                help the students by providing them with the necessary tools for
+                their education.
+              </p>
             </div>
           </div>
         </div>
@@ -44,32 +48,72 @@
     </div>
   </div>
 
-  <div class="aboutContact">
-    <h5>Contact us</h5>
+  <div id="aboutContact" class="aboutContact">
+    <h4>Contact us</h4>
     <div class="row">
-      <div class="col-md-3">
-        <div class="whatsappContact">
-          <i class="lni lni-facebook-fill"></i>
-          <a href="https://wa.me/639123456789" target="_blank">
-            <img src="/images/whatsapp.png" alt="" />
-            <p>Whatsapp</p>
-          </a>
+      <div class="col-md-4">
+        <div class="contactContent">
+          <div class="whatsappContact">
+            <i class="lni lni-whatsapp"></i>
+            <a href="https://wa.me/639123456789" target="_blank">
+              <img src="/images/whatsapp.png" alt="" />
+              <p>
+                You can directly write to us, call or leave a voice note using
+                whatsapp. <span> Click the Icon</span>
+              </p>
+            </a>
+          </div>
         </div>
       </div>
-      <div class="col-md-9">
-        <div class="contactform">
-          <form action="">
-            <input type="text" placeholder="Name" />
-            <input type="text" placeholder="Email" />
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              placeholder="Message"
-            ></textarea>
-            <input type="submit" value="Send" />
-          </form>
+      <div class="col-md-8">
+        <div class="contactContent">
+          <div class="contactform">
+            <div>
+              <div class="contact-form-wrapper d-flex justify-content-center">
+                <form action="#" class="contact-form">
+                  <h5 class="title">Writeto us</h5>
+                  <p class="description">
+                    Feel free to contact us if you need any assistance, any help
+                    or another question.
+                  </p>
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control rounded border-white mb-3 form-input"
+                      id="name"
+                      placeholder="Name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control rounded border-white mb-3 form-input"
+                      placeholder="Your phone number"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <textarea
+                      id="message"
+                      class="expand-textArea form-control rounded border-white mb-3 form-text-area"
+                      rows="5"
+                      cols="30"
+                      placeholder="Message"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="submit-button-wrapper">
+                    <input
+                      class="btn secondary_button"
+                      type="submit"
+                      value="Send"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
