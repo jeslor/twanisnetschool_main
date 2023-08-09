@@ -7,7 +7,6 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express'),
     mongoose = require('mongoose'),
     cors = require('cors'),
-    favicon = require('serve-favicon'),
     path = require('path'),
     methodOverride = require('method-override'),
     expressSsession = require('express-session'),
@@ -170,6 +169,12 @@ const express = require('express'),
       res.redirect('/');
     })
 
+    app.get('/platformadmin/deleteuser/:userId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+      await User.findByIdAndDelete(req.params.userId);
+      req.flash('success', 'User deleted successfully');
+      res.redirect('/platformadmin/allusers');
+    }));
+
 
 
     app.get('/about', (req, res) => {
@@ -281,6 +286,12 @@ const express = require('express'),
     app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
       const users = await User.find({});
       res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+     }));
+
+     app.get('/platformadmin/deleteuser/:Id', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+      await User.findByIdAndDelete(req.params.Id);
+      req.flash('success', 'User deleted successfully');
+      res.redirect('/platformadmin/allusers');
      }));
 
     app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {

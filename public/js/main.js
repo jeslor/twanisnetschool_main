@@ -37,8 +37,10 @@ openDeleteModalButtons.forEach(button => {
         const url  = e.target.attributes['deleteUrl'].value;
         const form = deleteVideoModal.getElementsByTagName('form')[0];
         const videoName = e.target.attributes['videoName'].value;
+        const metaTag = e.target.attributes['metaName'].value;
         form.action = url;
-        deleteVideoModal.querySelector('#videoName').innerHTML = videoName;     
+        deleteVideoModal.querySelector('#videoName').innerHTML = videoName;   
+        deleteVideoModal.querySelector('#metaTag').innerHTML = metaTag;  
     });
 });
 

@@ -4,7 +4,7 @@
   <div id="deleteVideoOverlay" class="deleteVideoOverlay">
     <div class="deleteVideoModal">
       <div class="deleteVideoBody">
-        <p>Are you sure you want to delete this video?</p>
+        <p>Are you sure you want to delete this <span id="metaTag"></span>?</p>
         <h6 id="videoName"><Strong>name:</Strong></h6>
         <div class="deleteVideoButtons">
           <a id="closeDeleteModal" class="btn secondary_button">Cancel</a>
@@ -547,7 +547,7 @@
               <h5><%=user.username%></h5>
               <h6><%=user.email%></h6>
               <h6 class="userName"><%=user.firstName%> <%=user.lastName%></h6>
-              <small><%=user.secretePassword%></small>
+              <small class="pb-2"><%=user.secretePassword%></small>
               <div class="userButtons">
                 <a
                   class="btn main_button"
@@ -556,6 +556,7 @@
                 >
                 <a
                   class="btn secondary_button openDeleteModal"
+                  metaName="user"
                   deleteUrl="/platformadmin/deleteuser/<%=user._id%>?_method=DELETE"
                   videoName="<%=user.username%>"
                   >Delete</a
@@ -584,6 +585,7 @@
                     >
                     <a
                       class="btn secondary_button openDeleteModal"
+                      metaName="video"
                       deleteUrl="/platformadmin/deletedata/<%=videoLesson._id%>?_method=DELETE"
                       videoName="<%=videoLesson.title%>"
                       >Delete</a

@@ -554,9 +554,41 @@
   text-decoration: underline;
 }
 
-.guideHeader {
+.guideHeader,
+.aboutHeader {
   background-color: rgb(var(--mainColor));
   padding-top: 4rem;
   padding-bottom: 2rem;
   color: rgba(var(--mainwhite), 0.8);
+  text-align: center;
+}
+
+.aboutContent,
+.aboutContact {
+  text-align: center;
+  padding: 3rem 0rem;
+}
+.aboutContent h5,
+.aboutContact h5 {
+  font-size: 1.3rem;
+  padding-bottom: 1rem;
+  color: rgb(var(--secondaryColor));
+  font-weight: 700;
+}
+
+.moreAboutUs {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.eachValue {
+  padding: 1.5rem 1rem;
+  border-radius: var(--normalBorderRadius);
+  background-color: rgba(var(--mainColor), 0.1);
+  margin-bottom: 1rem;
+  height: 100%;
+}
+
+.contactCotent {
+  display: flex;
 }
