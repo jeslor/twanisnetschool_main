@@ -345,8 +345,7 @@
 
 .lessonPath a {
   height: 100%;
-  padding: 0.4rem 0.7rem;
-  padding-right: 0rem;
+  padding: 0.4rem 0rem;
   color: rgba(var(--mainColor), 0.8);
   display: inline-block;
   border-radius: 0px 10px 10px 0px;
@@ -504,6 +503,15 @@
   .noVideosFound a {
     padding-top: 2rem;
     font-size: 1rem;
+  }
+  .lessonTitle h6 {
+    font-size: 0.9rem;
+    margin-left: -0.5rem;
+  }
+  .lessonFooter {
+    align-self: flex-start;
+    padding-left: 0.5rem;
+    white-space: nowrap;
   }
 }
 
