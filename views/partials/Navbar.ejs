@@ -1,15 +1,22 @@
-<div class="navbar">
-  <div class="container">
+<div id="navMenu" class="navbar">
+  <div class="navContainer">
     <div class="navbar_logo">
       <a class="navLogo" href="/"
         ><img class="img-fluid" src="/images/logo.webp" alt="logo" />
-        <span>Twani's Net School</span>
+        <span
+          >Twani's
+          <span class="Logoname">
+            <span class="logonameInner">Net</span> School
+          </span></span
+        >
       </a>
     </div>
+    <div id="navHumbutton" class="navHumbutton">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <div class="navbar_extend">
-      <div class="open_menu">
-        <span class="material-symbols-outlined"> menu_open </span>
-      </div>
       <div class="navbar_links">
         <a class="<%=page==='home'?'active':''%>" href="/" class="navbarSearch">
           <span class="pr-2 material-symbols-outlined"> other_houses </span>

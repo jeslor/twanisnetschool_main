@@ -1,3 +1,17 @@
+const navHumbutton = document.getElementById('navHumbutton');
+const navMenu = document.getElementById('navMenu');
+if (navHumbutton) {
+    navHumbutton.addEventListener('click', (e) => {
+       if (navMenu.classList.contains('show')) {
+        navMenu.classList.remove('show');
+       }else{
+        navMenu.classList.add('show');
+       }
+    });
+  
+}
+
+
 $( document ).ready(function() {
     $('.subject_slider').owlCarousel({
         autoplay: true,
@@ -149,7 +163,9 @@ function autocomplete(inp) {
       closeAllLists(e.target);
   });
   }
-autocomplete(searchInput)
+  if (searchInput) { 
+    autocomplete(searchInput)
+  }
 
 
 
