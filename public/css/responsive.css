@@ -53,6 +53,7 @@ a {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
     rgba(0, 0, 0, 0.05) 0px 5px 10px;
   border: 1px solid rgba(var(--mainblack), 0.2);
+  border-radius: 50px;
 }
 
 .secondary_button {
@@ -66,6 +67,7 @@ a {
   background-color: rgb(var(--mainwhite));
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border: 1px solid rgba(var(--mainblack), 0.2);
+  border-radius: 50px;
 }
 
 .flash-alerts {
