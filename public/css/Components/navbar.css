@@ -216,6 +216,7 @@
     justify-content: start;
     align-items: start;
     margin-top: 1rem;
+    width: 100%;
   }
   .navbar_extend .navbar_links a {
     margin-left: 0;
@@ -223,6 +224,10 @@
     margin-bottom: 1rem;
     padding-left: 1rem;
     font-weight: 400;
+    width: 100%;
+  }
+  .navbar_extend .navbar_links a:after {
+    left: 1rem;
   }
 }
 
