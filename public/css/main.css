@@ -734,6 +734,9 @@
     font-size: 1.5rem;
     text-align: center;
   }
+  .loginContainer label {
+    font-size: 15px;
+  }
   .loginContainer button {
     margin-top: 1rem;
   }
