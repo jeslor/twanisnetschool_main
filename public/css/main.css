@@ -724,6 +724,16 @@
   .contactform {
     margin-left: 0rem;
   }
+  .loginContainer {
+    padding: 3rem 1rem;
+  }
+  .loginContainer h4 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .loginContainer button {
+    margin-top: 1rem;
+  }
 }
 
 /* X-Small devices (portrait phones, less than 576px) */
