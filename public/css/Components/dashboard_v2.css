@@ -463,8 +463,46 @@
 
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
+  .dashboardheader .container {
+    max-width: 100%;
+  }
+  .dashboardheader .userProfile {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .dashboardheader .userProfile > div {
+    margin-right: 0.5rem;
+    padding: 0.1rem 0.8rem;
+    background-color: white;
+    border-radius: var(--normalBorderRadius);
+  }
+  .dashboardheader .userProfile > div:nth-of-type(1) {
+    padding: 0rem;
+    background-color: transparent;
+  }
+  .dashboardheader .userProfile > div,
+  .dashboardheader .userProfile h6,
+  .dashboardheader .userProfile h5 {
+    color: rgba(var(--mainColor), 0.8);
+    margin-bottom: 0rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+  }
 }
 
 /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
+  .dashboardheader .userProfile div,
+  .searchOptionHeader h5 {
+    display: none;
+  }
+  .dashboardheader .userProfile div:nth-of-type(1),
+  .dashboardheader .userProfile div:nth-of-type(2) {
+    display: inline-block;
+  }
+
+  .dashboardheader .searchOptionBody {
+    padding-top: 1rem;
+  }
 }
