@@ -70,6 +70,12 @@
 
 <div class="container classContent">
   <div class="row justify-content-center py-3">
+    <div class="lessonPath">
+      <h6>
+        <a href="/dashboard/<%=currUser.username%>">Dasboard</a>
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      </h6>
+    </div>
     <% if (schoolLevels.length) { %> <% for (const level of schoolLevels) {%>
     <a
       href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=level%>"

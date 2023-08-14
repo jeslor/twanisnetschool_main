@@ -153,7 +153,6 @@
 .lessonContent {
   min-height: 70vh;
   padding-bottom: 2rem;
-  margin-left: 1rem;
 }
 .eachSubject,
 .eachClass {
@@ -512,6 +511,9 @@
     align-self: flex-start;
     padding-left: 0.5rem;
     white-space: nowrap;
+  }
+  .lessonContent {
+    margin-left: 1rem;
   }
 }
 

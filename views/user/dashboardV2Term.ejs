@@ -69,6 +69,22 @@
 
 <div class="container termContent">
   <div class="row justify-content-center py-3">
+    <div class="lessonPath">
+      <h6>
+        <a href="/dashboard/<%=currUser.username%>">Dasboard</a>
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+        <a href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>"
+          ><%=subjectSelected%></a
+        >
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+        <a
+          href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>"
+          ><%=levelSelected%></a
+        >
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      </h6>
+    </div>
+
     <% if(schoolTerms.length){%> <% for(const term of schoolTerms){%>
 
     <a
