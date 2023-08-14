@@ -253,4 +253,7 @@
   .navbar.navbar.show .navHumbutton span:nth-child(3) {
     transform: rotate(-46deg) translate(7px, -5px);
   }
+  .navbar_extend .navbar_links a {
+    font-size: 1rem;
+  }
 }
