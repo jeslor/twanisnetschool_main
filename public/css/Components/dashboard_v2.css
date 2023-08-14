@@ -153,6 +153,7 @@
 .lessonContent {
   min-height: 70vh;
   padding-bottom: 2rem;
+  margin-left: 1rem;
 }
 .eachSubject,
 .eachClass {
@@ -339,13 +340,14 @@
   display: flex;
   align-items: center;
   padding-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .lessonPath a {
-  background-color: rgb(var(--mainColor));
   height: 100%;
   padding: 0.4rem 0.7rem;
-  color: rgba(var(--mainwhite), 0.8);
+  padding-right: 0rem;
+  color: rgba(var(--mainColor), 0.8);
   display: inline-block;
   border-radius: 0px 10px 10px 0px;
   transition: var(--themeTransition);
@@ -353,7 +355,7 @@
 }
 
 .lessonPath a:hover {
-  color: rgba(var(--mainwhite), 1);
+  color: rgba(var(--secondaryColor), 0.8);
 }
 
 .lessonPath span {
@@ -522,5 +524,8 @@
   .dashboardheader .searchbar .secondary_button {
     padding: 0.5rem 1rem;
     padding-left: 1.5rem;
+  }
+  .lessonContent {
+    margin-left: 0rem;
   }
 }
