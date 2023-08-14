@@ -688,13 +688,15 @@
   }
   .landingPage_content {
     margin-top: 10px;
+    align-items: center;
+    justify-content: center;
   }
   .landingPage__title {
     text-align: center;
     text-transform: capitalize;
   }
   .landingPage__title .landingPage__title--highlight {
-    font-size: 2.5rem;
+    font-size: 2rem;
     padding-bottom: 1rem;
   }
 
@@ -711,7 +713,11 @@
 
 /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
-  .landing_page_user_buttons {
+  .landingPage_content {
+    padding: 0rem;
     padding-top: 1rem;
+  }
+  .landing_page_user_buttons {
+    padding-top: 0rem;
   }
 }
