@@ -317,6 +317,16 @@
   color: #363fe6;
 }
 
+.noVideosFound a {
+  display: inline-flex;
+  align-items: center;
+  transition: var(--themeTransition);
+}
+
+.noVideosFound a:hover {
+  color: rgb(var(--secondaryColor));
+}
+
 .lessonPath {
   display: flex;
   align-items: center;
@@ -489,6 +499,10 @@
     margin-bottom: 0.3rem;
     font-size: 0.8rem;
   }
+  .noVideosFound a {
+    padding-top: 2rem;
+    font-size: 1rem;
+  }
 }
 
 /* X-Small devices (portrait phones, less than 576px) */
@@ -504,5 +518,9 @@
 
   .dashboardheader .searchOptionBody {
     padding-top: 1rem;
+  }
+  .dashboardheader .searchbar .secondary_button {
+    padding: 0.5rem 1rem;
+    padding-left: 1.5rem;
   }
 }
