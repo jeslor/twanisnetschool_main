@@ -724,6 +724,9 @@
   .contactform {
     margin-left: 0rem;
   }
+  .loginPage {
+    min-height: 100vh;
+  }
   .loginContainer {
     padding: 3rem 1rem;
   }
