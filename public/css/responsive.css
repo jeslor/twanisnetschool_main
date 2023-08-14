@@ -18,7 +18,7 @@ body {
   font-family: var(--mainFont);
   font-size: 17px;
   line-height: 1.5;
-  color: rgb(var(--bodyBlack));
+  color: rgb(var(--mainColor));
 }
 
 .main-body-holder {

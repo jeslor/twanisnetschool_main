@@ -565,6 +565,11 @@
   text-align: center;
 }
 
+.aboutusSection {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}
+
 .aboutContent,
 .aboutContact {
   text-align: center;
@@ -589,6 +594,10 @@
   padding-bottom: 1rem;
   color: rgb(var(--mainColor));
   font-weight: 700;
+}
+
+.eachValue p {
+  color: rgba(var(--mainColor), 0.8);
 }
 
 .moreAboutUs {
@@ -708,6 +717,9 @@
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
+  }
+  .contactform {
+    margin-left: 0rem;
   }
 }
 
