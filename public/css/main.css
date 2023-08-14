@@ -682,8 +682,36 @@
 
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
+  .landingPage {
+    background-image: url("../images/educationTwani_small.webp");
+    align-items: flex-start;
+  }
+  .landingPage_content {
+    margin-top: 10px;
+  }
+  .landingPage__title {
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .landingPage__title .landingPage__title--highlight {
+    font-size: 2.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .landingPage__description {
+    display: none;
+  }
+  .landing_page_user_buttons {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
+  .landing_page_user_buttons {
+    padding-top: 1rem;
+  }
 }

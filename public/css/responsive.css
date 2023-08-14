@@ -43,6 +43,8 @@ a {
   transition: var(--themeTransition);
   text-transform: capitalize;
   border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 .main_button:hover,
@@ -50,8 +52,6 @@ a {
 .main_button:active {
   color: rgb(var(--mainColor));
   background-color: rgb(var(--mainwhite));
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
-    rgba(0, 0, 0, 0.05) 0px 5px 10px;
   border: 1px solid rgba(var(--mainblack), 0.2);
   border-radius: 50px;
 }
@@ -65,7 +65,7 @@ a {
 .secondary_button:active {
   color: rgb(var(--secondaryColor));
   background-color: rgb(var(--mainwhite));
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   border: 1px solid rgba(var(--mainblack), 0.2);
   border-radius: 50px;
 }
@@ -91,6 +91,14 @@ a {
 
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
+  .main-body-holder {
+    padding-top: 80px;
+  }
+  .main_button,
+  .secondary_button {
+    padding: 0.6rem 1.6rem;
+    font-size: 0.9rem;
+  }
 }
 
 /* X-Small devices (portrait phones, less than 576px) */

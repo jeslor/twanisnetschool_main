@@ -153,6 +153,9 @@
 
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
+  .navLogo > span {
+    font-size: 1.5rem;
+  }
 }
 
 /* Small devices (landscape phones, less than 768px) */
@@ -164,9 +167,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .navLogo > span {
-    font-size: 1.5rem;
-  }
+
   .navLogo .Logoname {
     display: inline;
   }
