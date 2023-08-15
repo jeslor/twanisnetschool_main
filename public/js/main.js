@@ -198,42 +198,42 @@ function autocomplete(inp) {
 
   const sidebarOverlay = document.getElementById('sidebarOverlay');
   const sidebar = document.getElementById('sidebar');
-const openSidebar = document.getElementById('openSidebar');
-const closeSidebar = document.getElementById('closeSidebar');
-if (openSidebar) {
-    openSidebar.addEventListener('click', (e) => {
-       if (sidebar.classList.contains('show')) {
-        sidebar.classList.remove('show');
-        sidebarOverlay.classList.remove('show');
-        openSidebar.style.display = 'flex';
-        }else{
-        sidebar.classList.add('show');
-        sidebarOverlay.classList.add('show');
-        openSidebar.style.display = 'none';
-        }
-    })
-}
+  const openSidebar = document.getElementById('openSidebar');
+  const closeSidebar = document.getElementById('closeSidebar');
+  if (openSidebar) {
+      openSidebar.addEventListener('click', (e) => {
+        if (sidebar.classList.contains('show')) {
+          sidebar.classList.remove('show');
+          sidebarOverlay.classList.remove('show');
+          openSidebar.style.display = 'flex';
+          }else{
+          sidebar.classList.add('show');
+          sidebarOverlay.classList.add('show');
+          openSidebar.style.display = 'none';
+          }
+      })
+  }
 
-if (sidebarOverlay) {
-    sidebarOverlay.addEventListener('click', (e) => {
-        sidebar.classList.remove('show');
-        sidebarOverlay.classList.remove('show');
-        openSidebar.style.display = 'flex';
-    })
-}
+  if (sidebarOverlay) {
+      sidebarOverlay.addEventListener('click', (e) => {
+          sidebar.classList.remove('show');
+          sidebarOverlay.classList.remove('show');
+          openSidebar.style.display = 'flex';
+      })
+  }
 
-if (sidebar) {
-    sidebar.addEventListener('click', (e) => {
-        e.stopPropagation();
-    })
-}
-if (closeSidebar) {
-    closeSidebar.addEventListener('click', (e) => {
-        sidebar.classList.remove('show');
-        sidebarOverlay.classList.remove('show');
-        openSidebar.style.display = 'flex';
-    })
-}
+  if (sidebar) {
+      sidebar.addEventListener('click', (e) => {
+          e.stopPropagation();
+      })
+  }
+  if (closeSidebar) {
+      closeSidebar.addEventListener('click', (e) => {
+          sidebar.classList.remove('show');
+          sidebarOverlay.classList.remove('show');
+          openSidebar.style.display = 'flex';
+      })
+  }
   
   
   
