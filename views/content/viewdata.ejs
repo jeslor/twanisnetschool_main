@@ -1,7 +1,7 @@
 <%(layout('layout/boilerplate'))%>
 <div class="viewdata">
-  <div class="row">
-    <div class="col-lg-8">
+  <div class="viewDataContainer">
+    <div class="viewDataVideo">
       <div class="viewDataContent">
         <div class="viewDataVideo">
           <%-include('../partials/components/videoplayer', {fileId:data._id,
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
+    <div class="viewDataRigtContent">
       <div class="similarVideos">
         <h4>videos from the same topic</h4>
         <% if (similarVideos.length) {%>
