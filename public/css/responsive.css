@@ -23,7 +23,8 @@ body {
 
 .main-body-holder {
   padding-top: 95px;
-  overflow-x: hidden;
+  /* overflow-x: hidden;
+  min-height: 100vh; */
 }
 
 a {

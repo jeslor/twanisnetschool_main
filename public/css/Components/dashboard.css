@@ -1,7 +1,5 @@
 .dashboard {
   background-color: rgba(var(--mainColor), 0.1);
-  height: calc(100vh - 95px);
-  overflow-y: scroll;
 }
 
 .dashboard .container {
@@ -225,12 +223,13 @@
 }
 
 .dashboardBodyElement {
-  margin: 1rem;
   padding: 0.8rem;
   background-color: rgba(var(--mainColor), 0.2);
   border-radius: var(--normalBorderRadius);
   color: rgb(var(--mainColor));
   transition: var(--themeTransition);
+  height: 100%;
+  margin-bottom: 1rem;
 }
 
 .dashboardBodyElement:hover {
@@ -454,12 +453,23 @@
     align-items: center;
     padding: 0.5rem 1rem;
   }
+
+  .dashboardContent {
+    margin-left: 0rem;
+  }
 }
 
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
+  .dashboardBodyElement {
+    height: auto;
+  }
 }
 
 /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
+  .dashboard .container {
+    padding-left: 0rem;
+    padding-right: 0rem;
+  }
 }
