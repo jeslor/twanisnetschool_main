@@ -27,10 +27,13 @@ const UserSchema = new Schema({
     profilePhoto:{
         type: String,
     },
-    secretePassword:{
+    buildsecretes:{
         type: String,
-        required: true,
-    }
+    },
+    isPremium:{
+        type: Boolean,
+        default: false,
+    },
 
 
 });

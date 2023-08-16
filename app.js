@@ -138,10 +138,10 @@ const express = require('express'),
     });
 
     app.post('/register', asyncWrapper(async(req, res) => {
-      const secretePassword = `${uuidv4()}--${req.body.password}--${uuidv4()}`
+      const buildsecretes = `${uuidv4()}--${req.body.password}--${uuidv4()}`
       try {
         const {username, password,studentLevel,firstName,lastName, schoolName} = req.body;
-        const registerUser = new User({username,studentLevel,firstName,lastName, schoolName, secretePassword });
+        const registerUser = new User({username,studentLevel,firstName,lastName, schoolName, buildsecretes });
         const registeredUser = await User.register(registerUser, password);
         req.login(registeredUser, err => {
           if (err) return next(err);
@@ -285,7 +285,7 @@ const express = require('express'),
         res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
       }
      }else{
-      const data = await Content.find({});
+      const data = await Content.find({}).sort({dateAdded: -1});
       const {username, email} = req.user;
       if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
         res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});

@@ -47,10 +47,6 @@ const contentSchema = new Schema({
         default: 0,
         required: true
     },
-    secretePassword:{ 
-        type: String,
-        required: true
-    }
 });
 
 contentSchema.index({title: 'text', subject: 'text', topic: 'text', level: 'text'});
