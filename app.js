@@ -351,7 +351,7 @@ const express = require('express'),
 
      await newVideo.save();
      req.flash('success', 'Video added successfully');
-     res.redirect('/platformadmin/adddata');
+     res.redirect(`/dashboard/${req.user.username}`);
    }));
 
    app.get('/platformadmin/editdata/:id',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
