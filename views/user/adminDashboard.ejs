@@ -622,7 +622,7 @@
           </div>
           <%} %> <% }%> <% } else {%> <% if (data.length) {%> <%for(const
           videoLesson of data){%>
-          <div class="col-md-6">
+          <div class="col-md-6 mb-3">
             <div class="dashboardBodyElement">
               <div class="row">
                 <div class="col-7 col-sm-12 col-lg-7">
@@ -653,12 +653,12 @@
                   <div class="videoImage">
                     <% if(videoLesson.cost === 'paid'){%>
                     <a
-                      class="play-btn"
+                      class="myPlayButton"
                       href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
                     ></a>
                     <%} else {%>
                     <a
-                      class="play-btn"
+                      class="myPlayButton"
                       href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
                     ></a>
                     <%}%>

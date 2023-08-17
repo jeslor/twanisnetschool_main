@@ -278,7 +278,7 @@
   z-index: 10;
 }
 
-.play-btn {
+.myPlayButton {
   width: 50px;
   height: 50px;
   background: radial-gradient(rgb(13, 52, 89) 60%, rgba(255, 255, 255, 1) 62%);
@@ -290,7 +290,7 @@
 }
 
 /* triangle */
-.play-btn::after {
+.myPlayButton::after {
   content: "";
   position: absolute;
   left: 60%;
@@ -309,7 +309,7 @@
 }
 
 /* pulse wave */
-.play-btn:before {
+.myPlayButton:before {
   content: "";
   position: absolute;
   width: 150%;
