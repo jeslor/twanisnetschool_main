@@ -1,9 +1,11 @@
 .dashboard {
   background-color: rgba(var(--mainColor), 0.1);
+  position: relative;
 }
 
 .dashboard .container {
   display: flex;
+  margin-bottom: 1rem;
 }
 
 .openSidebar,
@@ -26,6 +28,9 @@
   transition: all 0.2s ease-in-out;
   border-radius: 0px 10px 10px 0px;
   padding-bottom: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 
 .sidebar .profile {
@@ -186,14 +191,12 @@
 }
 
 .deleteVideoOverlay.show {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .deleteVideoOverlay .deleteVideoModal {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: rgb(var(--mainwhite));
   padding: 2rem;
   border-radius: var(--normalBorderRadius);
@@ -234,6 +237,10 @@
 
 .dashboardBodyElement:hover {
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.messageRead {
+  filter: grayscale(100%);
 }
 
 .ElementDetails h5 {
@@ -418,6 +425,11 @@
 
 /* Large devices (desktops, less than 1200px) */
 @media (max-width: 1199.98px) {
+  .dashboard .container {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 95%;
+  }
 }
 
 /* Medium devices (tablets, less than 992px) */

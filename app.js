@@ -168,8 +168,9 @@ const express = require('express'),
       res.redirect('/');
     })
 
-    app.get('/platformadmin/deleteuser/:userId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+    app.delete('/platformadmin/deleteuser/:userId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
       await User.findByIdAndDelete(req.params.userId);
+      console.log('reached here on users');
       req.flash('success', 'User deleted successfully');
       res.redirect('/platformadmin/allusers');
     }));
@@ -301,8 +302,23 @@ const express = require('express'),
       res.render('user/adminDashboard', {data: users, isAllUsers: true,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
      }));
      app.get('/platformadmin/allGuests/messages', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      const users = await MessageAssistant.find({});
+      const users = await MessageAssistant.find({}).sort({isRead: false});
       res.render('user/adminDashboard', {data: users, isAllUsers: false, isAllMessages:true, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+     }));
+     app.get('/platformadmin/allGuests/messages/:messageId', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+      const message = await MessageAssistant.findById(req.params.messageId);
+      message.isRead = !message.isRead;
+      await message.save();
+      message.isRead 
+      ? req.flash('success', 'Message marked as read') 
+      : req.flash('success', 'Message marked as unread');
+     res.redirect('/platformadmin/allGuests/messages');
+     }));
+
+     app.delete('/platformadmin/allGuests/messages/:messageId', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+      await MessageAssistant.findByIdAndDelete(req.params.messageId);
+      req.flash('success', 'Message deleted successfully');
+      res.redirect('/platformadmin/allGuests/messages');
      }));
 
      app.get('/platformadmin/deleteuser/:Id', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {

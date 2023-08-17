@@ -593,8 +593,10 @@
 
           <% } %> <% } %> <%} else if(isAllMessages){%> <% if (data.length) {%>
           <%for(const message of data){%>
-          <div class="col-">
-            <div class="dashboardBodyElement">
+          <div class="col-lg-12 mb-3">
+            <div
+              class="dashboardBodyElement <%=message.isRead==true? 'messageRead': ''%>"
+            >
               <div class="row">
                 <div class="ElementDetails">
                   <h5 class="pb-2"><%=message.guestName%></h5>
@@ -604,14 +606,14 @@
                 <div class="actionButtons justify-content-end">
                   <a
                     class="btn main_button"
-                    href="/platformadmin/editdata/<%=message._id%>"
-                    >Mark as read</a
-                  >
+                    href="/platformadmin/allGuests/messages/<%=message._id%>"
+                    ><%=message.isRead==true? 'Read': 'Unread'%>
+                  </a>
                   <a
                     class="btn secondary_button openDeleteModal"
-                    metaName="video"
-                    deleteUrl="/platformadmin/deletedata/<%=message._id%>?_method=DELETE"
-                    videoName="<%=message.title%>"
+                    metaName="message"
+                    deleteUrl="/platformadmin/allGuests/messages/<%=message._id%>?_method=DELETE"
+                    videoName="message from <%=message.guestName%>"
                     >Delete</a
                   >
                 </div>
