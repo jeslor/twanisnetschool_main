@@ -51,6 +51,7 @@ const express = require('express'),
       // cookie: { secure: true }
     }),
   )
+
   app.use(passport.initialize())
   app.use(passport.session())
   app.use(flash())
@@ -333,6 +334,7 @@ const express = require('express'),
 
     app.post('/platformadmin/adddata',isLoggedIn, isAdministrator, uploadVideo.single('uploadedvideo'),
     asyncWrapper(async(req, res) => {
+      req.socket.setTimeout(100 * 60 * 1000);
      let newVideo  = new Content({
        title: req.body.title,
        cost: req.body.cost,

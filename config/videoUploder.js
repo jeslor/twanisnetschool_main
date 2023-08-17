@@ -15,13 +15,18 @@ require('aws-sdk/lib/maintenance_mode_message').suppress = true,
       })
 
       module.exports.s3 = s3;
+
+   
       
       module.exports.uploadVideo = multer({
+        limits: { fileSize: 1000000 * 3000 },
         storage: multerS3({
           s3: s3,
           bucket: `${process.env.AmazonS3_Bucket_Name}/videos`,
+          multipart: true,
           // acl: 'public-read',
           metadata: function (req, file, cb) {
+            console.log('reach metadata');
             const filePath = `${uuid()}-${file.originalname}`
             cb(null, { fieldName: filePath })
           },
