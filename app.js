@@ -269,7 +269,7 @@ const express = require('express'),
         Key: `videos/${data.videoKey}`,
       };
       const command = new GetObjectCommand(getObjectParams);
-      const url = await getSignedUrl(S3, command, { expiresIn: 3600 });
+      const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
       data.videoUrl = url;
       let similarVideos = await Content.find({topic:data.topic})
       similarVideos = similarVideos.filter(video => video.id !== req.params.videoID);
@@ -283,7 +283,7 @@ const express = require('express'),
         Key: `videos/${data.videoKey}`,
       };
       const command = new GetObjectCommand(getObjectParams);
-      const url = await getSignedUrl(S3, command, { expiresIn: 3600 });
+      const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
       data.videoUrl = url;
        let similarVideos = (await Content.find({topic:data.topic}))
        similarVideos = similarVideos.filter(video => {
