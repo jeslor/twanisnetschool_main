@@ -18,6 +18,8 @@ const express = require('express'),
     AWS  = require('aws-sdk'),
     AppError = require('./utils/appError'),
     {upladimage, uploadVideo} = require('./config/videoUploder'),
+    {S3, GetObjectCommand} = require('./config/awsS3Config'),
+    { getSignedUrl } = require("@aws-sdk/s3-request-presigner"),
     {isLoggedIn, isAdministrator} =require('./middleware/userMiddleware'),
     {getVideo} = require('./config/videoGetter'),
 
@@ -262,6 +264,13 @@ const express = require('express'),
     app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn, asyncWrapper(async(req, res) => {
   
       const data = await Content.findById(req.params.videoID);
+      const getObjectParams = {
+        Bucket: process.env.AmazonS3_Bucket_Name,
+        Key: `videos/${data.videoKey}`,
+      };
+      const command = new GetObjectCommand(getObjectParams);
+      const url = await getSignedUrl(S3, command, { expiresIn: 3600 });
+      data.videoUrl = url;
       let similarVideos = await Content.find({topic:data.topic})
       similarVideos = similarVideos.filter(video => video.id !== req.params.videoID);
       res.render('content/viewdata', {data, similarVideos, page:'dashboard'});
@@ -269,6 +278,13 @@ const express = require('express'),
 
      app.get('/dashboard/free/video/playnow/:videoID', asyncWrapper(async(req, res) => {
        const data = await Content.findById(req.params.videoID);
+       const getObjectParams = {
+        Bucket: process.env.AmazonS3_Bucket_Name,
+        Key: `videos/${data.videoKey}`,
+      };
+      const command = new GetObjectCommand(getObjectParams);
+      const url = await getSignedUrl(S3, command, { expiresIn: 3600 });
+      data.videoUrl = url;
        let similarVideos = (await Content.find({topic:data.topic}))
        similarVideos = similarVideos.filter(video => {
         return video.id !== req.params.videoID
