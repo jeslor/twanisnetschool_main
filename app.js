@@ -183,6 +183,9 @@ const express = require('express'),
     app.get('/about', (req, res) => {
       res.render('about', {page:'about'});
     });
+    app.get('/makepayment', (req, res) => {
+      res.render('makepayment', {page:'makepayment'});
+    });
 
     app.post('/guestUser/sendmessage', asyncWrapper(async(req, res) => {
 

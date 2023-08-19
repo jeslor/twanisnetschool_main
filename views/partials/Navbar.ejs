@@ -23,7 +23,9 @@
           Home
         </a>
         <a class="<%=page==='about'?'active':''%>" href="/about">About</a>
-        <!-- <a class="<%=page==='guide'?'active':''%>" href="/guide">Guide</a> -->
+        <a class="<%=page==='makepayment'?'active':''%>" href="/makepayment"
+          >Make payment</a
+        >
         <%if(currUser && currUser.username){%>
         <a
           class="<%=page==='dashboard'?'active':''%>"
