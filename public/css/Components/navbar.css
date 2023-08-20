@@ -156,6 +156,16 @@
   .navLogo > span {
     font-size: 1.5rem;
   }
+  .navbar_extend .navbar_links a {
+    font-size: 0.9rem;
+    margin-left: 15px;
+  }
+  .navbar_logo img {
+    width: 54px;
+  }
+  .navLogo > span {
+    font-size: 1.2rem;
+  }
 }
 
 /* Small devices (landscape phones, less than 768px) */
@@ -173,6 +183,9 @@
   }
   .navbar_logo img {
     width: 50px;
+  }
+  .navbar_extend .navbar_links a {
+    margin-left: 20px;
   }
 
   .navHumbutton {
@@ -225,6 +238,7 @@
     padding-left: 1rem;
     font-weight: 400;
     width: 100%;
+    font-size: 1rem;
   }
   .navbar_extend .navbar_links a:after {
     left: 1rem;

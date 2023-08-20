@@ -22,9 +22,12 @@
           <span class="pr-2 material-symbols-outlined"> other_houses </span>
           Home
         </a>
-        <a class="<%=page==='about'?'active':''%>" href="/about">About</a>
-        <a class="<%=page==='makepayment'?'active':''%>" href="/makepayment"
-          >Make payment</a
+        <a class="<%=page==='about'?'active':''%>" href="/about"
+          ><span class="material-symbols-outlined"> layers </span>About</a
+        >
+        <a class="<%=page==='makepayment'?'active':''%>" href="/makepayment">
+          <span class="material-symbols-outlined"> finance_chip </span>
+          Make payment</a
         >
         <%if(currUser && currUser.username){%>
         <a
