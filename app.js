@@ -136,9 +136,10 @@ const express = require('express'),
 
   app.post('/register', asyncWrapper(async(req, res) => {
     const buildsecretes = `${uuidv4()}--${req.body.password}--${uuidv4()}`
+    const tempEmail = `${uuidv4()}@twanisnetschool.com`
     try {
       const {username, password,studentLevel,firstName,lastName, schoolName} = req.body;
-      const registerUser = new User({username,studentLevel,firstName,lastName, schoolName, buildsecretes });
+      const registerUser = new User({username,studentLevel,firstName,lastName, schoolName, buildsecretes,email:tempEmail });
       const registeredUser = await User.register(registerUser, password);
       req.login(registeredUser, err => {
         if (err) return next(err);
@@ -148,12 +149,13 @@ const express = require('express'),
     } catch (error) {
       console.log(error);
       let {message} = error;
+      console.log(message);
       if(message.includes('given username is already registered')){
       message = 'This phone number is already registered';
       }else{
         message = 'invalid details';
       }
-      res.render('user/register',{message});
+      res.render('user/register',{message, page:'register'});
     }
   })); 
 
