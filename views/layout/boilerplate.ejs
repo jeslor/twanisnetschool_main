@@ -101,7 +101,9 @@
           "load",
           function () {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName("needs-validation");
+            const forms = document.getElementsByClassName("needs-validation");
+            const sendDataLoader = document.querySelector(".sendDataLoader");
+            const mainBodyHolder = document.querySelector(".main-body-holder");
             // Loop over them and prevent submission
             var validation = Array.prototype.filter.call(
               forms,
@@ -112,14 +114,14 @@
                     if (form.checkValidity() === false) {
                       event.preventDefault();
                       event.stopPropagation();
+                      form.classList.add("was-validated");
                     }
-
-                    form.classList.add("was-validated");
-                    document.getElementsByClassName(
-                      ".main-body-holder"
-                    ).style.height = "100vh";
-                    document.querySelector(".sendDataLoader").style.display =
-                      "block";
+                    if (form.checkValidity() === true) {
+                      mainBodyHolder.style.maxHeight = "100vh";
+                      mainBodyHolder.style.overflow = "hidden";
+                      sendDataLoader.style.top = "0";
+                      window.scrollTo(0, 0);
+                    }
                   },
                   false
                 );

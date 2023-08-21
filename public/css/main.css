@@ -368,13 +368,12 @@
 /* ****************************** * */
 .sendDataLoader {
   position: absolute;
-  top: 0;
+  top: -100%;
   left: 0;
-  background-color: rgba(var(--mainblack), 1);
-  height: 100vh;
+  background-color: rgba(var(--mainColor), 1);
+  height: 100%;
   width: 100%;
-  z-index: 2;
-  display: none;
+  z-index: 55;
 }
 .loaderBody,
 .spin {
@@ -382,15 +381,22 @@
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  color: #0ff;
+  color: rgb(var(--secondaryColor));
   font-size: 1.5vw;
   align-items: center;
 }
 .loaderBody {
-  background: black;
+  background: rgba(var(--mainColor), 0.1);
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.loaderBody h5 {
+  font-size: 1.7rem;
+  padding-bottom: 4rem;
 }
 .spin {
   width: 150px;
