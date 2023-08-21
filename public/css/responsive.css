@@ -23,6 +23,7 @@ body {
 
 .main-body-holder {
   padding-top: 95px;
+  position: relative;
   /* overflow-x: hidden;
   min-height: 100vh; */
 }

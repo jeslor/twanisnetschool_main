@@ -20,53 +20,52 @@
         <h4>videos from the same topic</h4>
         <% if (similarVideos.length) {%>
         <div class="row sameVideoList">
-          <%for(const videoLesson of similarVideos){%>
-          <div class="col-12 mb-3">
-            <div class="dashboardBodyElement">
-              <div class="row">
-                <div class="col-7 col-sm-12 col-lg-7">
-                  <div class="ElementDetails">
-                    <h5><%=videoLesson.subject%></h5>
-                    <h6><%=videoLesson.level%></h6>
-                    <p><strong>Topic: <%=videoLesson.topic%> </strong></p>
-                    <small> <%=videoLesson.title%> </small>
-                  </div>
-                  <div class="actionButtons">
-                    <% if(videoLesson.cost === 'paid'){%>
-                    <a
-                      class="btn main_button"
-                      href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
-                      >Play</a
-                    >
-                    <%} else {%>
-                    <a
-                      class="btn main_button"
-                      href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
-                      >Play</a
-                    >
-                    <%}%>
-                  </div>
-                </div>
-                <div
-                  class="col-5 col-sm-12 col-lg-5 d-flex justify-content-center align-items-center"
+          <ul class="lessons">
+            <%for(const videoLesson of similarVideos){%>
+            <div class="col-12 mb-3">
+              <li>
+                <% if (videoLesson.cost ==='free') {%>
+                <a
+                  class="lesson"
+                  href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
                 >
-                  <div class="videoImage">
-                    <% if(videoLesson.cost === 'paid'){%>
-                    <a
-                      class="myPlayButton"
-                      href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
-                    ></a>
-                    <%} else {%>
-                    <a
-                      class="myPlayButton"
-                      href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
-                    ></a>
-                    <%}%>
+                  <div class="lessonImage">
+                    <span class="material-symbols-outlined"> live_tv </span>
                   </div>
-                </div>
-              </div>
+                  <div class="lessonTitle">
+                    <h6><%=videoLesson.title%></h6>
+                  </div>
+                  <div class="lessonFooter">
+                    <div class="lessonFooterRight">
+                      <small>
+                        Lesson <span><%=videoLesson.lessonNumber%></span>
+                      </small>
+                    </div>
+                  </div>
+                </a>
+                <%} else {%>
+                <a
+                  class="lesson"
+                  href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
+                >
+                  <div class="lessonImage">
+                    <span class="material-symbols-outlined"> live_tv </span>
+                  </div>
+                  <div class="lessonTitle">
+                    <h6><%=videoLesson.title%></h6>
+                  </div>
+                  <div class="lessonFooter">
+                    <div class="lessonFooterRight">
+                      <small>
+                        Lesson <span><%=videoLesson.lessonNumber%></span>
+                      </small>
+                    </div>
+                  </div>
+                </a>
+                <%} %>
+              </li>
             </div>
-          </div>
+          </ul>
           <%}%>
         </div>
         <% } else {%>

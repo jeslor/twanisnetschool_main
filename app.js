@@ -41,7 +41,6 @@ const express = require('express'),
   app.use(cors())
   app.use(express.urlencoded({ extended: true }))
   app.use(express.static(__dirname))
-  // app.use(favicon(__dirname + '/public/images/favicon/favicon.ico'))
   app.use(express.static(path.join(__dirname, 'public')))
   app.use(methodOverride('_method'))
   app.use(
@@ -363,6 +362,7 @@ const express = require('express'),
      await newVideo.save();
      req.flash('success', 'Video added successfully');
      res.redirect(`/dashboard/${req.user.username}`);
+ 
    }));
 
    app.get('/platformadmin/editdata/:id',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {

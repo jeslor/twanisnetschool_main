@@ -61,7 +61,7 @@
     <%-include('../partials/successflash')%> <% } %> <% if(error.length){%>
     <%-include('../partials/errorflash')%> <% } %>
     <main class="main-body-holder">
-      <!-- <div class="sendDataLoader">
+      <div class="sendDataLoader">
         <div class="loaderHeader">
           <title>loader</title>
         </div>
@@ -71,7 +71,7 @@
             <div class="inner"></div>
           </div>
         </div>
-      </div> -->
+      </div>
       <%- body %>
     </main>
     <%- include('../partials/Footer') %>
@@ -113,7 +113,13 @@
                       event.preventDefault();
                       event.stopPropagation();
                     }
+
                     form.classList.add("was-validated");
+                    document.getElementsByClassName(
+                      ".main-body-holder"
+                    ).style.height = "100vh";
+                    document.querySelector(".sendDataLoader").style.display =
+                      "block";
                   },
                   false
                 );

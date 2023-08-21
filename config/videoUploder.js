@@ -35,7 +35,6 @@ const  AWS  = require('aws-sdk'),
           multipart: true,
           // acl: 'public-read',
           metadata: function (req, file, cb) {
-            console.log('reach metadata');
             const filePath = `${uuid()}-${file.originalname}`
             cb(null, { fieldName: filePath })
           },
