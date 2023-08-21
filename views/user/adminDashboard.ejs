@@ -575,11 +575,19 @@
               <h6 class="userName"><%=user.firstName%> <%=user.lastName%></h6>
               <small class="pb-2"><%=user.buildsecretes%></small>
               <div class="userButtons">
+                <% if(user.isPremium){%>
                 <a
                   class="btn main_button"
-                  href="/platformadmin/edituser/<%=user._id%>"
+                  href="/platformadmin/edituser/<%=user._id%>/setSubscription"
+                  >Deactivate</a
+                >
+                <%} else {%>
+                <a
+                  class="btn main_button"
+                  href="/platformadmin/edituser/<%=user._id%>/setSubscription"
                   >Activate</a
                 >
+                <%}%>
                 <a
                   class="btn secondary_button openDeleteModal"
                   metaName="user"

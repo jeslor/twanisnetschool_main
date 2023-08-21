@@ -169,7 +169,6 @@ const express = require('express'),
 
   app.delete('/platformadmin/deleteuser/:userId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
     await User.findByIdAndDelete(req.params.userId);
-    console.log('reached here on users');
     req.flash('success', 'User deleted successfully');
     res.redirect('/platformadmin/allusers');
   }));
@@ -312,6 +311,7 @@ const express = require('express'),
   const users = await User.find({});
   res.render('user/adminDashboard', {data: users, isAllUsers: true,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
   }));
+
   app.get('/platformadmin/allGuests/messages', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
   const users = await MessageAssistant.find({}).sort({isRead: false});
   res.render('user/adminDashboard', {data: users, isAllUsers: false, isAllMessages:true, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
@@ -381,6 +381,8 @@ const express = require('express'),
    uploadVideo.single('uploadedvideo'), asyncWrapper(async(req, res) => {
     const {id} = req.params;
     const {body, file} = req;
+    console.log(body);
+    console.log(file);
     if (file === undefined) {
       await Content.findByIdAndUpdate(id, body);
     }else{
