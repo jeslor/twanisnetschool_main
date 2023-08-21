@@ -60,7 +60,20 @@
     <%-include('../partials/Navbar') %> <% if(success.length){%>
     <%-include('../partials/successflash')%> <% } %> <% if(error.length){%>
     <%-include('../partials/errorflash')%> <% } %>
-    <main class="main-body-holder"><%- body %></main>
+    <main class="main-body-holder">
+      <!-- <div class="sendDataLoader">
+        <div class="loaderHeader">
+          <title>loader</title>
+        </div>
+        <div class="loaderBody">
+          <h5>Uploading ....</h5>
+          <div class="spin">
+            <div class="inner"></div>
+          </div>
+        </div>
+      </div> -->
+      <%- body %>
+    </main>
     <%- include('../partials/Footer') %>
     <!-- <script src="/js/libs/popper.min.js"></script> -->
     <script src="/js/libs/jquery-3.4.1.min.js"></script>

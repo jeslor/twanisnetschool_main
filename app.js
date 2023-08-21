@@ -375,6 +375,13 @@ const express = require('express'),
 
    app.get('/platformadmin/editdata/:id',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
     const data = await Content.findById(req.params.id); 
+    const getObjectParams = {
+      Bucket: process.env.AmazonS3_Bucket_Name,
+      Key: `videos/${data.videoKey}`,
+    };
+    const command = new GetObjectCommand(getObjectParams);
+    const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
+    data.videoUrl = url;
     res.render('content/editdata', {data,  page:'dashboard'})
    }));
 
