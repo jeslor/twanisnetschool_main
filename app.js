@@ -18,7 +18,7 @@ const express = require('express'),
     AWS  = require('aws-sdk'),
     AppError = require('./utils/appError'),
     {upladimage, uploadVideo} = require('./config/videoUploder'),
-    {S3, GetObjectCommand} = require('./config/awsS3Config'),
+    {S3,s3, GetObjectCommand} = require('./config/awsS3Config'),
     { getSignedUrl } = require("@aws-sdk/s3-request-presigner"),
     {isLoggedIn, isAdministrator} =require('./middleware/userMiddleware'),
     {getVideo} = require('./config/videoGetter'),
@@ -73,11 +73,7 @@ const express = require('express'),
   });
 
 
-  const s3 = new AWS.S3({
-    accessKeyId: process.env.AmazonS3_Access_Key_ID,
-    secretAccessKey: process.env.AmazonS3_Secret_Access_Key,
-    region: process.env.AmazonS3_Region,
-  })
+
 
 
 
@@ -85,271 +81,268 @@ const express = require('express'),
   app.listen(3000, () => console.log(`Server is running on port ${port}!`));
 
 
-      app.get('/', asyncWrapper(async(req, res) => {
-        const sampleVideos = await Content.find({cost:'free'}).limit(4);
-          res.render('home', {sampleVideos, page:'home'});
-      }));
+  app.get('/', asyncWrapper(async(req, res) => {
+    const sampleVideos = await Content.find({cost:'free'}).limit(4);
+      res.render('home', {sampleVideos, page:'home'});
+  }));
 
 
 
-      // app.get('/videocomponent', (req, res) => {
-      //   console.log('reached here');
-        // const range = req.headers.range
-        // const videoPath = './samplevideos/sample-5s.mp4';
-        // const videoSize = fs.statSync(videoPath).size
-        // console.log(videoSize);
-        // const chunkSize = 1 * 1e6;
-        // const start = Number(range.replace(/\D/g, ""))
-        // const end = Math.min(start + chunkSize, videoSize - 1)
-        // const contentLength = end - start + 1;
-        // const headers = {
-        //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-        //     "Accept-Ranges": "bytes",
-        //     "Content-Length": contentLength,
-        //     "Content-Type": "video/mp4"
-        // }
-        // res.writeHead(206, headers)
-        // const stream = fs.createReadStream(videoPath, {
-        //     start,
-        //     end
-        // })
-        // stream.pipe(res)
-        // const videoKey = req.params.id;
-        // const videoStream = getVideo(videoKey);
-        // console.log(videoStream);
-        // videoStream.pipe(res);
-      // });
+  // app.get('/videocomponent', (req, res) => {
+  //   console.log('reached here');
+    // const range = req.headers.range
+    // const videoPath = './samplevideos/sample-5s.mp4';
+    // const videoSize = fs.statSync(videoPath).size
+    // console.log(videoSize);
+    // const chunkSize = 1 * 1e6;
+    // const start = Number(range.replace(/\D/g, ""))
+    // const end = Math.min(start + chunkSize, videoSize - 1)
+    // const contentLength = end - start + 1;
+    // const headers = {
+    //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+    //     "Accept-Ranges": "bytes",
+    //     "Content-Length": contentLength,
+    //     "Content-Type": "video/mp4"
+    // }
+    // res.writeHead(206, headers)
+    // const stream = fs.createReadStream(videoPath, {
+    //     start,
+    //     end
+    // })
+    // stream.pipe(res)
+    // const videoKey = req.params.id;
+    // const videoStream = getVideo(videoKey);
+    // console.log(videoStream);
+    // videoStream.pipe(res);
+  // });
 
-    app.get('/login', (req, res) => {
-      if(req.isAuthenticated()){ 
-        return res.redirect(`/dashboard/${req.user.username}`)};
-      res.render('user/login', {page:'login'});
-      }
-    );
+  app.get('/login', (req, res) => {
+    if(req.isAuthenticated()){ 
+      return res.redirect(`/dashboard/${req.user.username}`)};
+    res.render('user/login', {page:'login'});
+    }
+  );
 
-    app.post('/login', passport.authenticate('local',
-     { failureFlash: true, failureRedirect: '/login' }), 
-     (req, res) => {
-      req.flash('success', 'Welcome back!');
-      res.redirect(`/dashboard/${req.user.username}`);
-    });
+  app.post('/login', passport.authenticate('local',
+    { failureFlash: true, failureRedirect: '/login' }), 
+    (req, res) => {
+    req.flash('success', 'Welcome back!');
+    res.redirect(`/dashboard/${req.user.username}`);
+  });
 
-    app.get('/register', (req, res) => {
-      if(req.isAuthenticated()){ 
-        return res.redirect(`/dashboard/${req.user.username}`)};
-      res.render('user/register', {message:'', page:'register'});
-    });
+  app.get('/register', (req, res) => {
+    if(req.isAuthenticated()){ 
+      return res.redirect(`/dashboard/${req.user.username}`)};
+    res.render('user/register', {message:'', page:'register'});
+  });
 
-    app.post('/register', asyncWrapper(async(req, res) => {
-      const buildsecretes = `${uuidv4()}--${req.body.password}--${uuidv4()}`
-      try {
-        const {username, password,studentLevel,firstName,lastName, schoolName} = req.body;
-        const registerUser = new User({username,studentLevel,firstName,lastName, schoolName, buildsecretes });
-        const registeredUser = await User.register(registerUser, password);
-        req.login(registeredUser, err => {
-          if (err) return next(err);
-          req.flash('success', 'Welcome to Twanis Net School');
-          res.redirect(`/dashboard/${registeredUser.username}`);
-        });
-      } catch (error) {
-        console.log(error);
-        let {message} = error;
-        if(message.includes('given username is already registered')){
-        message = 'This phone number is already registered';
-        }else{
-          message = 'invalid details';
-        }
-        res.render('user/register',{message});
-      }
-    })); 
-
-    app.get('/logout', (req, res) => {
-      req.logout((err)=>{
-        if(err) return next(err);
+  app.post('/register', asyncWrapper(async(req, res) => {
+    const buildsecretes = `${uuidv4()}--${req.body.password}--${uuidv4()}`
+    try {
+      const {username, password,studentLevel,firstName,lastName, schoolName} = req.body;
+      const registerUser = new User({username,studentLevel,firstName,lastName, schoolName, buildsecretes });
+      const registeredUser = await User.register(registerUser, password);
+      req.login(registeredUser, err => {
+        if (err) return next(err);
+        req.flash('success', 'Welcome to Twanis Net School');
+        res.redirect(`/dashboard/${registeredUser.username}`);
       });
-      req.flash('success', 'Goodbye!');
-      res.redirect('/');
-    })
+    } catch (error) {
+      console.log(error);
+      let {message} = error;
+      if(message.includes('given username is already registered')){
+      message = 'This phone number is already registered';
+      }else{
+        message = 'invalid details';
+      }
+      res.render('user/register',{message});
+    }
+  })); 
 
-    app.delete('/platformadmin/deleteuser/:userId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      await User.findByIdAndDelete(req.params.userId);
-      console.log('reached here on users');
-      req.flash('success', 'User deleted successfully');
-      res.redirect('/platformadmin/allusers');
-    }));
-
-
-
-    app.get('/about', (req, res) => {
-      res.render('about', {page:'about'});
+  app.get('/logout', (req, res) => {
+    req.logout((err)=>{
+      if(err) return next(err);
     });
-    app.get('/makepayment', (req, res) => {
-      res.render('makepayment', {page:'makepayment'});
+    req.flash('success', 'Goodbye!');
+    res.redirect('/');
+  })
+
+  app.delete('/platformadmin/deleteuser/:userId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+    await User.findByIdAndDelete(req.params.userId);
+    console.log('reached here on users');
+    req.flash('success', 'User deleted successfully');
+    res.redirect('/platformadmin/allusers');
+  }));
+
+
+
+  app.get('/about', (req, res) => {
+    res.render('about', {page:'about'});
+  });
+  app.get('/makepayment', (req, res) => {
+    res.render('makepayment', {page:'makepayment'});
+  });
+
+  app.post('/guestUser/sendmessage', asyncWrapper(async(req, res) => {
+
+    let {guestMessage, guestName, guestPhone} = req.body;
+    guestName = guestName.trim();
+    guestPhone = guestPhone.trim();
+    guestMessage = guestMessage.trim();
+    await MessageAssistant.create({guestMessage, guestName, guestPhone});
+    req.flash('success', 'Message sent successfully');
+    res.render('about', {page:'about', message:'Message sent successfully'}); 
+
+  }));
+
+  app.get('/guide', (req, res) => {
+    res.render('guide',{page:'guide'});
+  });
+
+  app.post('/searchInput', asyncWrapper(async(req, res) => {
+    const {searchSuggestion} = req.body;
+    const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
+    let suggestions =[];
+      data.map(video => {
+      suggestions.push(video.title);
+      suggestions.push(video.subject);
+      suggestions.push(video.topic);
+      suggestions.push(video.level);
     });
+    suggestions = [...new Set(suggestions)];
+    res.send(suggestions);
+  }));
 
-    app.post('/guestUser/sendmessage', asyncWrapper(async(req, res) => {
+  app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
+    const data  = await Content.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
+    res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`});
+  }));
 
-      let {guestMessage, guestName, guestPhone} = req.body;
-      guestName = guestName.trim();
-      guestPhone = guestPhone.trim();
-      guestMessage = guestMessage.trim();
-      await MessageAssistant.create({guestMessage, guestName, guestPhone});
-      req.flash('success', 'Message sent successfully');
-      res.render('about', {page:'about', message:'Message sent successfully'}); 
-
-    }));
-
+  // app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
+  //   console.log(req.query);
+  //   console.log(req.params);
+  //   console.log(req.body);
+  // }))
 
 
+  app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
+    const videoFileDocuent = await Content.findById(req.params.fileId);
+      // const range = req.headers.range
+      // if (!range) {
+      //     res.status(400).send("Requires Range header");
+      // }
+      const videoKey = videoFileDocuent.videoKey;
+      // const videoSize = videoFileDocuent.videoSize;
+      // const chunkSize = 1 * 1e6;
+      // const start = Number(range.replace(/\D/g, ""))
+      // const end = Math.min(start + chunkSize, videoSize - 1)
+      // const contentLength = end - start + 1;
+      // const headers = {
+      //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+      //     "Accept-Ranges": "bytes",
+      //     "Content-Length": contentLength,
+      //     "Content-Type": "video/mp4"
+      // }
+      // res.writeHead(206, headers)
 
-    app.get('/guide', (req, res) => {
-      res.render('guide',{page:'guide'});
+      const videoStream = getVideo(videoKey);
+
+      // const stream = fs.createReadStream(videoKey, {
+      //     start,
+      //     end
+      // })
+      // stream.pipe(res)
+
+      
+      videoStream.pipe(res);
+  }))
+
+  app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn, asyncWrapper(async(req, res) => {
+
+    const data = await Content.findById(req.params.videoID);
+    const getObjectParams = {
+      Bucket: process.env.AmazonS3_Bucket_Name,
+      Key: `videos/${data.videoKey}`,
+    };
+    const command = new GetObjectCommand(getObjectParams);
+    const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
+    data.videoUrl = url;
+    let similarVideos = await Content.find({topic:data.topic})
+    similarVideos = similarVideos.filter(video => video.id !== req.params.videoID);
+    res.render('content/viewdata', {data, similarVideos, page:'dashboard'});
+  }))
+
+  app.get('/dashboard/free/video/playnow/:videoID', asyncWrapper(async(req, res) => {
+    const data = await Content.findById(req.params.videoID);
+    const getObjectParams = {
+    Bucket: process.env.AmazonS3_Bucket_Name,
+    Key: `videos/${data.videoKey}`,
+  };
+  const command = new GetObjectCommand(getObjectParams);
+  const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
+  data.videoUrl = url;
+    let similarVideos = (await Content.find({topic:data.topic}))
+    similarVideos = similarVideos.filter(video => {
+    return video.id !== req.params.videoID
     });
+  res.render('content/viewdata', {data, similarVideos,  page:'dashboard'});
+  }))
 
-    app.post('/searchInput', asyncWrapper(async(req, res) => {
-      const {searchSuggestion} = req.body;
-      const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
-      let suggestions =[];
-       data.map(video => {
-        suggestions.push(video.title);
-        suggestions.push(video.subject);
-        suggestions.push(video.topic);
-        suggestions.push(video.level);
-      });
-      suggestions = [...new Set(suggestions)];
-      res.send(suggestions);
-    }));
-
-    app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
-      const data  = await Content.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`});
-    }));
-
-    // app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
-    //   console.log(req.query);
-    //   console.log(req.params);
-    //   console.log(req.body);
-    // }))
-
-
-    app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
-      const videoFileDocuent = await Content.findById(req.params.fileId);
-        // const range = req.headers.range
-        // if (!range) {
-        //     res.status(400).send("Requires Range header");
-        // }
-        const videoKey = videoFileDocuent.videoKey;
-        // const videoSize = videoFileDocuent.videoSize;
-        // const chunkSize = 1 * 1e6;
-        // const start = Number(range.replace(/\D/g, ""))
-        // const end = Math.min(start + chunkSize, videoSize - 1)
-        // const contentLength = end - start + 1;
-        // const headers = {
-        //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-        //     "Accept-Ranges": "bytes",
-        //     "Content-Length": contentLength,
-        //     "Content-Type": "video/mp4"
-        // }
-        // res.writeHead(206, headers)
-
-        const videoStream = getVideo(videoKey);
-
-        // const stream = fs.createReadStream(videoKey, {
-        //     start,
-        //     end
-        // })
-        // stream.pipe(res)
-
-       
-        videoStream.pipe(res);
-    }))
-
-    app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn, asyncWrapper(async(req, res) => {
+  app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
+    const {search} = req.query;
+  if (search) {
+    const data = await Content.find({$text: {$search: search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
+    const {username, email} = req.user;
+    if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
+      res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
+    }else{
+      res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
+    }
+  }else{
+    const data = await Content.find({}).sort({dateAdded: -1});
+    const {username, email} = req.user;
+    if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
+      res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
+    }else{
+      res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:'',  page:'dashboard'});
+    }
+  }
   
-      const data = await Content.findById(req.params.videoID);
-      const getObjectParams = {
-        Bucket: process.env.AmazonS3_Bucket_Name,
-        Key: `videos/${data.videoKey}`,
-      };
-      const command = new GetObjectCommand(getObjectParams);
-      const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
-      data.videoUrl = url;
-      let similarVideos = await Content.find({topic:data.topic})
-      similarVideos = similarVideos.filter(video => video.id !== req.params.videoID);
-      res.render('content/viewdata', {data, similarVideos, page:'dashboard'});
-     }))
+  }));
 
-     app.get('/dashboard/free/video/playnow/:videoID', asyncWrapper(async(req, res) => {
-       const data = await Content.findById(req.params.videoID);
-       const getObjectParams = {
-        Bucket: process.env.AmazonS3_Bucket_Name,
-        Key: `videos/${data.videoKey}`,
-      };
-      const command = new GetObjectCommand(getObjectParams);
-      const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
-      data.videoUrl = url;
-       let similarVideos = (await Content.find({topic:data.topic}))
-       similarVideos = similarVideos.filter(video => {
-        return video.id !== req.params.videoID
-       });
-      res.render('content/viewdata', {data, similarVideos,  page:'dashboard'});
-     }))
+  app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+  const users = await User.find({});
+  res.render('user/adminDashboard', {data: users, isAllUsers: true,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+  }));
+  app.get('/platformadmin/allGuests/messages', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+  const users = await MessageAssistant.find({}).sort({isRead: false});
+  res.render('user/adminDashboard', {data: users, isAllUsers: false, isAllMessages:true, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+  }));
+  app.get('/platformadmin/allGuests/messages/:messageId', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+  const message = await MessageAssistant.findById(req.params.messageId);
+  message.isRead = !message.isRead;
+  await message.save();
+  message.isRead 
+  ? req.flash('success', 'Message marked as read') 
+  : req.flash('success', 'Message marked as unread');
+  res.redirect('/platformadmin/allGuests/messages');
+  }));
 
-    app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
-      const {search} = req.query;
-     if (search) {
-      const data = await Content.find({$text: {$search: search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-      const {username, email} = req.user;
-      if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
-        res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
-      }else{
-        res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
-      }
-     }else{
-      const data = await Content.find({}).sort({dateAdded: -1});
-      const {username, email} = req.user;
-      if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
-      }else{
-        res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:'',  page:'dashboard'});
-      }
-     }
-     
-    }));
+  app.delete('/platformadmin/allGuests/messages/:messageId', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+  await MessageAssistant.findByIdAndDelete(req.params.messageId);
+  req.flash('success', 'Message deleted successfully');
+  res.redirect('/platformadmin/allGuests/messages');
+  }));
 
-    app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      const users = await User.find({});
-      res.render('user/adminDashboard', {data: users, isAllUsers: true,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
-     }));
-     app.get('/platformadmin/allGuests/messages', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      const users = await MessageAssistant.find({}).sort({isRead: false});
-      res.render('user/adminDashboard', {data: users, isAllUsers: false, isAllMessages:true, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
-     }));
-     app.get('/platformadmin/allGuests/messages/:messageId', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      const message = await MessageAssistant.findById(req.params.messageId);
-      message.isRead = !message.isRead;
-      await message.save();
-      message.isRead 
-      ? req.flash('success', 'Message marked as read') 
-      : req.flash('success', 'Message marked as unread');
-     res.redirect('/platformadmin/allGuests/messages');
-     }));
+  app.get('/platformadmin/deleteuser/:Id', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
+  await User.findByIdAndDelete(req.params.Id);
+  req.flash('success', 'User deleted successfully');
+  res.redirect('/platformadmin/allusers');
+  }));
 
-     app.delete('/platformadmin/allGuests/messages/:messageId', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      await MessageAssistant.findByIdAndDelete(req.params.messageId);
-      req.flash('success', 'Message deleted successfully');
-      res.redirect('/platformadmin/allGuests/messages');
-     }));
-
-     app.get('/platformadmin/deleteuser/:Id', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      await User.findByIdAndDelete(req.params.Id);
-      req.flash('success', 'User deleted successfully');
-      res.redirect('/platformadmin/allusers');
-     }));
-
-    app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {
-      res.render('content/adddata', {activeMenuItem: 'adddata',  page:'dashboard'});
-    });
+  app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {
+    res.render('content/adddata', {activeMenuItem: 'adddata',  page:'dashboard'});
+  });
 
     app.post('/platformadmin/adddata',isLoggedIn, isAdministrator, uploadVideo.single('uploadedvideo'),
     asyncWrapper(async(req, res) => {
@@ -422,47 +415,47 @@ const express = require('express'),
       res.redirect(`/dashboard/${req.user.username}`);
         
    }));
-app.get('/dashboard/:user/:subject', isLoggedIn, asyncWrapper(async(req, res) => {
-  const{subject} = req.params;
-  const levels = await Content.find({subject});
-  const schoolLevels = [];
-  levels.map(level => {
-    if(!schoolLevels.includes(level.level)){
-      schoolLevels.push(level.level);
-    }
-  })
-  res.render('user/dashboardV2Class', {subjectSelected:subject, schoolLevels,  page:'dashboard'});
-}));
+  app.get('/dashboard/:user/:subject', isLoggedIn, asyncWrapper(async(req, res) => {
+    const{subject} = req.params;
+    const levels = await Content.find({subject});
+    const schoolLevels = [];
+    levels.map(level => {
+      if(!schoolLevels.includes(level.level)){
+        schoolLevels.push(level.level);
+      }
+    })
+    res.render('user/dashboardV2Class', {subjectSelected:subject, schoolLevels,  page:'dashboard'});
+  }));
 
-app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
-  const{subject, level} = req.params;
-  const terms = await Content.find({subject, level});
-  const schoolTerms = [];
-  terms.map(term => {
-    if(!schoolTerms.includes(term.term)){
-      schoolTerms.push(term.term);
-    }
-  })
-  res.render('user/dashboardV2Term', {subjectSelected:subject, levelSelected:level, schoolTerms,  page:'dashboard'});
-}));
+  app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
+    const{subject, level} = req.params;
+    const terms = await Content.find({subject, level});
+    const schoolTerms = [];
+    terms.map(term => {
+      if(!schoolTerms.includes(term.term)){
+        schoolTerms.push(term.term);
+      }
+    })
+    res.render('user/dashboardV2Term', {subjectSelected:subject, levelSelected:level, schoolTerms,  page:'dashboard'});
+  }));
 
-app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async(req, res) => {
-  const {level, subject, term} = req.params;
-  const data = await Content.find({level, subject, term});
-  const topics =  [];
-  data.map(video => {
-    if(!topics.includes(video.topic)){
-      topics.push(video.topic);
-    }
-  })
-  res.render('user/dashboardV2Topic', {subjectSelected:subject, levelSelected:level, termSelected:term, topics,  page:'dashboard'});
-}));
+  app.get('/dashboard/:user/:subject/:level/:term', isLoggedIn, asyncWrapper(async(req, res) => {
+    const {level, subject, term} = req.params;
+    const data = await Content.find({level, subject, term});
+    const topics =  [];
+    data.map(video => {
+      if(!topics.includes(video.topic)){
+        topics.push(video.topic);
+      }
+    })
+    res.render('user/dashboardV2Topic', {subjectSelected:subject, levelSelected:level, termSelected:term, topics,  page:'dashboard'});
+  }));
 
-app.get('/dashboard/:user/:subject/:level/:term/:topic', isLoggedIn, asyncWrapper(async(req, res) => {
-  const {level, subject, term, topic} = req.params;
-  const lessons  = await Content.find({subject: req.params.subject, level: level, term: term, topic: topic}).sort({lessonNumber: -1});
-  res.render('user/dashboardV2Lesson', {subject, level, term, topic, lessons,  page:'dashboard'});
-}));
+  app.get('/dashboard/:user/:subject/:level/:term/:topic', isLoggedIn, asyncWrapper(async(req, res) => {
+    const {level, subject, term, topic} = req.params;
+    const lessons  = await Content.find({subject: req.params.subject, level: level, term: term, topic: topic}).sort({lessonNumber: -1});
+    res.render('user/dashboardV2Lesson', {subject, level, term, topic, lessons,  page:'dashboard'});
+  }));
 
 
     // app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
@@ -487,27 +480,27 @@ app.get('/dashboard/:user/:subject/:level/:term/:topic', isLoggedIn, asyncWrappe
     //   }
     // }));
 
-    app.all('*', (req, res, next) => {
-      // next(new AppError('The page was not found', 404));
-      if (req.accepts('html')) {
-        res.render('404', { url: req.url });
-        return;
-      }
-    
-      // respond with json
-      if (req.accepts('json')) {
-        res.json({ error: 'Not found' });
-        return;
-      }
-    
-      // default to plain-text. send()
-      res.type('txt').send('Not found');
-    })
-    
-    app.use((err, req, res, next) => {
-      const { status = 500, message = 'Something went wrong' } = err
-      res.status(status).send(message)
-    })
+  app.all('*', (req, res, next) => {
+    // next(new AppError('The page was not found', 404));
+    if (req.accepts('html')) {
+      res.render('404', { url: req.url });
+      return;
+    }
+  
+    // respond with json
+    if (req.accepts('json')) {
+      res.json({ error: 'Not found' });
+      return;
+    }
+  
+    // default to plain-text. send()
+    res.type('txt').send('Not found');
+  })
+  
+  app.use((err, req, res, next) => {
+    const { status = 500, message = 'Something went wrong' } = err
+    res.status(status).send(message)
+  })
 
 
 
