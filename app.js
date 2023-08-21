@@ -266,7 +266,7 @@ const express = require('express'),
     const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
     data.videoUrl = url;
     let similarVideos = await Content.find({topic:data.topic})
-    similarVideos = similarVideos.filter(video => video.id !== req.params.videoID);
+    similarVideos = similarVideos.filter(video => video.id !== req.params.videoID).sort((a,b)=>Number(a.lessonNumber)-Number(b.lessonNumber));
     res.render('content/viewdata', {data, similarVideos, page:'dashboard'});
   }))
 
@@ -280,9 +280,7 @@ const express = require('express'),
   const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
   data.videoUrl = url;
     let similarVideos = (await Content.find({topic:data.topic}))
-    similarVideos = similarVideos.filter(video => {
-    return video.id !== req.params.videoID
-    });
+    similarVideos = similarVideos.filter(video => video.id !== req.params.videoID).sort((a,b)=>Number(a.lessonNumber)-Number(b.lessonNumber));
   res.render('content/viewdata', {data, similarVideos,  page:'dashboard'});
   }))
 
