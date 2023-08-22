@@ -267,7 +267,7 @@ const express = require('express'),
     const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
     data.videoUrl = url;
     let similarVideos = await Content.find({topic:data.topic})
-    similarVideos = similarVideos.filter(video => video.id !== req.params.videoID).sort((a,b)=>Number(a.lessonNumber)-Number(b.lessonNumber));
+    similarVideos = similarVideos.filter(video => video.id !== req.params.videoID).sort((a,b)=>a.lessonNumber-b.lessonNumber);
     res.render('content/viewdata', {data, similarVideos, page:'dashboard'});
   }))
 
@@ -281,7 +281,7 @@ const express = require('express'),
   const url = await getSignedUrl(S3, command, { expiresIn: 60 * 60 * 2, });
   data.videoUrl = url;
     let similarVideos = (await Content.find({topic:data.topic}))
-    similarVideos = similarVideos.filter(video => video.id !== req.params.videoID).sort((a,b)=>Number(a.lessonNumber)-Number(b.lessonNumber));
+    similarVideos = similarVideos.filter(video => video.id !== req.params.videoID).sort((a,b)=>a.lessonNumber-b.lessonNumber);
   res.render('content/viewdata', {data, similarVideos,  page:'dashboard'});
   }))
 
@@ -351,7 +351,7 @@ const express = require('express'),
        level: req.body.level,
        subject: req.body.subject,
        topic: req.body.topic,
-       lessonNumber: req.body.lessonNumber,
+       lessonNumber: Number(req.body.lessonNumber),
        term: req.body.term,
        videoKey: req.file.key,
        videoSize: Number(req.file.size),
@@ -381,8 +381,7 @@ const express = require('express'),
    uploadVideo.single('uploadedvideo'), asyncWrapper(async(req, res) => {
     const {id} = req.params;
     const {body, file} = req;
-    console.log(body);
-    console.log(file);
+    body.lessonNumber = Number(body.lessonNumber);
     if (file === undefined) {
       await Content.findByIdAndUpdate(id, body);
     }else{
@@ -454,7 +453,7 @@ const express = require('express'),
 
   app.get('/dashboard/:user/:subject/:level/:term/:topic', isLoggedIn, asyncWrapper(async(req, res) => {
     const {level, subject, term, topic} = req.params;
-    const lessons  = await Content.find({subject: req.params.subject, level: level, term: term, topic: topic}).sort({lessonNumber: -1});
+    const lessons  = await Content.find({subject: subject, level: level, term: term, topic: topic}).sort({lessonNumber: 1});
     res.render('user/dashboardV2Lesson', {subject, level, term, topic, lessons,  page:'dashboard'});
   }));
 

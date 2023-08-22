@@ -1,3 +1,5 @@
+const { Timestamp } = require('mongodb');
+
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
@@ -25,7 +27,7 @@ const contentSchema = new Schema({
         required: true
     },
     lessonNumber:{
-        type: String,
+        type: Number,
         required: true
     },
     topic:{
@@ -47,7 +49,9 @@ const contentSchema = new Schema({
         default: 0,
         required: true
     },
-});
+
+}, {timestamps: true}
+);
 
 contentSchema.index({title: 'text', subject: 'text', topic: 'text', level: 'text'});
 // contentSchema.index({subject: 1, topic: 1, level: 1});
