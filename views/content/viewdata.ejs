@@ -26,11 +26,15 @@
               <li>
                 <% if (videoLesson.cost ==='free') {%>
                 <a
-                  class="lesson"
+                  class="lesson <%=videoLesson.id === data.id? 'lessonPlaying':'' %>"
                   href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
                 >
                   <div class="lessonImage">
+                    <% if(videoLesson.id === data.id) {%>
+                    <span class="material-symbols-outlined"> play_circle </span>
+                    <% }else{%>
                     <span class="material-symbols-outlined"> live_tv </span>
+                    <%} %>
                   </div>
                   <div class="lessonTitle">
                     <h6><%=videoLesson.title%></h6>
@@ -45,11 +49,15 @@
                 </a>
                 <%} else {%>
                 <a
-                  class="lesson"
+                  class="lesson <%=videoLesson.id === data.id? 'lessonPlaying':'' %>"
                   href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
                 >
                   <div class="lessonImage">
+                    <% if(videoLesson.id === data.id) {%>
+                    <span class="material-symbols-outlined"> play_circle </span>
+                    <% }else{%>
                     <span class="material-symbols-outlined"> live_tv </span>
+                    <%} %>
                   </div>
                   <div class="lessonTitle">
                     <h6><%=videoLesson.title%></h6>
