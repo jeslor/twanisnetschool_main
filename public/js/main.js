@@ -441,6 +441,7 @@ function autocomplete(inp) {
 
 
   const sidebarOverlay = document.getElementById('sidebarOverlay');
+  const mainBodyHolder = document.querySelector('.main-body-holder');
   const sidebar = document.getElementById('sidebar');
   const openSidebar = document.getElementById('openSidebar');
   const closeSidebar = document.getElementById('closeSidebar');
@@ -450,10 +451,11 @@ function autocomplete(inp) {
           sidebar.classList.remove('show');
           sidebarOverlay.classList.remove('show');
           openSidebar.style.display = 'flex';
-          }else{
+        }else{
           sidebar.classList.add('show');
           sidebarOverlay.classList.add('show');
           openSidebar.style.display = 'none';
+          window.scrollTo(0, 0);
           }
       })
   }
