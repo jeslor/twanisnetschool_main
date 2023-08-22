@@ -96,6 +96,10 @@
     max-width: 100%;
     margin-left: 0rem;
     padding-top: 0rem;
+    max-height: none;
+  }
+  .similarVideos .sameVideoList {
+    height: auto;
   }
 }
 
