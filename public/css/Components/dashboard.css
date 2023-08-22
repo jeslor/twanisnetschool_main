@@ -179,6 +179,7 @@
   margin-top: 1rem;
   border-radius: var(--normalBorderRadius);
   position: relative;
+  width: inherit;
 }
 
 .deleteVideoOverlay {
