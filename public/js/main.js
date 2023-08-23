@@ -288,10 +288,12 @@ const openDeleteModalButtons = document.querySelectorAll('.openDeleteModal');
 const deleteModal = document.getElementById('deleteVideoOverlay');
 const deleteVideoModal = document.querySelector('.deleteVideoModal');
 const closeDeleteModalButton = document.getElementById('closeDeleteModal');
+const adminDashboard = document.getElementById('adminDashboard');
 
 openDeleteModalButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         deleteModal.classList.add('show');
+        adminDashboard.classList.add('heightControlled');
         const url  = e.target.attributes['deleteUrl'].value;
         const form = deleteVideoModal.getElementsByTagName('form')[0];
         const videoName = e.target.attributes['videoName'].value;
@@ -312,12 +314,14 @@ if (deleteVideoModal) {
 if (deleteModal) {
     deleteModal.addEventListener('click', (e) => {
         deleteModal.classList.remove('show');
+        adminDashboard.classList.remove('heightControlled');
     });
 }
 
 if (closeDeleteModalButton) {
     closeDeleteModalButton.addEventListener('click', (e) => {
         deleteModal.classList.remove('show');
+        adminDashboard.classList.remove('heightControlled');
     });
 }
 

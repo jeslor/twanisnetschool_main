@@ -1,3 +1,4 @@
+const { log } = require('console');
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
@@ -295,9 +296,15 @@ const express = require('express'),
     }
   }else{
     const data = await Content.find({}).sort({dateAdded: -1});
+    const totalItems = await Content.countDocuments();
     const {username, email} = req.user;
     if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-      res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
+      let page = Number(req.query.page || 1)
+      let perPage = 10
+      let pages = Math.ceil(totalItems / perPage)
+      const totalpages = page + 3 >= pages ? pages : page + 3
+      console.log(page,pages,totalItems,totalpages,);
+      res.render('user/adminDashboard', {data,page,pages,totalItems,totalpages, isAllUsers: false,isAllMessages:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
     }else{
       res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:'',  page:'dashboard'});
     }
@@ -343,12 +350,15 @@ const express = require('express'),
     app.post('/platformadmin/adddata',isLoggedIn, isAdministrator, uploadVideo.single('uploadedvideo'),
     asyncWrapper(async(req, res) => {
       req.socket.setTimeout(100 * 60 * 1000);
+      const formatTopic = req.body.topic.toLowerCase().charAt(0).toUpperCase() + req.body.topic.slice(1);
+      console.log(formatTopic);
+      + req.body.topic.slice(1);
      let newVideo  = new Content({
        title: req.body.title,
        cost: req.body.cost,
        level: req.body.level,
        subject: req.body.subject,
-       topic: req.body.topic,
+       topic: formatTopic,
        lessonNumber: Number(req.body.lessonNumber),
        term: req.body.term,
        videoKey: req.file.key,
@@ -379,6 +389,8 @@ const express = require('express'),
    uploadVideo.single('uploadedvideo'), asyncWrapper(async(req, res) => {
     const {id} = req.params;
     const {body, file} = req;
+    body.topic = req.body.topic.toLowerCase().charAt(0).toUpperCase() + req.body.topic.slice(1)
+    console.log(body.topic);
     body.lessonNumber = Number(body.lessonNumber);
     if (file === undefined) {
       await Content.findByIdAndUpdate(id, body);
