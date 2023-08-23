@@ -563,8 +563,10 @@
         <div class="row">
           <% if (isAllUsers) {%> <%if(data.length){%> <%for(const user of
           data){%>
-          <div class="col-xl-4 col-sm-6">
-            <div class="dashboardUserElement">
+          <div class="col-sm-6">
+            <div
+              class="dashboardUserElement <%=user.isPremium?'premiumUser':''%>"
+            >
               <div class="userIcon">
                 <span class="material-symbols-outlined">
                   contact_emergency
