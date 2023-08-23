@@ -25,7 +25,7 @@ module.exports .isPremium = asyncWrapper(async(req, res, next)=>{
   if((req.isAuthenticated()&&activeUser.username === '0775527077' && activeUser.email ==='twaninetschool@gmail.com') || (req.isAuthenticated()&&activeUser.isPremium === true)){
     return next();
   }else{
-    req.flash('error', 'You have to pay subscription to access these videos')
+    req.flash('error', 'You need to pay subscription to access these videos')
     return res.redirect('/makepayment')
   }
 })
