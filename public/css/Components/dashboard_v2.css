@@ -406,12 +406,14 @@
 
 .eachResult {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   background-color: rgba(var(--mainColor), 0.2);
   padding: 1rem;
   border-radius: var(--normalBorderRadius);
   transition: var(--themeTransition);
   cursor: pointer;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 
 .eachResult:hover {
@@ -447,7 +449,8 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   text-transform: capitalize;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  color: rgba(var(--mainColor), 0.5);
 }
 
 .eachResult .lessonFooterRight span:nth-of-type(1) {
@@ -457,6 +460,19 @@
 .eachResult .lessonFooterRight small {
   font-weight: bold;
   margin-left: auto;
+  color: rgba(var(--mainColor), 0.5);
+}
+
+.eachResult .actionButtons a {
+  padding: 0.2rem 1.2rem;
+  margin-left: 0.5rem;
+  width: max-content;
+}
+.eachResult .actionButtons a.secondary_button:hover {
+  color: rgb(var(--mainColor));
+}
+.eachResult .actionButtons a.main_button:hover {
+  color: rgb(var(--secondaryColor));
 }
 
 /* X-Large devices (large desktops, less than 1400px) */
