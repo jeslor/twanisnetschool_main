@@ -360,7 +360,7 @@ const express = require('express'),
     asyncWrapper(async(req, res) => {
       req.socket.setTimeout(100 * 60 * 1000);
       const formatTopic = req.body.topic.toLowerCase().charAt(0).toUpperCase() + req.body.topic.slice(1);
-      console.log(formatTopic);
+
       + req.body.topic.slice(1);
      let newVideo  = new Content({
        title: req.body.title,
@@ -399,7 +399,7 @@ const express = require('express'),
     const {id} = req.params;
     const {body, file} = req;
     body.topic = req.body.topic.toLowerCase().charAt(0).toUpperCase() + req.body.topic.slice(1)
-    console.log(body.topic);
+
     body.lessonNumber = Number(body.lessonNumber);
     if (file === undefined) {
       await Content.findByIdAndUpdate(id, body);
