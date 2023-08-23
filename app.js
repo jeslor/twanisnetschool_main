@@ -1,4 +1,3 @@
-const { log } = require('console');
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '/server.env' })
@@ -168,6 +167,17 @@ const express = require('express'),
     res.redirect('/');
   })
 
+  app.get('/platformadmin/edituser/:userID/setSubscription', isLoggedIn, asyncWrapper(async(req, res) => {
+    const user = await User.findById(req.params.userID);
+    if (user.isPremium) {
+      await User.findByIdAndUpdate(req.params.userID, {isPremium:false});
+    }else{
+      await User.findByIdAndUpdate(req.params.userID, {isPremium:true});   
+    }
+    req.flash('success', 'Subscription set successfully');
+    res.redirect('/platformadmin/allusers');
+  }));
+
   app.delete('/platformadmin/deleteuser/:userId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
     await User.findByIdAndDelete(req.params.userId);
     req.flash('success', 'User deleted successfully');
@@ -303,7 +313,6 @@ const express = require('express'),
       let perPage = 10
       let pages = Math.ceil(totalItems / perPage)
       const totalpages = page + 3 >= pages ? pages : page + 3
-      console.log(page,pages,totalItems,totalpages,);
       res.render('user/adminDashboard', {data,page,pages,totalItems,totalpages, isAllUsers: false,isAllMessages:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
     }else{
       res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:'',  page:'dashboard'});
