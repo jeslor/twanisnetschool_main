@@ -394,6 +394,10 @@
   transition: var(--themeTransition);
   margin: 0.5rem;
 }
+.dashboardUserElement.premiumUser {
+  background-color: rgba(var(--secondaryColor), 0.2);
+  color: rgb(var(--secondaryColor));
+}
 
 .dashboardUserElement:hover {
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
