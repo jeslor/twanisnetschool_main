@@ -20,7 +20,7 @@ const express = require('express'),
     {upladimage, uploadVideo} = require('./config/videoUploder'),
     {S3,s3, GetObjectCommand} = require('./config/awsS3Config'),
     { getSignedUrl } = require("@aws-sdk/s3-request-presigner"),
-    {isLoggedIn, isAdministrator} =require('./middleware/userMiddleware'),
+    {isLoggedIn, isAdministrator, isPremium} =require('./middleware/userMiddleware'),
     {getVideo} = require('./config/videoGetter'),
 
     User = require('./models/user'),
@@ -257,7 +257,7 @@ const express = require('express'),
       videoStream.pipe(res);
   }))
 
-  app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn, asyncWrapper(async(req, res) => {
+  app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn,isPremium, asyncWrapper(async(req, res) => {
 
     const data = await Content.findById(req.params.videoID);
     const getObjectParams = {

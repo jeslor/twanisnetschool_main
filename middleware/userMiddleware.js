@@ -14,3 +14,13 @@ module.exports.isAdministrator =(req, res, next)=>{
     return res.redirect('/')
   }
 }
+
+module.exports .isPremium = (req, res, next)=>{
+  if((req.isAuthenticated()&&req.user.username === '0775527077' && req.user.email ==='twaninetschool@gmail.com') || (req.isAuthenticated()&&req.user.isPremium === true)){
+    return next();
+  }else{
+    req.flash('error', 'You have to pay subscription to access these videos')
+    return res.redirect('/makepayment')
+  }
+}
+  
