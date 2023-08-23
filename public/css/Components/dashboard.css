@@ -450,6 +450,9 @@
   .sidebar.show {
     left: 0;
     transition: var(--themeTransition);
+    overflow-y: scroll;
+    height: 90vh;
+    padding-bottom: 4rem;
   }
   #sidebarOverlay.show {
     position: absolute;

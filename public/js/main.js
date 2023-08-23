@@ -450,34 +450,38 @@ function autocomplete(inp) {
         if (sidebar.classList.contains('show')) {
           sidebar.classList.remove('show');
           sidebarOverlay.classList.remove('show');
+          mainBodyHolder.classList.remove('heightControlled');
           openSidebar.style.display = 'flex';
         }else{
           sidebar.classList.add('show');
           sidebarOverlay.classList.add('show');
+          mainBodyHolder.classList.add('heightControlled');
           openSidebar.style.display = 'none';
           window.scrollTo(0, 0);
-          }
+        }
       })
-  }
-
-  if (sidebarOverlay) {
+    }
+    
+    if (sidebarOverlay) {
       sidebarOverlay.addEventListener('click', (e) => {
-          sidebar.classList.remove('show');
-          sidebarOverlay.classList.remove('show');
-          openSidebar.style.display = 'flex';
+        sidebar.classList.remove('show');
+        mainBodyHolder.classList.remove('heightControlled');
+        sidebarOverlay.classList.remove('show');
+        openSidebar.style.display = 'flex';
       })
-  }
-
-  if (sidebar) {
+    }
+    
+    if (sidebar) {
       sidebar.addEventListener('click', (e) => {
-          e.stopPropagation();
+        e.stopPropagation();
       })
-  }
-  if (closeSidebar) {
+    }
+    if (closeSidebar) {
       closeSidebar.addEventListener('click', (e) => {
-          sidebar.classList.remove('show');
-          sidebarOverlay.classList.remove('show');
-          openSidebar.style.display = 'flex';
+        sidebar.classList.remove('show');
+        sidebarOverlay.classList.remove('show');
+        mainBodyHolder.classList.remove('heightControlled');
+        openSidebar.style.display = 'flex';
       })
   }
 

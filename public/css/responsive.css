@@ -26,6 +26,11 @@ body {
   position: relative;
 }
 
+.heightControlled {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
 a {
   text-decoration: none;
   color: rgb(var(--mainColor));
