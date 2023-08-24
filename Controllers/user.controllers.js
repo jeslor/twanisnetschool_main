@@ -1,4 +1,4 @@
-const  asyncWrapper = require('./utils/asyncWrapper');
+const  asyncWrapper = require('../utils/asyncWrapper');
     
     
     const getLogin = (req, res) => {

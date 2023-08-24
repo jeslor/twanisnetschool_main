@@ -21,10 +21,10 @@ const express = require('express'),
     { getSignedUrl } = require("@aws-sdk/s3-request-presigner"),
     {isLoggedIn, isAdministrator, isPremium} =require('./middleware/userMiddleware'),
     {getVideo} = require('./config/videoGetter'),
-
     User = require('./models/user'),
     Content = require('./models/content'),
     MessageAssistant = require('./models/messageAssistant'),
+    userRoutes = require('./routes/user.routes'),
     app = express();
     
 
@@ -84,6 +84,8 @@ const express = require('express'),
       res.render('home', {sampleVideos, page:'home'});
   }));
 
+app.use('/', userRoutes);
+
 
 
   // app.get('/videocomponent', (req, res) => {
@@ -114,59 +116,7 @@ const express = require('express'),
     // videoStream.pipe(res);
   // });
 
-  app.get('/login', 
-  (req, res) => {
-    if(req.isAuthenticated()){ 
-    return res.redirect(`/dashboard/${req.user.username}`)};
-    res.render('user/login', {page:'login'});
-}
-  );
 
-  app.post('/login', passport.authenticate('local',
-    { failureFlash: true, failureRedirect: '/login' }), 
-    (req, res) => {
-    req.flash('success', 'Welcome back!');
-    res.redirect(`/dashboard/${req.user.username}`);
-  });
-
-  app.get('/register', (req, res) => {
-    if(req.isAuthenticated()){ 
-      return res.redirect(`/dashboard/${req.user.username}`)};
-    res.render('user/register', {message:'', page:'register'});
-  });
-
-  app.post('/register', asyncWrapper(async(req, res) => {
-    const buildsecretes = `${uuidv4()}--${req.body.password}--${uuidv4()}`
-    const tempEmail = `${uuidv4()}@twanisnetschool.com`
-    try {
-      const {username, password,studentLevel,firstName,lastName, schoolName} = req.body;
-      const registerUser = new User({username,studentLevel,firstName,lastName, schoolName, buildsecretes,email:tempEmail });
-      const registeredUser = await User.register(registerUser, password);
-      req.login(registeredUser, err => {
-        if (err) return next(err);
-        req.flash('success', 'Welcome to Twanis Net School');
-        res.redirect(`/dashboard/${registeredUser.username}`);
-      });
-    } catch (error) {
-      console.log(error);
-      let {message} = error;
-      console.log(message);
-      if(message.includes('given username is already registered')){
-      message = 'This phone number is already registered';
-      }else{
-        message = 'invalid details';
-      }
-      res.render('user/register',{message, page:'register'});
-    }
-  })); 
-
-  app.get('/logout', (req, res) => {
-    req.logout((err)=>{
-      if(err) return next(err);
-    });
-    req.flash('success', 'Goodbye!');
-    res.redirect('/');
-  })
 
   app.get('/platformadmin/edituser/:userID/setSubscription', isLoggedIn, asyncWrapper(async(req, res) => {
     const user = await User.findById(req.params.userID);
