@@ -114,11 +114,12 @@ const express = require('express'),
     // videoStream.pipe(res);
   // });
 
-  app.get('/login', (req, res) => {
+  app.get('/login', 
+  (req, res) => {
     if(req.isAuthenticated()){ 
-      return res.redirect(`/dashboard/${req.user.username}`)};
+    return res.redirect(`/dashboard/${req.user.username}`)};
     res.render('user/login', {page:'login'});
-    }
+}
   );
 
   app.post('/login', passport.authenticate('local',
