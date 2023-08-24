@@ -210,17 +210,31 @@ const express = require('express'),
   });
 
   app.post('/searchInput', asyncWrapper(async(req, res) => {
-    const {searchSuggestion} = req.body;
-    const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
+    let {searchSuggestion} = req.body;
     let suggestions =[];
-      data.map(video => {
-      suggestions.push(video.title);
-      suggestions.push(video.subject);
-      suggestions.push(video.topic);
-      suggestions.push(video.level);
-    });
-    suggestions = [...new Set(suggestions)];
-    res.send(suggestions);
+    let finalWords  = [];
+
+     await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7).then(
+      data => {
+        data.map(video => {
+        suggestions.push(video.title);
+        suggestions.push(video.subject);
+        suggestions.push(video.topic);
+        suggestions.push(video.level);
+      });
+      const word = searchSuggestion.toLowerCase();
+      suggestions = suggestions.filter(sug => sug.toLowerCase().includes(word));
+      suggestions.forEach(sug =>{
+        const index  = sug.toLowerCase().indexOf(word);
+        const newSent = sug.slice(index, sug.length);
+        finalWords.push(newSent);
+      });
+      finalWords = [...new Set(finalWords)];
+    }
+    );
+   
+   
+    res.send(finalWords);
   }));
 
   app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {

@@ -411,20 +411,24 @@
   background-color: rgba(var(--mainColor), 0.2);
   padding: 1rem;
   border-radius: var(--normalBorderRadius);
-  transition: var(--themeTransition);
+  transition: background-color 0.2s ease-in-out;
   cursor: pointer;
   margin-bottom: 3rem;
 }
 
 .eachResult:hover {
   background-color: rgba(var(--mainColor), 0.6);
+  color: rgba(var(--mainwhite), 0.9);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
+.eachResult:hover .lessonFooterRight span,
+.eachResult:hover .lessonFooterRight small {
+  color: rgba(var(--mainwhite), 0.7);
+}
 
-.eachResult a {
+.eachResult .lesson {
   display: inline-block;
   width: 100%;
-  transition: var(--themeTransition);
 }
 
 .eachResult:hover a {
@@ -443,6 +447,7 @@
 
 .eachResult .lessonFooterRight {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .eachResult .lessonFooterRight span {
@@ -553,5 +558,9 @@
   }
   .lessonContent {
     margin-left: 0rem;
+  }
+
+  .eachResult .lessonFooterRight small {
+    margin-left: 0.5rem;
   }
 }

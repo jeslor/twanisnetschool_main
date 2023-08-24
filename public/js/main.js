@@ -336,17 +336,18 @@ function autocomplete(inp) {
     var currentFocus;
     inp.addEventListener("input",  async function(e) {
         let suggestions = [ ]
-        if (e.target.value !== '') {
+        let word = e.target.value
+        if (word !== '') {
             const data = await fetch('/searchInput', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ searchSuggestion: e.target.value }),
+              body: JSON.stringify({ searchSuggestion: word }),
             })
      
-             const  moreSuggestions = await data.json()
+             let  moreSuggestions = await data.json()
+          
                 suggestions = [...suggestions, ...moreSuggestions]
 
-                console.log(suggestions);
         }
         var a, b, i, val = this.value;
         closeAllLists();
@@ -357,7 +358,6 @@ function autocomplete(inp) {
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
         for (i = 0; i < suggestions.length; i++) {
-          console.log(val);
           if (suggestions[i].toLowerCase().includes(val.toLowerCase()) || suggestions[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
             b = document.createElement("DIV");
             b.innerHTML = "<strong>" + suggestions[i].substr(0, val.length) + "</strong>";
