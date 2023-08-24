@@ -211,6 +211,7 @@ const express = require('express'),
 
   app.post('/searchInput', asyncWrapper(async(req, res) => {
     let {searchSuggestion} = req.body;
+    console.log(searchSuggestion);
     let suggestions =[];
     let finalWords  = [];
 
