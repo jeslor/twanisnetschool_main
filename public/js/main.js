@@ -288,12 +288,14 @@ const openDeleteModalButtons = document.querySelectorAll('.openDeleteModal');
 const deleteModal = document.getElementById('deleteVideoOverlay');
 const deleteVideoModal = document.querySelector('.deleteVideoModal');
 const closeDeleteModalButton = document.getElementById('closeDeleteModal');
-const adminDashboard = document.getElementById('adminDashboard');
+const mainBodyHolder = document.querySelector('.main-body-holder');
 
-openDeleteModalButtons.forEach(button => {
+
+if (openDeleteModalButtons) {
+  openDeleteModalButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         deleteModal.classList.add('show');
-        adminDashboard.classList.add('heightControlled');
+        mainBodyHolder.classList.add('heightControlled');
         const url  = e.target.attributes['deleteUrl'].value;
         const form = deleteVideoModal.getElementsByTagName('form')[0];
         const videoName = e.target.attributes['videoName'].value;
@@ -303,6 +305,9 @@ openDeleteModalButtons.forEach(button => {
         deleteVideoModal.querySelector('#metaTag').innerHTML = metaTag;  
     });
 });
+}
+  
+
 
 
 if (deleteVideoModal) {
@@ -314,14 +319,14 @@ if (deleteVideoModal) {
 if (deleteModal) {
     deleteModal.addEventListener('click', (e) => {
         deleteModal.classList.remove('show');
-        adminDashboard.classList.remove('heightControlled');
+        mainBodyHolder.classList.remove('heightControlled');
     });
 }
 
 if (closeDeleteModalButton) {
     closeDeleteModalButton.addEventListener('click', (e) => {
         deleteModal.classList.remove('show');
-        adminDashboard.classList.remove('heightControlled');
+        mainBodyHolder.classList.remove('heightControlled');
     });
 }
 
@@ -445,7 +450,6 @@ function autocomplete(inp) {
 
 
   const sidebarOverlay = document.getElementById('sidebarOverlay');
-  const mainBodyHolder = document.querySelector('.main-body-holder');
   const sidebar = document.getElementById('sidebar');
   const openSidebar = document.getElementById('openSidebar');
   const closeSidebar = document.getElementById('closeSidebar');
