@@ -562,6 +562,12 @@
   .lessonContent {
     margin-left: 0rem;
   }
+  .searchPage {
+    padding: 2rem 1rem;
+  }
+  .eachResult {
+    margin-bottom: 1.5rem;
+  }
 
   .eachResult .lessonFooterRight small {
     margin-left: 0.5rem;

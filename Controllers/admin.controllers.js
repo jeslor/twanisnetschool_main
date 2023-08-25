@@ -26,7 +26,7 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
         res.redirect('/platformadmin/allusers');
     })
 
-    const getallUsers = asyncWrapper(async(req, res) => {
+    const getAllUsers = asyncWrapper(async(req, res) => {
         const users = await User.find({});
         res.render('user/adminDashboard', {data: users, isAllUsers: true,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
     })
@@ -137,7 +137,7 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
 module.exports = {
     getUserEdit,
     getDeleteUser,
-    getallUsers,
+    getAllUsers,
     getAllGuestMessages,
     getEditGuestMessage,
     getDeleteGuestMessage,

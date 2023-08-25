@@ -70,7 +70,6 @@ const asyncWrapper = require('../utils/asyncWrapper'),
       })
     const postSearchInput = asyncWrapper(async(req, res) => {
         let {searchSuggestion} = req.body;
-        console.log(searchSuggestion);
         let suggestions =[];
         let finalWords  = [];
     
