@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3"),
   AWS  = require('aws-sdk');
+  require('aws-sdk/lib/maintenance_mode_message').suppress = true;
      
     const S3 = new S3Client({
         credentials:{

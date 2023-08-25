@@ -1,4 +1,12 @@
 
+const {isLoggedIn, isAdministrator, isPremium} =require('./middleware/userMiddleware'),
+      {getVideo} = require('./config/videoGetter');
+  
+  
+  
+  
+  
+  
   app.get('/videocomponent', (req, res) => {
     console.log('reached here');
     const range = req.headers.range

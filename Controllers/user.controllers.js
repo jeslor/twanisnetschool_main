@@ -1,8 +1,9 @@
-const  asyncWrapper = require('../utils/asyncWrapper'),
-User = require('../models/user'),
-Content = require('../models/content'),
-MessageAssistant = require('../models/messageAssistant'),
-{ v4: uuidv4 } = require('uuid');
+const asyncWrapper = require('../utils/asyncWrapper'),
+      User = require('../models/user'),
+      Content = require('../models/content'),
+      MessageAssistant = require('../models/messageAssistant'),
+      { getSignedUrl } = require("@aws-sdk/s3-request-presigner"),
+      { v4: uuidv4 } = require('uuid');
     
     
     const getLogin = (req, res) => {
