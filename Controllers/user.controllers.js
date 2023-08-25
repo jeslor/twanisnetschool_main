@@ -97,7 +97,7 @@ const asyncWrapper = require('../utils/asyncWrapper'),
     })
 
     const getSearchResults = asyncWrapper(async(req, res) => {
-        const data  = await Content.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
+        const data  = await Content.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(20);
         res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`});
     })
     
@@ -139,7 +139,7 @@ const asyncWrapper = require('../utils/asyncWrapper'),
           res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
         }
       }else{
-        const data = await Content.find({}).sort({dateAdded: -1});
+        const data = await Content.find({}).sort({dateAdded: -1}).limit(20);
         const totalItems = await Content.countDocuments();
         const {username, email} = req.user;
         if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
