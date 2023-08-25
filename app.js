@@ -12,10 +12,9 @@ const express = require('express'),
     LocalStrategy = require('passport-local'),
     ejsmate = require('ejs-mate'),
     flash = require('connect-flash'),
-    fs = require('fs'),
+
     asyncWrapper = require('./utils/asyncWrapper'),
-    { v4: uuidv4 } = require('uuid'),
-    AppError = require('./utils/appError'),
+
     {upladimage, uploadVideo} = require('./config/videoUploder'),
     {S3,s3, GetObjectCommand} = require('./config/awsS3Config'),
     { getSignedUrl } = require("@aws-sdk/s3-request-presigner"),
@@ -25,6 +24,7 @@ const express = require('express'),
     Content = require('./models/content'),
     MessageAssistant = require('./models/messageAssistant'),
     userRoutes = require('./routes/user.routes'),
+    adminRoutes = require('./routes/admin.routes'),
     app = express();
     
 
@@ -85,55 +85,7 @@ const express = require('express'),
   }));
 
 app.use('/', userRoutes);
-
-
-
-  // app.get('/videocomponent', (req, res) => {
-  //   console.log('reached here');
-    // const range = req.headers.range
-    // const videoPath = './samplevideos/sample-5s.mp4';
-    // const videoSize = fs.statSync(videoPath).size
-    // console.log(videoSize);
-    // const chunkSize = 1 * 1e6;
-    // const start = Number(range.replace(/\D/g, ""))
-    // const end = Math.min(start + chunkSize, videoSize - 1)
-    // const contentLength = end - start + 1;
-    // const headers = {
-    //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-    //     "Accept-Ranges": "bytes",
-    //     "Content-Length": contentLength,
-    //     "Content-Type": "video/mp4"
-    // }
-    // res.writeHead(206, headers)
-    // const stream = fs.createReadStream(videoPath, {
-    //     start,
-    //     end
-    // })
-    // stream.pipe(res)
-    // const videoKey = req.params.id;
-    // const videoStream = getVideo(videoKey);
-    // console.log(videoStream);
-    // videoStream.pipe(res);
-  // });
-
-
-
-  app.get('/platformadmin/edituser/:userID/setSubscription', isLoggedIn, asyncWrapper(async(req, res) => {
-    const user = await User.findById(req.params.userID);
-    if (user.isPremium) {
-      await User.findByIdAndUpdate(req.params.userID, {isPremium:false});
-    }else{
-      await User.findByIdAndUpdate(req.params.userID, {isPremium:true});   
-    }
-    req.flash('success', 'Subscription set successfully');
-    res.redirect('/platformadmin/allusers');
-  }));
-
-  app.delete('/platformadmin/deleteuser/:userId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-    await User.findByIdAndDelete(req.params.userId);
-    req.flash('success', 'User deleted successfully');
-    res.redirect('/platformadmin/allusers');
-  }));
+app.use('/platformadmin', adminRoutes);
 
 
 
@@ -144,94 +96,11 @@ app.use('/', userRoutes);
     res.render('makepayment', {page:'makepayment'});
   });
 
-  app.post('/guestUser/sendmessage', asyncWrapper(async(req, res) => {
-
-    let {guestMessage, guestName, guestPhone} = req.body;
-    guestName = guestName.trim();
-    guestPhone = guestPhone.trim();
-    guestMessage = guestMessage.trim();
-    await MessageAssistant.create({guestMessage, guestName, guestPhone});
-    req.flash('success', 'Message sent successfully');
-    res.render('about', {page:'about', message:'Message sent successfully'}); 
-
-  }));
-
   app.get('/guide', (req, res) => {
     res.render('guide',{page:'guide'});
   });
 
-  app.post('/searchInput', asyncWrapper(async(req, res) => {
-    let {searchSuggestion} = req.body;
-    console.log(searchSuggestion);
-    let suggestions =[];
-    let finalWords  = [];
 
-     await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7).then(
-      data => {
-        data.map(video => {
-        suggestions.push(video.title);
-        suggestions.push(video.subject);
-        suggestions.push(video.topic);
-        suggestions.push(video.level);
-      });
-      const word = searchSuggestion.toLowerCase();
-      suggestions = suggestions.filter(sug => sug.toLowerCase().includes(word));
-      suggestions.forEach(sug =>{
-        const index  = sug.toLowerCase().indexOf(word);
-        const newSent = sug.slice(index, sug.length);
-        finalWords.push(newSent);
-      });
-      finalWords = [...new Set(finalWords)];
-    }
-    );
-   
-   
-    res.send(finalWords);
-  }));
-
-  app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
-    const data  = await Content.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-    res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`});
-  }));
-
-  // app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
-  //   console.log(req.query);
-  //   console.log(req.params);
-  //   console.log(req.body);
-  // }))
-
-
-  app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
-    const videoFileDocuent = await Content.findById(req.params.fileId);
-      // const range = req.headers.range
-      // if (!range) {
-      //     res.status(400).send("Requires Range header");
-      // }
-      const videoKey = videoFileDocuent.videoKey;
-      // const videoSize = videoFileDocuent.videoSize;
-      // const chunkSize = 1 * 1e6;
-      // const start = Number(range.replace(/\D/g, ""))
-      // const end = Math.min(start + chunkSize, videoSize - 1)
-      // const contentLength = end - start + 1;
-      // const headers = {
-      //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-      //     "Accept-Ranges": "bytes",
-      //     "Content-Length": contentLength,
-      //     "Content-Type": "video/mp4"
-      // }
-      // res.writeHead(206, headers)
-
-      const videoStream = getVideo(videoKey);
-
-      // const stream = fs.createReadStream(videoKey, {
-      //     start,
-      //     end
-      // })
-      // stream.pipe(res)
-
-      
-      videoStream.pipe(res);
-  }))
 
   app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn,isPremium, asyncWrapper(async(req, res) => {
 
@@ -441,29 +310,6 @@ app.use('/', userRoutes);
     const lessons  = await Content.find({subject: subject, level: level, term: term, topic: topic}).sort({lessonNumber: 1});
     res.render('user/dashboardV2Lesson', {subject, level, term, topic, lessons,  page:'dashboard'});
   }));
-
-
-    // app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
-    //   const {search} = req.query;
-    //   const {subject, level} = req.params;
-    //   if (search) {
-    //     const data = await Content.find({$text: {$search: search}, subject: subject, level: level}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-    //     console.log(data);
-    //     const {username, email} = req.user;
-    //     if (username==='0775527077' && email ==='twaninetschool@gmail.com') {
-    //       res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
-    //     }else{
-    //       res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
-    //     }    
-    //   }else{   
-    //     const data = await Content.find({subject: subject, level: level});
-    //     if(req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com' ){
-    //       res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:''});
-    //     }else{
-    //       res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:''});
-    //     }
-    //   }
-    // }));
 
   app.all('*', (req, res, next) => {
     // next(new AppError('The page was not found', 404));
