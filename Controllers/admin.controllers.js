@@ -58,8 +58,8 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
 
     const postAddData = asyncWrapper(async(req, res) => {
         req.socket.setTimeout(100 * 60 * 1000);
+        console.log(req.body);
         const formatTopic = req.body.topic.toLowerCase().charAt(0).toUpperCase() + req.body.topic.slice(1);
-  
         + req.body.topic.slice(1);
        let newVideo  = new Content({
          title: req.body.title,
@@ -132,6 +132,16 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
           
      })
 
+    const getAllUserSearch = asyncWrapper(async(req, res) => {
+      const data  = await User.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
+      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: true,isAllMessages:false });
+    })
+
+    const getMessageSearch = asyncWrapper(async(req, res) => {
+      const data  = await MessageAssistant.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
+      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: false,isAllMessages:true });
+    })
+
 
 
 module.exports = {
@@ -145,7 +155,9 @@ module.exports = {
     postAddData,
     getEditData,
     postEditData,
-    getDeleteData
+    getDeleteData,
+    getAllUserSearch,
+    getMessageSearch
 }
 
 

@@ -1,8 +1,8 @@
 const asyncWrapper = require('../utils/asyncWrapper'),
       User = require('../models/user'),
+      {S3, GetObjectCommand} = require('../config/awsS3Config'),
       Content = require('../models/content'),
       MessageAssistant = require('../models/messageAssistant'),
-      {S3, GetObjectCommand} = require('../config/awsS3Config'),
       { getSignedUrl } = require("@aws-sdk/s3-request-presigner"),
       { v4: uuidv4 } = require('uuid');
     
@@ -73,7 +73,6 @@ const asyncWrapper = require('../utils/asyncWrapper'),
         let {searchSuggestion} = req.body;
         let suggestions =[];
         let finalWords  = [];
-    
          await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7).then(
           data => {
             data.map(video => {
@@ -81,7 +80,9 @@ const asyncWrapper = require('../utils/asyncWrapper'),
             suggestions.push(video.subject);
             suggestions.push(video.topic);
             suggestions.push(video.level);
+
           });
+
           const word = searchSuggestion.toLowerCase();
           suggestions = suggestions.filter(sug => sug.toLowerCase().includes(word));
           suggestions.forEach(sug =>{
@@ -99,7 +100,7 @@ const asyncWrapper = require('../utils/asyncWrapper'),
 
     const getSearchResults = asyncWrapper(async(req, res) => {
         const data  = await Content.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(20);
-        res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`});
+        res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`, isAllUsers: false,isAllMessages:false});
     })
     
     const getPlayPremiumVideo = asyncWrapper(async(req, res) => {
