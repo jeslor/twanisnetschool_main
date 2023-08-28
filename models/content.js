@@ -1,5 +1,3 @@
-const { Timestamp } = require('mongodb');
-
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
@@ -16,8 +14,10 @@ const contentSchema = new Schema({
     },
     level:{
         type: String,
+        required: true,
         default: 'all',
     },
+
     subject:{
         type: String,
         required: true
@@ -53,7 +53,17 @@ const contentSchema = new Schema({
 }, {timestamps: true}
 );
 
-contentSchema.index({title: 'text', subject: 'text', topic: 'text', level: 'text'});
+contentSchema.index({
+    title: 'text',
+    subject: 'text',
+    topic: 'text',
+    level: 'text',
+    term: 'text',
+    cost: 'text',
+    lessonNumber: 'text',
+
+
+});
 // contentSchema.index({subject: 1, topic: 1, level: 1});
 
 module.exports = mongoose.model('Content', contentSchema);

@@ -36,7 +36,15 @@ const UserSchema = new Schema({
     },
 
 
-});
+}, {timestamps: true});
 
 UserSchema.plugin(passportLocalMongoose);
+UserSchema.index({
+    firstName: 'text',
+    lastName: 'text',
+    schoolName: 'text',
+    studentLevel: 'text',
+    email: 'text',
+    username: 'text',
+  });
 module.exports  = mongoose.model('User', UserSchema);

@@ -20,4 +20,10 @@ const messageAssistantSchema = new Schema({
     }
 }, { timestamps: true });
 
+messageAssistantSchema.index({
+    guestMessage: 'text',
+    guestName: 'text',
+    guestPhone: 'text',
+  });
+
 module.exports = mongoose.model('MessageAssistant', messageAssistantSchema);
