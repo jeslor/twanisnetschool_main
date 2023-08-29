@@ -532,11 +532,12 @@
     <div class="dashboardContent">
       <div class="dashboardMenu">
         <div class="searchbar adminSearchbar">
-          <form
-            autocomplete="off"
-            action="/dashboard/<%=currUser.username%>/search"
-            method="GET"
-          >
+          <form id="searchForm" autocomplete="off" <% if (isAllUsers) { %>
+            action="/platformadmin/allusers/search" <% } %> <% if
+            (isAllMessages) { %>
+            action="/platformadmin/allGuests/messages/search" <% } else { %>
+            action="/dashboard/<%=currUser.username%>/search" <% } %>
+            method="GET" >
             <div class="autocomplete">
               <input
                 id="searchInput"
