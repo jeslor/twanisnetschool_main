@@ -1,0 +1,135 @@
+<% (layout('layout/boilerplate')) %>
+<div class="aboutHeader">
+  <div class="container">
+    <h3>Information and help</h3>
+  </div>
+</div>
+
+<div class="container">
+  <div class="aboutusSection">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="aboutContent">
+          <h4>Know more about us</h4>
+          <p>
+            Another element of daily life that moved to an online space during
+            the pandemic was education. This is where we come in. We provide a
+            platform for students to access educational content they missed,
+            they didn't understand well or enlight themselves on the topics
+            ahead.
+          </p>
+          <p>
+            We provide this content in the form of videos with a teach
+            illustrating and eraborating the lession content visually. This is a
+            platform that can be used by anyone, anywhere, anytime.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="moreAboutUs">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="eachValue">
+                <h5>Our core values</h5>
+                <p>
+                  We value the importance of education and believe that a good
+                  education provides a good key to success. We also value the
+                  importance of constant access to education even within an
+                  environment where normal school function is impossible.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="eachValue">
+                <h5>Our mission</h5>
+                <p>
+                  Our mission is to provide the necessary tools for education to
+                  continue whatever the circumstances.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="aboutContact" class="aboutContact">
+    <h4>Contact us</h4>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="contactContent">
+          <div class="whatsappContact">
+            <a href="https://wa.me/256775527077" target="_blank">
+              <i class="lni lni-whatsapp"></i>
+            </a>
+            <p>
+              You can <span> Click on the Icon</span> and send a WhatsApp
+              message and you will receive a reply shortly. You can also call on
+              0702 411251 And 0775 527077(WhatsApp).
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="contactContent">
+          <div class="contactform">
+            <div>
+              <div class="contact-form-wrapper d-flex justify-content-center">
+                <form
+                  action="/guestUser/sendmessage"
+                  class="contact-form"
+                  method="post"
+                >
+                  <h5 class="title">Write to us</h5>
+                  <p class="description">
+                    Feel free to contact us if you need any assistance, any help
+                    or another question.
+                  </p>
+                  <div>
+                    <input
+                      type="text"
+                      class="form-control rounded border-white mb-3 form-input"
+                      placeholder="Your name"
+                      name="guestName"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="number"
+                      class="form-control rounded border-white mb-3 form-input"
+                      name="guestPhone"
+                      placeholder="Your phone number"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <textarea
+                      id="message"
+                      class="expand-textArea form-control rounded border-white mb-3 form-text-area"
+                      rows="5"
+                      cols="30"
+                      placeholder="Message"
+                      name="guestMessage"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="submit-button-wrapper">
+                    <input
+                      class="btn secondary_button"
+                      type="submit"
+                      value="Send"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
