@@ -170,11 +170,34 @@
   background-color: rgba(var(--mainColor), 0.1);
 }
 
+.sampaleVideoContainer {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0rem 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.owl-sampleVideos.owl-carousel .owl-stage {
+  display: flex;
+}
+.owl-sampleVideos.owl-carousel .item {
+  display: flex;
+  flex: 1 0 auto;
+  height: 100%;
+}
+
 .sample_video {
+  position: relative;
+  overflow: hidden;
   background-color: rgba(var(--mainColor), 0.5);
   border-radius: 0px 0px 5px 5px;
   margin-bottom: 1.5rem;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .sample_video .sample_video__image {
@@ -188,6 +211,7 @@
     rgba(6, 81, 125, 1) 100%
   );
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: rgb(var(--mainwhite));
@@ -227,6 +251,27 @@
 
 .sample_video__content .sample_videoSubject {
   text-transform: capitalize;
+}
+
+.owl-sampleVideos.owl-carousel button.owl-next,
+.owl-sampleVideos.owl-carousel button.owl-prev {
+  position: absolute;
+  top: 40%;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: rgb(var(--secondaryColor));
+  color: white;
+}
+.owl-sampleVideos.owl-carousel button.owl-next span,
+.owl-sampleVideos.owl-carousel button.owl-prev span {
+  font-size: 1.5rem;
+}
+.owl-sampleVideos.owl-carousel button.owl-prev {
+  left: -2rem;
+}
+.owl-sampleVideos.owl-carousel button.owl-next {
+  right: -2rem;
 }
 
 .loginPage {
