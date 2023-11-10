@@ -67,7 +67,7 @@ const express = require('express'),
   app.listen(3000, () => console.log(`Server is running on port ${port}!`));
 
   app.get('/', asyncWrapper(async(req, res) => {
-    const sampleVideos = await Content.find({cost:'free'}).limit(4);
+    const sampleVideos = await Content.find({cost:'free'});
       res.render('home', {sampleVideos, page:'home'});
   }));
 
