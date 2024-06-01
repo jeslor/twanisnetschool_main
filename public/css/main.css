@@ -412,13 +412,14 @@
 
 /* ****************************** * */
 .sendDataLoader {
-  position: absolute;
+  position: fixed;
   top: -100%;
   left: 0;
   background-color: rgba(var(--mainColor), 1);
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   z-index: 55;
+  overflow: hidden;
 }
 .loaderBody,
 .spin {
@@ -433,7 +434,7 @@
 .loaderBody {
   background: rgba(var(--mainColor), 0.1);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   display: flex;
   justify-content: center;

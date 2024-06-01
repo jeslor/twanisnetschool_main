@@ -34,7 +34,10 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false,
     },
-
+    payments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Payment'
+    }],
 
 }, {timestamps: true});
 

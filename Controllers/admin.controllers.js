@@ -27,7 +27,9 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
     })
 
     const getAllUsers = asyncWrapper(async(req, res) => {
-        const users = await User.find({});
+        let users = await User.find({});
+        users = users.filter(user => user.email !== "ntwtwalule@yahoo.com");
+
         res.render('user/adminDashboard', {data: users, isAllUsers: true,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
     })
 

@@ -1,76 +1,277 @@
 <%(layout('layout/boilerplate'))%>
 <div class="guideHeader">
   <div class="container">
-    <h3>How to pay Subscription</h3>
+    <h3>Subscribe and enjoy the premium features</h3>
   </div>
 </div>
-
-<div class="container">
-  <div class="aboutusSection">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <div class="aboutContent">
-          <h4>Using Mobile Money (for Ugandans)</h4>
-          <p>
-            You can enjoy our services by paying a subscription fee of
-            <strong>UGX 50,000</strong>. After subscription you will be able to
-            watch all videos anytime and anywhere. To pay using
-            <strong>MTN Mobile Money</strong> or <strong>Airtel Money</strong>,
-            follow the steps below:
-          </p>
+<div class="payments">
+  <div class="container px-0">
+    <div class="subscriptions">
+      <h5>Subscriptions</h5>
+      <div class="subscriptionsList">
+        <% if (subscriptions && subscriptions.length > 0) {%> <% for(const
+        subscription of subscriptions.slice(0,3)){%> <%const months = [
+        'January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December' ];%>
+        <div class="eachSubscription">
+          <div class="subscriptionHeader">
+            <% if (subscription.paymentEndDate.getTime() - new Date().getTime()
+            <= 0) {%>
+            <div style="filter: grayscale(1)" class="subscriptionHeaderIcon">
+              <img src="/public/images/payment.svg" alt="payment" />
+            </div>
+            <h4 style="color: red">expired</h4>
+            <%}else{%>
+            <div class="activeSubscription"></div>
+            <div class="subscriptionHeaderIcon">
+              <img src="/public/images/payment.svg" alt="payment" />
+            </div>
+            <h4>
+              <%=`${Math.round((subscription.paymentEndDate.getTime() - new
+              Date().getTime())/(1000*60*60*24))} ` %>Days left
+            </h4>
+            <%} %>
+          </div>
+          <ul class="subscriptionFeatures">
+            <li>
+              subscription ID;
+              <span><%=subscription.transactionId%></span>
+            </li>
+            <li>
+              Amount;
+              <span
+                ><%=subscription.paymentAmount.toLocaleString()%>
+                <%=subscription.paymentCurrency%></span
+              >
+            </li>
+            <li>
+              expiry date;
+              <span
+                ><%=`${subscription.paymentEndDate.getDate()}/
+                ${months[subscription.paymentEndDate.getMonth()]}/
+                ${subscription.paymentEndDate.getFullYear()}`%></span
+              >
+            </li>
+          </ul>
         </div>
+        <%}%> <%}else{%>
+        <p style="opacity: 0.5; white-space: nowrap">No subscriptions yet</p>
+        <%} %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-        <div class="moreAboutUs">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <div class="mobileMoneyCards">
-                <div class="image">
-                  <img src="/images/airtel.webp" alt="" />
-                </div>
-                <div class="content">
-                  <h5>Airtel Money</h5>
-
-                  <ul>
-                    <li>
-                      Dial <strong>*185*9#</strong> on your phone and press yes
-                    </li>
-                    <li>
-                      Enter Twani's Net School Merchant ID:
-                      <strong> 4360816</strong>
-                    </li>
-                    <li>Enter amount as <strong>50,000</strong></li>
-                    <li>Enter payment reference</li>
-                    <li>Enter your Airtel Money PIN to complete.</li>
-                  </ul>
-                </div>
-              </div>
+    <div class="paymentOptions">
+      <h3>Make a Payment</h3>
+      <div class="paymentOptionsList">
+        <div class="eachOption">
+          <div class="country">
+            <img src="/public/images/uganda.svg" alt="" /> Uganda
+          </div>
+          <h5>Supported Mobile Money Networks</h5>
+          <div class="mobileMoneys">
+            <div class="eachMobileMoney">
+              <div class="mobileMoneyIcon"></div>
+              <div class="mobileMoneyName">MTN</div>
             </div>
-            <!-- <div class="col-md-6 mb-3">
-              <div class="mobileMoneyCards mtn">
-                <div class="image">
-                  <img src="/images/mtn.webp" alt="" />
-                </div>
-                <div class="content">
-                  <h5>NTN Mobile Money</h5>
-
-                  <ul>
-                    <li>Dial <strong>*165*3#</strong> on your phone</li>
-                    <li>
-                      Enter Twani's Net School
-                      <strong>Merchant Code: 100000</strong>
-                    </li>
-                    <li>Enter amount as <strong>80,000</strong></li>
-                    <li>Enter a PIN to complete a payment.</li>
-                  </ul>
-                </div>
+            <div class="eachMobileMoney">
+              <div class="mobileMoneyIcon"></div>
+              <div class="mobileMoneyName">Airtel</div>
+            </div>
+          </div>
+          <small style="font-weight: 700; opacity: 0.8">steps</small>
+          <ul class="features">
+            <li>Enter your phone number</li>
+            <li>Choose your Network from the dropdown</li>
+            <li>Click on pay</li>
+            <li>You will receive via sms and whatsApp message</li>
+            <li>Enter this code on the page to verify</li>
+            <li>Enter your Mobile Money pin on your phone</li>
+            <li>Done!</li>
+          </ul>
+          <div class="paymentForm">
+            <form class="makePayment" method="POST" data-country="uganda">
+              <input
+                id="phoneNumber"
+                type="text"
+                required
+                name="phone"
+                placeholder="Enter your phone number"
+              />
+              <label for="network">Select a Network</label>
+              <div class="mySelect" required>
+                <select name="network" id="network">
+                  <option value="MTN">MTN / Airtel</option>
+                  <option value="MTN">MTN</option>
+                  <option value="Airtel">Airtel</option>
+                </select>
               </div>
-            </div> -->
+              <%if(currentUser !== null){%> <%if(currentUser.isPremium ||
+              (currentUser.username === '0775527077' && currentUser.email
+              ==='twaninetschool@gmail.com')){%>
+              <div class="isPremium">
+                You are have an active subscription 😊
+              </div>
+              <%}else{%>
+              <button class="payButton" type="submit">
+                Pay 50,000 UGX <span id="paying" class="paying"></span>
+                <span id="paymentProcessed" class="tick"
+                  ><img src="/public/images/mdi--tick-circle.svg" alt=""
+                /></span>
+              </button>
+              <%}%> <%}%> <%if(currentUser === null){%>
+              <button class="payButton" type="submit">
+                Pay 50,000 UGX <span id="paying" class="paying"></span>
+                <span id="paymentProcessed" class="tick"
+                  ><img src="/public/images/mdi--tick-circle.svg" alt=""
+                /></span>
+              </button>
+              <%}%>
+            </form>
+          </div>
+        </div>
+        <div class="eachOption">
+          <div class="country">
+            <img src="/public/images/kenya.svg" alt="" />
+            <img src="/public/images/emojione--flag-for-tanzania.svg" alt="" />
+            Kenya & Tanzania
+          </div>
+          <h5>Supported Mobile Money Networks</h5>
+          <div class="mobileMoneys">
+            <div class="eachMobileMoney">
+              <div class="mobileMoneyIcon"></div>
+              <div class="mobileMoneyName">M-Pesa</div>
+            </div>
+            <div class="eachMobileMoney">
+              <div class="mobileMoneyIcon"></div>
+              <div class="mobileMoneyName">All others</div>
+            </div>
+          </div>
+          <small style="font-weight: 700; opacity: 0.8">steps</small>
+          <ul class="features">
+            <li>Enter your phone number</li>
+            <li>Choose your Network from the dropdown</li>
+            <li>Click on pay</li>
+            <li>You will receive via sms and whatsApp message</li>
+            <li>Enter this code on the page to verify</li>
+            <li>Enter your Mobile Money pin on your phone</li>
+            <li>Done!</li>
+          </ul>
+          <div class="paymentForm">
+            <form class="makePayment" method="POST" data-country="kenya">
+              <input
+                id="phoneNumber"
+                type="text"
+                required
+                name="phone"
+                placeholder="Enter your phone number"
+              />
+              <label for="network">Select a Network</label>
+              <div class="mySelect" required>
+                <select name="network" id="network">
+                  <option value="mpesa">M-Pesa / Other networks</option>
+                  <option value="mpesa">M-Pesa</option>
+                  <option value="others">Other networks</option>
+                </select>
+              </div>
+              <%if(currentUser !== null){%> <%if(currentUser.isPremium ||
+              (currentUser.username === '0775527077' && currentUser.email
+              ==='twaninetschool@gmail.com')){%>
+              <div class="isPremium">
+                You are have an active subscription 😊
+              </div>
+              <%}else{%>
+              <button class="payButton" type="submit">
+                Pay 1,800 KES <span id="paying" class="paying"></span>
+                <span id="paymentProcessed" class="tick"
+                  ><img src="/public/images/mdi--tick-circle.svg" alt=""
+                /></span>
+              </button>
+              <%}%> <%}%> <%if(currentUser === null){%>
+              <button class="payButton" type="submit">
+                Pay 1,800 KES <span id="paying" class="paying"></span>
+                <span id="paymentProcessed" class="tick"
+                  ><img src="/public/images/mdi--tick-circle.svg" alt=""
+                /></span>
+              </button>
+              <%}%>
+            </form>
+          </div>
+        </div>
+        <div class="eachOption">
+          <div class="country">
+            <img src="/public/images/emojione--flag-for-rwanda.svg" alt="" />
+            Rwanda
+          </div>
+          <h5>Supported Mobile Money Networks</h5>
+          <div class="mobileMoneys">
+            <div class="eachMobileMoney">
+              <div class="mobileMoneyIcon"></div>
+              <div class="mobileMoneyName">MTN</div>
+            </div>
+            <div class="eachMobileMoney">
+              <div class="mobileMoneyIcon"></div>
+              <div class="mobileMoneyName">Airtel</div>
+            </div>
+          </div>
+          <small style="font-weight: 700; opacity: 0.8">steps</small>
+          <ul class="features">
+            <li>Enter your phone number</li>
+            <li>Choose your Network from the dropdown</li>
+            <li>Click on pay</li>
+            <li>You will receive via sms and whatsApp message</li>
+            <li>Enter this code on the page to verify</li>
+            <li>Enter your Mobile Money pin on your phone</li>
+            <li>Done!</li>
+          </ul>
+          <div class="paymentForm">
+            <form class="makePayment" method="POST" data-country="rwanda">
+              <input
+                id="phoneNumber"
+                type="text"
+                required
+                name="phone"
+                placeholder="Enter your phone number"
+              />
+              <label for="network">Select a Network</label>
+              <div class="mySelect" required>
+                <select name="network" id="network">
+                  <option value="MTN">MTN / Airtel</option>
+                  <option value="MTN">MTN</option>
+                  <option value="Airtel">Airtel</option>
+                </select>
+              </div>
+              <%if(currentUser !== null){%> <%if(currentUser.isPremium ||
+              (currentUser.username === '0775527077' && currentUser.email
+              ==='twaninetschool@gmail.com')){%>
+              <div class="isPremium">
+                You are have an active subscription 😊
+              </div>
+              <%}else{%>
+              <button class="payButton" type="submit">
+                Pay 17,000 RWF <span id="paying" class="paying"></span>
+                <span id="paymentProcessed" class="tick"
+                  ><img src="/public/images/mdi--tick-circle.svg" alt=""
+                /></span>
+              </button>
+              <%}%> <%}%> <%if(currentUser === null){%>
+              <button class="payButton" type="submit">
+                Pay 17,000 RWF <span id="paying" class="paying"></span>
+                <span id="paymentProcessed" class="tick"
+                  ><img src="/public/images/mdi--tick-circle.svg" alt=""
+                /></span>
+              </button>
+              <%}%>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    let currentUser = null;
+    <%if(currUser){%>
+      currentUser = <%-JSON.stringify(currUser)%>;
+    <%}%>
+  </script>
+  <script src="../public/js/makePayments.js"></script>
 </div>

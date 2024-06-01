@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config({ path: '/server.env' })
+    require('dotenv').config({ path: 'server.env' })
   }
 
   const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3"),
