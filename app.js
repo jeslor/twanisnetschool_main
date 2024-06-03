@@ -78,6 +78,13 @@ const flw = new Flutterwave(process.env.Flutter_Public_Key, process.env.Flutter_
   app.get('/about', (req, res) => {
     res.render('about', {page:'about'});
   });
+  app.get('/register_thankyou', (req, res) => {
+    res.render('singles/register_thankyou', {page:'register_thankyou'});
+  });
+
+  app.get("/payment_thankyou", (req, res) => {
+    res.render('singles/payment_thankyou', {page:'payment_thankyou'});
+  });
 
   app.get('/makepayment', asyncWrapper(async(req, res) => {
    try {
@@ -181,7 +188,7 @@ const flw = new Flutterwave(process.env.Flutter_Public_Key, process.env.Flutter_
       user.isPremium = true;
       await newPayment.save();
       await user.save();
-      return res.status(200).json({message: "Payment Successful"}).end();
+      return res.status(200).render('singles/payment_thankyou', {page:'payment_thankyou'});
       
     }
 

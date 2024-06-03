@@ -34,7 +34,7 @@ const asyncWrapper = require('../utils/asyncWrapper'),
           req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', 'Welcome to Twanis Net School');
-            res.redirect(`/dashboard/${registeredUser.username}`);
+            res.redirect('/register_thankyou');
           });
         } catch (error) {
           console.log(error);
