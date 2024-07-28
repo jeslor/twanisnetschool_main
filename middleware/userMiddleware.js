@@ -27,7 +27,7 @@ module.exports .isPremium = asyncWrapper(async(req, res, next)=>{
   }
   if (activeUser.payments.length ===0) {
     if(activeUser.isPremium === true){
-      await activeUser.updateOne({isPremium:false})
+      await User.findByIdAndUpdate(activeUser._id, {...activeUser, isPremium:false})
     }
     req.flash('error', 'You need to subscribe to view these videos')
     return res.redirect('/makepayment')

@@ -75,6 +75,20 @@ const flw = new Flutterwave(process.env.Flutter_Public_Key, process.env.Flutter_
       res.render('home', {sampleVideos, page:'home'});
   }));
 
+  app.get("/all_videos", asyncWrapper(async(req, res) => {
+    let allVideos = await Content.find({}).limit(20);
+    allVideos  = JSON.parse(JSON.stringify(allVideos));
+    res.render('dashboard/allVideos', {allVideos, page:'all_videos'});
+  }
+  ));
+
+  app.get("/moreVideos", asyncWrapper(async(req, res) => {
+    const {limit, skip} = req.query;
+    let allVideos = await Content.find({}).limit(25).skip(parseInt(skip));
+    allVideos  = JSON.parse(JSON.stringify(allVideos));
+    res.status(200).json(allVideos).end();
+  }));
+
   app.get('/about', (req, res) => {
     res.render('about', {page:'about'});
   });

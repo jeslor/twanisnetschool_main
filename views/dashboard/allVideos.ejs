@@ -1,0 +1,183 @@
+<%(layout('layout/boilerplate'))%>
+
+<section id="allVideosPage" class="allVideosPage">
+  <div class="rightMenu">
+    <div class="menuItemWrapper">
+      <div class="searchAllVideos">
+        <form action="">
+          <input
+            type="text"
+            class="searchAllVideosInput"
+            placeholder="Search all videos"
+          />
+          <button class="searchAllVideosButton">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+      <div class="selectCategory">
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="categoryCheckbox"
+            data-category="all"
+            value="all"
+          />
+          All
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="categoryCheckbox"
+            data-category="free"
+            value="free"
+          />
+          free
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="categoryCheckbox"
+            data-category="paid"
+            value="paid"
+          />
+          premium
+        </div>
+      </div>
+      <div class="selectSubject">
+        <h5>Subjects</h5>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="subjectCheckbox"
+            data-subject="all"
+            value="all"
+          />
+          All
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="subjectCheckbox"
+            data-subject="mathematics"
+            value="mathematics"
+          />
+          Mathematics
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="subjectCheckbox"
+            data-subject="biology"
+            value="biology"
+          />
+          Biology
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="subjectCheckbox"
+            data-subject="chemistry"
+            value="chemistry"
+          />
+          Chemistry
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="subjectCheckbox"
+            data-subject="history"
+            value="history"
+          />
+          History
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="subjectCheckbox"
+            data-subject="physics"
+            value="physics"
+          />
+          Physics
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="subjectCheckbox"
+            data-subject="english"
+            value="english"
+          />
+          English
+        </div>
+      </div>
+      <div class="selectLevel">
+        <h5>Levels</h5>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="levelCheckbox"
+            name="level"
+            value="all"
+            checked
+          />
+          All
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="levelCheckbox"
+            name="level"
+            value="senior1"
+            checked
+          />
+          Senior 1
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="levelCheckbox"
+            name="level"
+            value="senior2"
+            checked
+          />
+          Senior 2
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="levelCheckbox"
+            name="level"
+            value="senior3"
+            checked
+          />
+          Senior 3
+        </div>
+        <div class="eachInput">
+          <input
+            type="checkbox"
+            class="levelCheckbox"
+            name="level"
+            value="senior4"
+            checked
+          />
+          Senior 4
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="allVideoContent" class="allVideo_content">
+    <!-- <div class="allVideo_content_header">
+      <h1>All Videos</h1>
+    </div> -->
+    <div class="minMenu">
+      <img src="/images/otherIcons/menu.svg" alt="min menu" />
+    </div>
+    <div id="allVideo_content_body" class="allVideo_content_body"></div>
+    <div class="loader-container">
+      <div id="loader" class="loader"></div>
+      <div id="noMoreVideos" class="noMoreVideos">
+        No more videos to load...
+      </div>
+    </div>
+  </div>
+</section>

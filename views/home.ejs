@@ -8,18 +8,18 @@
         <div class="landingPage_content">
           <h1 class="landingPage__title d-none d-sm-block">
             <span class="landingPage__title--highlight"
-              >Remote Learning Simplified secondary</span
+              >Transforming learning for students</span
             >
             We are East Africa's Biggest Secondary School Video Library
           </h1>
           <h1 class="landingPage__title d-sm-none d-block">
             <span class="landingPage__title--highlight"
-              >Remote Learning Simplified</span
+              >Transforming learning for students</span
             >
           </h1>
           <p class="landingPage__description">
-            Study anywhere, anytime. Make learning and teaching more effective
-            with active participation and student collaboration
+            Study anywhere, anytime. Make learning of your secondary student
+            more effective with active participation and student collaboration.
           </p>
           <div class="landing_page_user_buttons">
             <% if(currUser && currUser.username) {%>
@@ -115,6 +115,42 @@
 
 <div class="sample_videos section_gap">
   <div class="sampaleVideoContainer">
+    <div class="row allvideo_container">
+      <div class="all_video_left col-lg-6">
+        <div class="all_video_photoHolder">
+          <img src="/images/allVideo.webp" alt="all video photo" />
+        </div>
+      </div>
+      <div class="all_video_right col-lg-6">
+        <h2 class="sectionSubtitle">
+          Empower your child for exam success
+          <span class="material-symbols-outlined"> play_circle </span>
+        </h2>
+        <p class="all_video_description">
+          Equip your child with the finest resources to ensure they pass their
+          exams with confidence. Our comprehensive video library is designed to
+          provide thorough coverage of all essential and examinable topics,
+          making it an indispensable tool for academic success.
+        </p>
+        <p class="all_video_description">
+          Each video is taught by qualified secondary school teachers who bring
+          their expertise and experience to the classroom. They employ effective
+          teaching methods to simplify complex concepts, making learning
+          engaging and accessible for your child.
+        </p>
+
+        <p class="all_video_description">
+          Start your child's journey to academic excellence today.
+        </p>
+        <a
+          href="/all_videos"
+          class="btn main_button d-flex align-items-center width-fit-content"
+        >
+          View All Videos
+          <span class="material-symbols-outlined"> play_circle </span>
+        </a>
+      </div>
+    </div>
     <h2 class="sectionSubtitle">
       Sample Videos
       <span class="material-symbols-outlined"> play_circle </span>
@@ -128,7 +164,8 @@
               href="/dashboard/free/video/playnow/<%=sampleVideo._id%>"
               class="sample_video__image"
             >
-              <img src="/images/sample_video_1.jpg" alt="" />
+              <video id="vid1" src="https://youtu.be/WxOhI5X5GlA"></video>
+              <!-- <img src="/images/sample_video_1.jpg" alt="" /> -->
               <span class="material-symbols-outlined"> play_circle </span>
             </a>
             <div class="sample_video__content">

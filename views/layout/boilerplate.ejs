@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KBT3NKDZ');</script>
-<!-- End Google Tag Manager -->
-
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -65,12 +57,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <title>Twan's Net School</title>
   </head>
   <body>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBT3NKDZ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
     <%-include('../partials/Navbar') %> <% if(success.length){%>
     <%-include('../partials/successflash')%> <% } %> <% if(error.length){%>
     <%-include('../partials/errorflash')%> <% } %>
@@ -86,9 +72,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </div>
-      <%- body %>
+      <%- body %> <%- include('../partials/Footer') %>
     </main>
-    <%- include('../partials/Footer') %>
     <!-- <script src="/js/libs/popper.min.js"></script> -->
     <script src="/js/libs/jquery-3.4.1.min.js"></script>
     <script src="/js/libs/typeahead.bundle.js"></script>
@@ -97,14 +82,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src="/js/libs/bootstrap.min.js"></script>
 
     <script
-      src="https://unpkg.com/react@16/umd/react.production.min.js"
+      src="https://unpkg.com/react@18/umd/react.development.js"
       crossorigin
     ></script>
     <script
-      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
       crossorigin
     ></script>
+
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script src="/js/allvideos.js"></script>
 
     <script src="/js/main.js"></script>
     <script>
