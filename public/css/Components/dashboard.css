@@ -1,6 +1,7 @@
 .dashboard {
   background-color: rgba(var(--mainColor), 0.1);
   position: relative;
+  padding-bottom: 1rem;
 }
 
 .dashboard .container {
@@ -14,15 +15,17 @@
 }
 
 .sidebar {
+  position: sticky;
+  top: 95px;
   background-color: rgb(var(--mainwhite));
-  height: 100%;
+  height: calc(100vh - 95px);
   margin-top: 1rem;
   min-height: calc(100vh - 95px);
   overflow-y: scroll;
   display: block;
   width: 100%;
   max-width: 300px;
-  overflow-y: auto;
+
   z-index: 50;
   border-radius: 0;
   transition: all 0.2s ease-in-out;
@@ -31,8 +34,12 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
     rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
     rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  scrollbar-width: none;
 }
 
+.sidebar::-webkit-scrollbar {
+  width: 0px;
+}
 .sidebar .profile {
   /* text-align: center; */
   display: flex;
@@ -180,6 +187,7 @@
   border-radius: var(--normalBorderRadius);
   position: relative;
   width: inherit;
+  height: fit-content;
 }
 
 .deleteVideoOverlay {
@@ -277,7 +285,7 @@
 }
 
 .videoImage {
-  z-index: 10;
+  z-index: 2;
 }
 
 .myPlayButton {
@@ -424,6 +432,54 @@
   padding-bottom: 1rem;
   font-weight: 200;
   word-break: break-word;
+}
+
+.analyticSection {
+  min-height: 40vh;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.eachAnalytic {
+  min-width: 200px;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  padding: 1rem;
+  border: 1px solid rgba(var(--mainColor), 0.2);
+  border-radius: 12px;
+  background-color: rgba(var(--mainColor), 0.2);
+}
+
+.eachAnalytic article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid rgba(var(--mainColor), 0.2);
+}
+.eachAnalytic article:first-child {
+  border-left: none;
+}
+
+.eachAnalytic h5 {
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-bottom: 2px;
+  color: rgb(var(--mainColor));
+}
+.eachAnalytic h6 {
+  font-size: 1rem;
+  margin-bottom: 1px;
+  font-weight: 200;
+  color: rgb(var(--mainColor));
+}
+
+.eachAnalytic h3 {
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 /* X-Large devices (large desktops, less than 1400px) */

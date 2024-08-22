@@ -12,9 +12,9 @@ const express = require('express'),
     { v4: uuidv4 } = require('uuid'),
     ejsmate = require('ejs-mate'),
     flash = require('connect-flash'),
-
     asyncWrapper = require('./utils/asyncWrapper'),
-
+    PageViews = require('./models/pageView'),
+    PageVisits = require('./models/pageVisits'),
     User = require('./models/user'),
     Payment = require('./models/payment'),
     Content = require('./models/content'),
@@ -216,6 +216,62 @@ const flw = new Flutterwave(process.env.Flutter_Public_Key, process.env.Flutter_
   app.get('/guide', (req, res) => {
     res.render('guide',{page:'guide'});
   });
+
+  app.post("/pageviews", asyncWrapper(async(req, res) => {
+    try {
+      const {type} = req.query;
+     
+      if(type ==="pageView"){
+         const newPageView = new PageViews({
+           page: req.url,
+           visitorIP: req.ip,
+           visitorLocation: req.headers['user-agent'],
+           visitorIpAddress: req.ip,
+           visitorCountry: req.headers['x-forwarded-for'],
+           visitorRegion: req.headers['x-forwarded-for'],
+           visitorCity: req.headers['x-forwarded-for'],
+           visitorDevice: req.headers['user-agent'],
+         });
+         
+         const savedPageView = await newPageView.save();
+         res.status(200).json(savedPageView).end();
+         
+      }
+      if(type ==="visit-pageView"){
+       const newPageVisit = new PageVisits({
+         page: req.url,
+         visitorIP: req.ip,
+         visitorLocation: req.headers['user-agent'],
+         visitorIpAddress: req.ip,
+         visitorCountry: req.headers['x-forwarded-for'],
+         visitorRegion: req.headers['x-forwarded-for'],
+         visitorCity: req.headers['x-forwarded-for'],
+         visitorDevice: req.headers['user-agent'],
+       });
+       const newPageView = new PageViews({
+         page: req.url,
+         visitorIP: req.ip,
+         visitorLocation: req.headers['user-agent'],
+         visitorIpAddress: req.ip,
+         visitorCountry: req.headers['x-forwarded-for'],
+         visitorRegion: req.headers['x-forwarded-for'],
+         visitorCity: req.headers['x-forwarded-for'],
+         visitorDevice: req.headers['user-agent'],
+       });
+       
+       const savedPageVisit = await newPageVisit.save();
+       res.status(200).json(savedPageVisit).end();
+       
+       await newPageView.save();
+      }
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+     
+  }));
+
 
   app.use('/', userRoutes);
   app.use('/platformadmin', adminRoutes);

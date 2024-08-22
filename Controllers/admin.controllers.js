@@ -6,6 +6,8 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
         MessageAssistant = require('../models/messageAssistant'),
         Content = require('../models/content'),
         User = require('../models/user'),
+        PageViews = require('..//models/pageView'),
+        PageVisits = require('../models/pageVisits'),
         { getSignedUrl } = require("@aws-sdk/s3-request-presigner"),
         asyncWrapper = require('../utils/asyncWrapper');
 
@@ -30,12 +32,12 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
         let users = await User.find({});
         users = users.filter(user => user.email !== "ntwtwalule@yahoo.com");
 
-        res.render('user/adminDashboard', {data: users, isAllUsers: true,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+        res.render('user/adminDashboard', {data: users, isAllUsers: true,isAnalytics:false,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
     })
 
     const getAllGuestMessages = asyncWrapper(async(req, res) => {
         const users = await MessageAssistant.find({}).sort({isRead: false});
-        res.render('user/adminDashboard', {data: users, isAllUsers: false, isAllMessages:true, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+        res.render('user/adminDashboard', {data: users, isAllUsers: false, isAnalytics:false,isAllMessages:true, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
     })
 
     const getEditGuestMessage = asyncWrapper(async(req, res) => {
@@ -136,12 +138,25 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
 
     const getAllUserSearch = asyncWrapper(async(req, res) => {
       const data  = await User.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
-      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: true,isAllMessages:false });
+      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: true,isAnalytics:false,isAllMessages:false });
     })
 
     const getMessageSearch = asyncWrapper(async(req, res) => {
       const data  = await MessageAssistant.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
-      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: false,isAllMessages:true });
+      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: false,isAnalytics:false,isAllMessages:true });
+    })
+
+    const getAnalytics = asyncWrapper(async(req, res) => {
+      
+      try {
+        const pageViews = await PageViews.find({});
+        const pageVisits = await PageVisits.find({});
+        res.render('user/adminDashboard', {data:{pageViews:pageViews, pageVisits:pageVisits}, isAllUsers: false,isAnalytics:true, isAllMessages:false, activeMenuItem: 'analytics', subject:'english', level:'senior one', resultdescription:'',  page:'analytics'});
+        
+      } catch (error) {
+        console.log(error);
+        
+      }
     })
 
 
@@ -159,7 +174,8 @@ module.exports = {
     postEditData,
     getDeleteData,
     getAllUserSearch,
-    getMessageSearch
+    getMessageSearch,
+    getAnalytics
 }
 
 

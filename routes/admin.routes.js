@@ -1,4 +1,4 @@
-const { get } = require('mongoose');
+
 
 const express = require('express'),
         router = express.Router(),
@@ -17,7 +17,9 @@ const express = require('express'),
             postEditData,
             getDeleteData,
             getAllUserSearch,
-            getMessageSearch} = require('../Controllers/admin.controllers');
+            getMessageSearch,
+            getAnalytics
+        } = require('../Controllers/admin.controllers');
 
 
     router.get('/edituser/:userID/setSubscription', isLoggedIn, getUserEdit);
@@ -33,6 +35,7 @@ const express = require('express'),
     router.put('/editdata/:id',isLoggedIn, isAdministrator, uploadVideo.single('uploadedvideo'),postEditData);
     router.delete('/deletedata/:videoId',isLoggedIn, isAdministrator, getDeleteData);
     router.get('/allusers/search',isLoggedIn, isAdministrator, getAllUserSearch);
+    router.get("/analytics",isLoggedIn,isAdministrator, getAnalytics);
   
 
 

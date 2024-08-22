@@ -16,7 +16,7 @@
     </div>
   </div>
   <div id="sidebarOverlay"></div>
-  <div class="container">
+  <div class="container adminContainer">
     <button id="openSidebar" class="openSidebar secondary_button">
       open sidebar
       <span class="material-symbols-outlined"> arrow_forward </span>
@@ -72,6 +72,19 @@
               >
               <% } %>
             </li>
+            <li>
+              <% if(activeMenuItem && activeMenuItem ==='analytics') {%>
+              <a class="activesideMenu" href="/platformadmin/analytics">
+                <span class="material-symbols-outlined"> video_call </span>
+                Analytics</a
+              >
+              <% }else{%>
+              <a class="" href="/platformadmin/analytics">
+                <span class="material-symbols-outlined"> Analytics </span>
+                Analytics</a
+              >
+              <%} %>
+            </li>
 
             <li>
               <% if(activeMenuItem && activeMenuItem ==='dashboard') {%>
@@ -86,7 +99,6 @@
               >
               <% } %>
             </li>
-
             <li>
               <% if(activeMenuItem && activeMenuItem ==='adddata') {%>
               <a class="activesideMenu" href="/platformadmin/adddata">
@@ -631,8 +643,90 @@
               </div>
             </div>
           </div>
-          <%} %> <% }%> <% } else {%> <% if (data.length) {%> <%for(const
-          videoLesson of data){%>
+          <%}%> <%}%> <%}else if(isAnalytics){%>
+          <div class="analyticSection">
+            <div class="eachAnalytic">
+              <article>
+                <h5>Total viewers</h5>
+                <%if (data.pageViews.length) {%>
+                <h2><%=data.pageViews.length%></h2>
+                <%}%>
+              </article>
+              <article>
+                <h6>Daily</h6>
+                <%if (data.pageViews.length) {%>
+                <h3><%=data.pageViews.filter(view=>{
+                  const fullDay = 24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+
+                }).length%></h3>
+                <%}%>
+              </article>
+              <article>
+                <h6>Weekly</h6>
+                <%if (data.pageViews.length) {%>
+                  <h3><%=data.pageViews.filter(view=>{
+                  const fullDay = 7*24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+
+                }).length%></h3>
+                <%}%>
+              </article>
+              <article>
+                <h6>Monthly<h6>
+                <%if (data.pageViews.length) {%>
+                  <h3><%=data.pageViews.filter(view=>{
+                  const fullDay = 30*7*24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+                }).length%></h3>
+                <%}%>
+              </article>
+            </div>
+            <div class="eachAnalytic">
+              <article>
+                <h5>New visitors</h5>
+                <%if (data.pageVisits.length) {%>
+                <h2><%=data.pageVisits.length%></h2>
+                <%}%>
+              </article>
+              <article>
+                <h6>Daily</h6>
+                <%if (data.pageVisits.length) {%>
+                <h3><%=data.pageVisits.filter(view=>{
+                  const fullDay = 24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+
+                }).length%></h3>
+                <%}%>
+              </article>
+              <article>
+                <h6>Weekly</h6>
+                <%if (data.pageVisits.length) {%>
+                  <h3><%=data.pageVisits.filter(view=>{
+                  const fullDay = 7*24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+
+                }).length%></h3>
+                <%}%>
+              </article>
+              <article>
+                <h6>Monthly<h6>
+                <%if (data.pageVisits.length) {%>
+                  <h3><%=data.pageVisits.filter(view=>{
+                  const fullDay = 30*7*24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+                }).length%></h3>
+                <%}%>
+              </article>
+            </div>
+          </div>
+          <%}else{%> <% if (data.length) {%> <%for(const videoLesson of data){%>
           <div class="col-md-6 mb-3">
             <div class="dashboardBodyElement">
               <div class="row">
