@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
         MessageAssistant = require('../models/messageAssistant'),
+        FreeTime = require('../models/freeTime'),
         Content = require('../models/content'),
         User = require('../models/user'),
         PageViews = require('..//models/pageView'),
@@ -32,12 +33,12 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
         let users = await User.find({});
         users = users.filter(user => user.email !== "ntwtwalule@yahoo.com");
 
-        res.render('user/adminDashboard', {data: users, isAllUsers: true,isAnalytics:false,isAllMessages:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+        res.render('user/adminDashboard', {data: users, isAllUsers: true,isAnalytics:false,isAllMessages:false, isFreeTime:false, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
     })
 
     const getAllGuestMessages = asyncWrapper(async(req, res) => {
         const users = await MessageAssistant.find({}).sort({isRead: false});
-        res.render('user/adminDashboard', {data: users, isAllUsers: false, isAnalytics:false,isAllMessages:true, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
+        res.render('user/adminDashboard', {data: users, isAllUsers: false, isAnalytics:false,isAllMessages:true, isFreeTime:false, activeMenuItem: 'allMessages', subject:'english', level:'senior one', resultdescription:'',  page:'dashboard'});
     })
 
     const getEditGuestMessage = asyncWrapper(async(req, res) => {
@@ -62,7 +63,6 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
 
     const postAddData = asyncWrapper(async(req, res) => {
         req.socket.setTimeout(100 * 60 * 1000);
-        console.log(req.body);
         const formatTopic = req.body.topic.toLowerCase().charAt(0).toUpperCase() + req.body.topic.slice(1);
         + req.body.topic.slice(1);
        let newVideo  = new Content({
@@ -138,12 +138,12 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
 
     const getAllUserSearch = asyncWrapper(async(req, res) => {
       const data  = await User.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
-      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: true,isAnalytics:false,isAllMessages:false });
+      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: true,isAnalytics:false, isFreeTime:false,isAllMessages:false });
     })
 
     const getMessageSearch = asyncWrapper(async(req, res) => {
       const data  = await MessageAssistant.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
-      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: false,isAnalytics:false,isAllMessages:true });
+      res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`,isAllUsers: false,isFreeTime:false, isAnalytics:false,isAllMessages:true });
     })
 
     const getAnalytics = asyncWrapper(async(req, res) => {
@@ -151,15 +151,89 @@ const   {S3,s3, GetObjectCommand} = require('../config/awsS3Config'),
       try {
         const pageViews = await PageViews.find({});
         const pageVisits = await PageVisits.find({});
-        res.render('user/adminDashboard', {data:{pageViews:pageViews, pageVisits:pageVisits}, isAllUsers: false,isAnalytics:true, isAllMessages:false, activeMenuItem: 'analytics', subject:'english', level:'senior one', resultdescription:'',  page:'analytics'});
+        res.render('user/adminDashboard', {data:{pageViews:pageViews, pageVisits:pageVisits}, isAllUsers: false,isAnalytics:true, isAllMessages:false, isFreeTime:false, activeMenuItem: 'analytics', subject:'english', level:'senior one', resultdescription:'',  page:'analytics'});
         
       } catch (error) {
         console.log(error);
         
       }
+    });
+    const getFreeTime = asyncWrapper(async(req, res) => {
+      let data = await FreeTime.find({}).sort({dateAdded: -1}).limit(1);
+      data = data[0] === undefined ? {
+        timerRange: '30minutes',
+        startTime: new Date().getTime(),
+        endTime: new Date().getTime(),
+        isFreeTime: false
+      } : data[0];
+      
+      
+      
+
+      res.render('user/adminDashboard', {data:data, isAllUsers: false,isAnalytics:false, isAllMessages:false, isFreeTime:true, activeMenuItem: 'isFreeTime', subject:'english', level:'senior one', resultdescription:'',  page:'analytics'});
+    });
+
+    const postFreeTime = asyncWrapper(async(req, res) => {
+      try {
+        const {timmerId}= req.body;
+        let startTime = new Date().getTime();
+        let endTime = new Date().getTime();
+        let timerRange = '';
+        let runningTime  = await FreeTime.find({}).sort({dateAdded: -1}).limit(1).exec();
+        runningTime = runningTime[0];
+        if (runningTime !== undefined) {
+          runningTime.isFreeTime = false;
+          await runningTime.save();
+        }
+       
+          if (timmerId === '30minutes'){
+
+            endTime = startTime + 30 * 60 * 1000;
+            timerRange = '30minutes';
+          }else if(timmerId === '1hour'){
+            timerRange = '1hour';
+            endTime = startTime + 60 * 60 * 1000;
+          }else if(timmerId === '2hours'){
+            timerRange = '2hours';
+            endTime = startTime + 120 * 60 * 1000;
+          }else{
+            timerRange = '1day';
+            endTime = startTime + 24*60 * 60 * 1000;
+          }
+    
+          const newFreeTime = new FreeTime({
+            timerRange: timerRange,
+            startTime: startTime,
+            endTime: endTime,
+            isFreeTime: true
+          });
+
+          const savedFreeTime = await newFreeTime.save();
+    
+          res.status(200).json(JSON.parse(JSON.stringify(savedFreeTime)));
+        
+      } catch (error) {
+        console.log(error);
+        
+      }
+      
+    });
+
+    const postClearTimers = asyncWrapper(async(req, res) => {
+     try {
+      let runningTime  = await FreeTime.find({}).sort({dateAdded: -1}).limit(1).exec();
+      runningTime = runningTime[0];
+      runningTime.isFreeTime = false;
+      runningTime.endTime = new Date().getTime();
+      console.log(runningTime);
+      
+      await runningTime.save();
+      res.status(200).json({message: 'success'});
+     
+     } catch (error) {
+      res.status(400).json({message: 'error'});
+     }
     })
-
-
 
 module.exports = {
     getUserEdit,
@@ -175,7 +249,10 @@ module.exports = {
     getDeleteData,
     getAllUserSearch,
     getMessageSearch,
-    getAnalytics
+    getAnalytics,
+    getFreeTime,
+    postFreeTime,
+    postClearTimers
 }
 
 

@@ -1,5 +1,6 @@
-const Payment = require('../models/payment.js');
-const  User  = require( '../models/user.js'),
+const Payment = require('../models/payment.js'),
+  User  = require( '../models/user.js'),
+ FreeTime = require("../models/freeTime.js"),
 asyncWrapper = require('../utils/asyncWrapper');
 
 
@@ -21,8 +22,11 @@ module.exports.isAdministrator =(req, res, next)=>{
 }
 
 module.exports .isPremium = asyncWrapper(async(req, res, next)=>{
-  const activeUser  =  await User.findById(req.user._id).populate({path:'payments', model: Payment, options:{sort:{'createdAt':-1}}})
-  if((req.isAuthenticated()&&activeUser.username === '0775527077' && activeUser.email ==='twaninetschool@gmail.com')){
+  const activeUser  =  await User.findById(req.user._id).populate({path:'payments', model: Payment, options:{sort:{'createdAt':-1}}});
+  const currFreeTime = await FreeTime.find({}).sort({dateAdded: -1}).limit(1).exec();
+
+  const isFreeTime  = currFreeTime[0].endTime > new Date().getTime();
+  if((req.isAuthenticated()&&activeUser.username === '0775527077' && activeUser.email ==='twaninetschool@gmail.com') || isFreeTime){
     return next();
   }
   if (activeUser.payments.length ===0) {

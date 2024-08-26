@@ -481,6 +481,51 @@
   font-size: 1rem;
   font-weight: 400;
 }
+.setFreeTime h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(var(--mainColor));
+  padding-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.freeTime {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.freeTime article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 0.5rem 0rem;
+  border-radius: 12px;
+  background-color: rgba(var(--mainColor), 0.2);
+  border: 1px solid rgba(var(--mainColor), 0.2);
+}
+
+.freeTime article button {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background-color: rgba(var(--mainColor), 0.8);
+  color: rgb(var(--mainwhite));
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--themeTransition);
+  border: none;
+  margin-bottom: 1rem;
+}
+
+.freeTime article button:hover {
+  background-color: rgba(var(--mainColor), 1);
+}
+
+.freeTime article h3 {
+  font-size: 0.9rem;
+}
 
 /* X-Large devices (large desktops, less than 1400px) */
 @media (max-width: 1399.98px) {

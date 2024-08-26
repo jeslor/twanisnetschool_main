@@ -100,7 +100,7 @@ const asyncWrapper = require('../utils/asyncWrapper'),
 
     const getSearchResults = asyncWrapper(async(req, res) => {
         const data  = await Content.find({$text: {$search: req.query.search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(20);
-        res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`, isAllUsers: false,isAllMessages:false});
+        res.render('user/searchDashboardV2', {page:'search', data, resultdescription:`${req.query.search}`, isAllUsers: false,isAllMessages:false, isFreeTime:false, isAnalytics:false});
     })
     
     const getPlayPremiumVideo = asyncWrapper(async(req, res) => {
@@ -136,7 +136,7 @@ const asyncWrapper = require('../utils/asyncWrapper'),
         const data = await Content.find({$text: {$search: search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
         const {username, email} = req.user;
         if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
-          res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, isAnalytics:false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
+          res.render('user/adminDashboard', {data, isAllUsers: false,isAllMessages:false, isFreeTime:false, isAnalytics:false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
         }else{
           res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`,  page:'dashboard'});
         }
@@ -149,7 +149,7 @@ const asyncWrapper = require('../utils/asyncWrapper'),
           let perPage = 10
           let pages = Math.ceil(totalItems / perPage)
           const totalpages = page + 3 >= pages ? pages : page + 3
-          res.render('user/adminDashboard', {data,page,pages,totalItems,totalpages, isAllUsers: false,isAllMessages:false, isAnalytics:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
+          res.render('user/adminDashboard', {data,page,pages,totalItems,totalpages, isAllUsers: false,isAllMessages:false, isFreeTime:false, isAnalytics:false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:'',  page:'dashboard'});
         }else{
           res.render('user/dashboardV2', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:'',  page:'dashboard'});
         }

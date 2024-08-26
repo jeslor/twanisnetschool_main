@@ -18,7 +18,10 @@ const express = require('express'),
             getDeleteData,
             getAllUserSearch,
             getMessageSearch,
-            getAnalytics
+            getAnalytics,
+            getFreeTime,
+            postFreeTime,
+            postClearTimers
         } = require('../Controllers/admin.controllers');
 
 
@@ -36,6 +39,9 @@ const express = require('express'),
     router.delete('/deletedata/:videoId',isLoggedIn, isAdministrator, getDeleteData);
     router.get('/allusers/search',isLoggedIn, isAdministrator, getAllUserSearch);
     router.get("/analytics",isLoggedIn,isAdministrator, getAnalytics);
+    router.get('/setFreeTime',isLoggedIn,isAdministrator, getFreeTime);
+    router.post('/setFreeTime',isLoggedIn,isAdministrator, postFreeTime);
+    router.post('/clearFreeTime',isLoggedIn,isAdministrator, postClearTimers);
   
 
 

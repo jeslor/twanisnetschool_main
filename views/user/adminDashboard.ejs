@@ -75,13 +75,26 @@
             <li>
               <% if(activeMenuItem && activeMenuItem ==='analytics') {%>
               <a class="activesideMenu" href="/platformadmin/analytics">
-                <span class="material-symbols-outlined"> video_call </span>
+                <span class="material-symbols-outlined"> Analytics </span>
                 Analytics</a
               >
               <% }else{%>
               <a class="" href="/platformadmin/analytics">
                 <span class="material-symbols-outlined"> Analytics </span>
                 Analytics</a
+              >
+              <%} %>
+            </li>
+            <li>
+              <% if(activeMenuItem && activeMenuItem ==='isFreeTime') {%>
+              <a class="activesideMenu" href="/platformadmin/setFreeTime">
+                <span class="material-symbols-outlined"> history </span>
+                Free time</a
+              >
+              <% }else{%>
+              <a class="" href="/platformadmin/setFreeTime">
+                <span class="material-symbols-outlined"> history </span>
+                Free time</a
               >
               <%} %>
             </li>
@@ -726,7 +739,64 @@
               </article>
             </div>
           </div>
-          <%}else{%> <% if (data.length) {%> <%for(const videoLesson of data){%>
+          <%}else if(isFreeTime){%>
+            <%if (data || []) {%>
+              <div class="setFreeTime">
+            <h2>Set free time</h2>
+            <div class="d-flex justify-content-center pb-4">
+              <button id="clearAllTimers" class="secondary_button">Clear all timers</button>
+            </div>
+            <div class="freeTime">
+              <article>
+                <button class="timmerButtons" data-timmerId="30minutes">set 30 Minutes</button>
+                <h3 class="timmerOutputs text-center"><%if (data.timerRange ==="30minutes") {%> 
+                  Remaining: <span><%=Math.floor((data.endTime - new Date().getTime())/(1000*60))<=0?0:Math.floor((data.endTime - new Date().getTime())/(1000*60))%></span> minutes
+                  <small style="opacity: 0; display:block;" class="secret"><%= data.endTime - new Date().getTime()%></small>
+                  <%}else {%>
+                    No time set
+                    <%}%> </h3>
+                  <div style="font-weight: 700;" class="watchClock">
+                  </div>
+              </article>
+              <article>
+                <button class="timmerButtons" data-timmerId="1hour">set 1 hour</button>
+                <h3 class="timmerOutputs text-center"><%if (data.timerRange ==="1hour") {%> 
+                  Remaining: <span><%=Math.floor((data.endTime - new Date().getTime())/(1000*60))<=0?0:Math.floor((data.endTime - new Date().getTime())/(1000*60))%></span> minutes
+                  <small style="opacity: 0; display:block;" class="secret"><%= data.endTime - new Date().getTime()%></small>
+                  <%}else {%>
+                    No time set
+                    <%}%> </h3>
+                  <div style="font-weight: 700;" class="watchClock">
+                  </div>
+              </article>
+              <article>
+                <button class="timmerButtons" data-timmerId="2hours">set 2 hours</button>
+                <h3 class="timmerOutputs text-center"><%if (data.timerRange ==="2hours") {%> 
+                  Remaining: <span><%=Math.floor((data.endTime - new Date().getTime())/(1000*60))<=0?0:Math.floor((data.endTime - new Date().getTime())/(1000*60))%></span> minutes
+                  <small style="opacity: 0; display:block;" class="secret"><%= data.endTime - new Date().getTime()%></small>
+                  <%}else {%>
+                    No time set
+                    <%}%> </h3>
+                  <div style="font-weight: 700;" class="watchClock">
+                  </div>
+              </article>
+              <article>
+                <button class="timmerButtons" data-timmerId="1day">1 day</button>
+                <h3 class="timmerOutputs text-center"><%if (data.timerRange ==="1day") {%> 
+                  Remaining: <span><%=Math.floor((data.endTime - new Date().getTime())/(1000*60))<=0?0:Math.floor((data.endTime - new Date().getTime())/(1000*60))%></span> minutes
+                  <small style="opacity: 0; display:block;" class="secret"><%= data.endTime - new Date().getTime()%></small>
+                  <%}else {%>
+                    No time set
+                    <%}%> </h3>
+                  <div style="font-weight: 700;" class="watchClock">
+                  </div>
+              </article>
+            </div>
+          </div>
+            <%}%>
+  
+            
+          <%} else{%> <% if (data.length) {%> <%for(const videoLesson of data){%>
           <div class="col-md-6 mb-3">
             <div class="dashboardBodyElement">
               <div class="row">
@@ -741,8 +811,7 @@
                     <a
                       class="btn main_button"
                       href="/platformadmin/editdata/<%=videoLesson._id%>"
-                      >edit</a
-                    >
+                     >edit</a>
                     <a
                       class="btn secondary_button openDeleteModal"
                       metaName="video"
