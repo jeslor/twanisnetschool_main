@@ -1,0 +1,140 @@
+<% (layout('layout/boilerplate')) %>
+
+<div class="dashboardheader">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="userProfile">
+          <div class="userProfileImage">
+            <% if (currUser.profilePhoto) {%>
+            <img
+              src="/profilePhotos/<%=currUser.profilePhoto%>"
+              alt="userProfile"
+            />
+            <%}else{%>
+            <img src="https://placehold.co/70" alt="userProfile" />
+            <%} %>
+          </div>
+          <div class="userProfileName">
+            <% if (currUser.firstName && currUser.lastName) {%>
+            <h5><%=currUser.firstName%> <%=currUser.lastName%></h5>
+            <%}else {%>
+            <h5>Student</h5>
+            <% } %>
+          </div>
+          <div class="userProfileEmail">
+            <% if (currUser.username) {%>
+            <h6><%=currUser.username%></h6>
+            <%}%>
+          </div>
+          <div class="userProfileEmail">
+            <% if (currUser.studentLevel) {%>
+            <small><%=currUser.studentLevel%></small>
+            <%}%>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="searchOption">
+          <div class="searchOptionHeader">
+            <h5>Search</h5>
+          </div>
+          <div class="searchOptionBody">
+            <div class="searchbar">
+              <form
+                id="searchForm"
+                autocomplete="off"
+                action="/dashboard/<%=currUser.username%>/search"
+                method="GET"
+              >
+                <div class="autocomplete">
+                  <input
+                    id="searchInput"
+                    class="input-elevated"
+                    type="search"
+                    name="search"
+                    placeholder="Search by word"
+                  />
+                </div>
+                <button type="submit" class="btn secondary_button">
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container lessonContent">
+  <div class="lessonPath">
+    <h6>
+      <a href="/dashboard/<%=currUser.username%>">Dasboard</a>
+      <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      <a href="/dashboard/<%=currUser.username%>/<%=subject%>"><%=subject%></a>
+      <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      <a href="/dashboard/<%=currUser.username%>/<%=subject%>/<%=level%>"
+        ><%=level%></a
+      >
+      <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      <a
+        href="/dashboard/<%=currUser.username%>/<%=subject%>/<%=level%>/<%=term%>"
+        ><%=term%></a
+      >
+      <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      <a
+        href="/dashboard/<%=currUser.username%>/<%=subject%>/<%=level%>/<%=term%>/<%=topic%>"
+        ><%=topic%></a
+      >
+    </h6>
+  </div>
+
+  <h3><%=topic%></h3>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <ul class="lessons">
+        <% if (lessons.length) { %> <% for (const lesson of lessons) {%>
+        <li>
+          <% if (lesson.cost ==='free') {%>
+          <a
+            class="lesson"
+            href="/dashboard/free/video/playnow/<%=lesson._id%>"
+          >
+            <div class="lessonImage">
+              <span class="material-symbols-outlined"> live_tv </span>
+            </div>
+            <div class="lessonTitle">
+              <h6><%=lesson.title%></h6>
+            </div>
+            <div class="lessonFooter">
+              <div class="lessonFooterRight">
+                <small> Lesson <span><%=lesson.lessonNumber%></span> </small>
+              </div>
+            </div>
+          </a>
+          <%} else {%>
+          <a
+            class="lesson"
+            href="/dashboard/subscriptions/video/playnow/<%=lesson._id%>"
+          >
+            <div class="lessonImage">
+              <span class="material-symbols-outlined"> live_tv </span>
+            </div>
+            <div class="lessonTitle">
+              <h6><%=lesson.title%></h6>
+            </div>
+            <div class="lessonFooter">
+              <div class="lessonFooterRight">
+                <small> Lesson <span><%=lesson.lessonNumber%></span> </small>
+              </div>
+            </div>
+          </a>
+          <%} %>
+        </li>
+        <% } %> <%} %>
+      </ul>
+    </div>
+  </div>
+</div>

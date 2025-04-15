@@ -1,30 +1,29 @@
-
-
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config({ path: '/server.env' })
+  require('dotenv').config({ path: 'server.env' })
 }
 const express = require('express'),
     mongoose = require('mongoose'),
     cors = require('cors'),
-    favicon = require('serve-favicon'),
     path = require('path'),
     methodOverride = require('method-override'),
     expressSsession = require('express-session'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
+    { v4: uuidv4 } = require('uuid'),
     ejsmate = require('ejs-mate'),
     flash = require('connect-flash'),
-    fs = require('fs'),
     asyncWrapper = require('./utils/asyncWrapper'),
-    AWS  = require('aws-sdk'),
-    AppError = require('./utils/appError'),
-    {upladimage, uploadVideo} = require('./config/videoUploder'),
-    {isLoggedIn, isAdministrator} =require('./middleware/userMiddleware'),
-    {getVideo} = require('./config/videoGetter'),
-
+    PageViews = require('./models/pageView'),
+    PageVisits = require('./models/pageVisits'),
     User = require('./models/user'),
+    Payment = require('./models/payment'),
     Content = require('./models/content'),
+    userRoutes = require('./routes/user.routes'),
+    Flutterwave = require('flutterwave-node-v3'),
+    adminRoutes = require('./routes/admin.routes'),
     app = express();
+
+const flw = new Flutterwave(process.env.Flutter_Public_Key, process.env.Flutter_Secret_Key);
     
 
     const DBURL = process.env.DBURL || 'mongodb://localhost:27017/twanis_net_school';
@@ -40,7 +39,6 @@ const express = require('express'),
   app.use(cors())
   app.use(express.urlencoded({ extended: true }))
   app.use(express.static(__dirname))
-  // app.use(favicon(__dirname + '/public/images/favicon/favicon.ico'))
   app.use(express.static(path.join(__dirname, 'public')))
   app.use(methodOverride('_method'))
   app.use(
@@ -51,6 +49,7 @@ const express = require('express'),
       // cookie: { secure: true }
     }),
   )
+
   app.use(passport.initialize())
   app.use(passport.session())
   app.use(flash())
@@ -62,325 +61,242 @@ const express = require('express'),
   app.set('view engine', 'ejs')
   app.engine('ejs', ejsmate)
   app.set('vews', path.join(__dirname, 'views'))
-  app.use((req, res, next) => {
+  app.use(async(req, res, next) => {
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
     res.locals.currUser = req.user
     next()
   });
 
+  app.listen(port, () => console.log(`Server is running on port ${port}!`));
 
-  const s3 = new AWS.S3({
-    accessKeyId: process.env.AmazonS3_Access_Key_ID,
-    secretAccessKey: process.env.AmazonS3_Secret_Access_Key,
-    region: process.env.AmazonS3_Region,
-  })
+  app.get('/', asyncWrapper(async(req, res) => {
+    const sampleVideos = await Content.find({cost:'free'});
+      res.render('home', {sampleVideos, page:'home'});
+  }));
 
+  app.get("/all_videos", asyncWrapper(async(req, res) => {
+    let allVideos = await Content.find({}).limit(20);
+    allVideos  = JSON.parse(JSON.stringify(allVideos));
+    res.render('dashboard/allVideos', {allVideos, page:'all_videos'});
+  }
+  ));
 
+  app.get("/moreVideos", asyncWrapper(async(req, res) => {
+    const {limit, skip} = req.query;
+    let allVideos = await Content.find({}).limit(25).skip(parseInt(skip));
+    allVideos  = JSON.parse(JSON.stringify(allVideos));
+    res.status(200).json(allVideos).end();
+  }));
 
+  app.get('/about', (req, res) => {
+    res.render('about', {page:'about'});
+  });
+  app.get('/register_thankyou', (req, res) => {
+    res.render('singles/register_thankyou', {page:'register_thankyou'});
+  });
 
-  app.listen(3000, () => console.log(`Server is running on port ${port}!`));
+  app.get("/payment_thankyou", (req, res) => {
+    res.render('singles/payment_thankyou', {page:'payment_thankyou'});
+  });
 
-
-      app.get('/', asyncWrapper(async(req, res) => {
-        const sampleVideos = await Content.find({cost:'free'}).limit(4);
-          res.render('home', {sampleVideos});
-      }));
-
-
-
-      // app.get('/videocomponent', (req, res) => {
-      //   console.log('reached here');
-        // const range = req.headers.range
-        // const videoPath = './samplevideos/sample-5s.mp4';
-        // const videoSize = fs.statSync(videoPath).size
-        // console.log(videoSize);
-        // const chunkSize = 1 * 1e6;
-        // const start = Number(range.replace(/\D/g, ""))
-        // const end = Math.min(start + chunkSize, videoSize - 1)
-        // const contentLength = end - start + 1;
-        // const headers = {
-        //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-        //     "Accept-Ranges": "bytes",
-        //     "Content-Length": contentLength,
-        //     "Content-Type": "video/mp4"
-        // }
-        // res.writeHead(206, headers)
-        // const stream = fs.createReadStream(videoPath, {
-        //     start,
-        //     end
-        // })
-        // stream.pipe(res)
-        // const videoKey = req.params.id;
-        // const videoStream = getVideo(videoKey);
-        // console.log(videoStream);
-        // videoStream.pipe(res);
-      // });
-
-    app.get('/login', (req, res) => {
-      if(req.isAuthenticated()){ 
-        return res.redirect(`/dashboard/${req.user.username}`)};
-      res.render('user/login');
-      }
-    );
-
-    app.post('/login', passport.authenticate('local',
-     { failureFlash: true, failureRedirect: '/login' }), 
-     (req, res) => {
-      req.flash('success', 'Welcome back!');
-      res.redirect(`/dashboard/${req.user.username}`);
-    });
-
-    app.get('/register', (req, res) => {
-      if(req.isAuthenticated()){ 
-        return res.redirect(`/dashboard/${req.user.username}`)};
-      res.render('user/register');
-    });
-
-    app.post('/register', asyncWrapper(async(req, res) => {
-      console.log(req.body);
-      try {
-        const {username, email, password} = req.body;
-        const registerUser = new User({username, email});
-        const registeredUser = await User.register(registerUser, password);
-        req.login(registeredUser, err => {
-          if (err) return next(err);
-          req.flash('success', 'Welcome to Twanis Net School');
-          res.redirect(`/dashboard/${registeredUser.username}`);
-        });
-      } catch (error) {
-        res.redirect('/register');
-      }
-    })); 
-
-    app.get('/logout', (req, res) => {
-      req.logout((err)=>{
-        if(err) return next(err);
-      });
-      req.flash('success', 'Goodbye!');
-      res.redirect('/');
-    })
-
-
-
-    app.get('/about', (req, res) => {
-      res.render('about');
-    });
-
-    app.post('/searchInput', asyncWrapper(async(req, res) => {
-      const {searchSuggestion} = req.body;
-      const data = await Content.find({$text: {$search: searchSuggestion}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}}).limit(7);
-      const suggestions =[];
-       data.map(video => {
-suggestions.push(video.title);
-suggestions.push(video.subject);
-suggestions.push(video.topic);
-suggestions.push(video.level);
-      });
-      res.send(suggestions);
-    }));
-
-    // app.get('/dashboard/:user/search', isLoggedIn, asyncWrapper(async(req, res) => {
-    //   console.log(req.query);
-    //   console.log(req.params);
-    //   console.log(req.body);
-    // }))
-
-
-    app.get('/videoplayer/:fileId', asyncWrapper(async(req, res) => {
-      const videoFileDocuent = await Content.findById(req.params.fileId);
-        // const range = req.headers.range
-        // if (!range) {
-        //     res.status(400).send("Requires Range header");
-        // }
-        const videoKey = videoFileDocuent.videoKey;
-        // const videoSize = videoFileDocuent.videoSize;
-        // const chunkSize = 1 * 1e6;
-        // const start = Number(range.replace(/\D/g, ""))
-        // const end = Math.min(start + chunkSize, videoSize - 1)
-        // const contentLength = end - start + 1;
-        // const headers = {
-        //     "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-        //     "Accept-Ranges": "bytes",
-        //     "Content-Length": contentLength,
-        //     "Content-Type": "video/mp4"
-        // }
-        // res.writeHead(206, headers)
-
-        const videoStream = getVideo(videoKey);
-
-        // const stream = fs.createReadStream(videoKey, {
-        //     start,
-        //     end
-        // })
-        // stream.pipe(res)
-
-       
-        videoStream.pipe(res);
-    }))
-
-    app.get('/dashboard/subscriptions/video/playnow/:videoID', isLoggedIn, asyncWrapper(async(req, res) => {
-  
-      const data = await Content.findById(req.params.videoID);
-      let similarVideos = await Content.find({topic:data.topic})
-      similarVideos = similarVideos.filter(video => video.id !== req.params.videoID);
-      res.render('content/viewdata', {data, similarVideos});
-     }))
-
-     app.get('/dashboard/free/video/playnow/:videoID', asyncWrapper(async(req, res) => {
-       const data = await Content.findById(req.params.videoID);
-       let similarVideos = (await Content.find({topic:data.topic}))
-       similarVideos = similarVideos.filter(video => {
-        return video.id !== req.params.videoID
-       });
-      res.render('content/viewdata', {data, similarVideos});
-     }))
-
-    app.get('/dashboard/:user',isLoggedIn, asyncWrapper(async(req, res) => {
-      const {search} = req.query;
-     if (search) {
-      const data = await Content.find({$text: {$search: search}}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-      const {username, email} = req.user;
-      if(username==='0775527077' && email ==='twaninetschool@gmail.com'){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`});
-      }else{
-        res.render('user/dashboard', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard', resultdescription:`${search}`});
-      }
-     }else{
-      const data = await Content.find({});
-      const {username, email} = req.user;
-      if(username==='0775527077' && email ==='twaninetschool@gmail.com' ){
-        res.render('user/adminDashboard', {data, isAllUsers: false, level:'senior one', subject:'english', activeMenuItem: 'dashboard', resultdescription:''});
-      }else{
-        res.render('user/dashboard', {data, level:'dummy', subject:'english', activeMenuItem: 'dashboard',resultdescription:''});
-      }
-     }
-     
-    }));
-
-
-    app.get('/platformadmin/allusers', isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      const users = await User.find({});
-      res.render('user/adminDashboard', {data: users, isAllUsers: true, activeMenuItem: 'allUsers', subject:'english', level:'senior one', resultdescription:''});
-     }));
-
-    app.get('/platformadmin/adddata',isLoggedIn, isAdministrator,(req, res) => {
-      res.render('content/adddata', {activeMenuItem: 'adddata'});
-    });
-
-    app.post('/platformadmin/adddata',isLoggedIn, isAdministrator, uploadVideo.single('uploadedvideo'),
-    asyncWrapper(async(req, res) => {
-     let newVideo  = new Content({
-       title: req.body.title,
-       cost: req.body.cost,
-       level: req.body.level,
-       subject: req.body.subject,
-       topic: req.body.topic,
-       videoKey: req.file.key,
-       videoSize: Number(req.file.size),
-       viewedTimes: 0
-   
-     });
-
-     await newVideo.save();
-     req.flash('success', 'Video added successfully');
-     res.redirect('/platformadmin/adddata');
-   }));
-
-   app.get('/platformadmin/editdata/:id',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-    const data = await Content.findById(req.params.id); 
-    res.render('content/editdata', {data})
-   }));
-
-   app.put('/platformadmin/editdata/:id',isLoggedIn, isAdministrator,
-   uploadVideo.single('uploadedvideo'), asyncWrapper(async(req, res) => {
-    const {id} = req.params;
-    const {body, file} = req;
-    if (file === undefined) {
-      await Content.findByIdAndUpdate(id, body);
-    }else{
-      const videotoUpdate = await Content.findById(id);
-      const params = {
-        Bucket: `${process.env.AmazonS3_Bucket_Name}/videos`,
-        Key: videotoUpdate.videoKey,
-      }
-      s3.deleteObject(params, function (err, data) {
-        if (err) console.log(err, err.stack)
-      })
-      body.videoKey = file.key;
-      await Content.findByIdAndUpdate(id, body);
-
+  app.get('/makepayment', asyncWrapper(async(req, res) => {
+   try {
+    let subscriptions = []
+    if (!req.isAuthenticated()) {
+      return res.render('makepayment', {page:'makepayment', subscriptions, currentUser:null} );
     }
-    req.flash('success', 'Video updated successfully');
-    res.redirect(`/dashboard/${req.user.username}`);
-   }));
-
-   app.delete('/platformadmin/deletedata/:videoId',isLoggedIn, isAdministrator, asyncWrapper(async(req, res) => {
-      const videoToDelete = await Content.findById(req.params.videoId);
-      const params = {
-        Bucket: `${process.env.AmazonS3_Bucket_Name}/videos`,
-        Key: videoToDelete.videoKey,
-      }
-      s3.deleteObject(params, function (err, data) {
-        if (err) console.log(err, err.stack)
-      });
-      await Content.findByIdAndDelete(req.params.videoId);
-      req.flash('success', 'Video deleted successfully');
-      res.redirect(`/dashboard/${req.user.username}`);
-        
-   }));
-
-    
-    app.get('/fovarites/:userId/:videoId', isLoggedIn, asyncWrapper(async(req, res) => {
-      const {userID, videoId} = req.params;
-      console.log(userID, videoId);
-    }));
-
-    app.get('/dashboard/:user/:subject/:level', isLoggedIn, asyncWrapper(async(req, res) => {
-      const {search} = req.query;
-      const {subject, level} = req.params;
-      if (search) {
-        const data = await Content.find({$text: {$search: search}, subject: subject, level: level}, {score: {$meta: 'textScore'}}).sort({score: {$meta: 'textScore'}});
-        console.log(data);
-        const {username, email} = req.user;
-        if (username==='0775527077' && email ==='twaninetschool@gmail.com') {
-          res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
-        }else{
-          res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:`${subject}, ${level}, ${search}`});
-        }    
-      }else{   
-        const data = await Content.find({subject: subject, level: level});
-        if(req.user.username==='0775527077' && req.user.email ==='twaninetschool@gmail.com' ){
-          res.render('user/adminDashboard', {data, isAllUsers: false, subject, level, activeMenuItem: '', resultdescription:''});
-        }else{
-          res.render('user/dashboard', {data, subject, level, activeMenuItem: '', resultdescription:''});
+    const currentUser = await User.findById(req.user._id).populate({path:'payments', model: Payment, options:{sort:{'createdAt':-1}}});
+    if(currentUser){
+        if(currentUser.payments.length > 0){
+          subscriptions = currentUser.payments;
         }
+    }
+    res.render('makepayment', {page:'makepayment', subscriptions, currentUser});
+    
+   } catch (error) {
+    console.log(error);
+   }
+  }));
+
+  app.post('/makepayment', asyncWrapper(async(req, res) => {
+    const {phoneNumber, network, country, email} = req.body;
+    try {
+      const payloadUganda = {
+      phone_number: phoneNumber,
+      network: network,
+      amount: 50000,
+      currency: 'UGX',
+      email: email,
+      tx_ref: uuidv4(),
       }
 
-
-    }));
-
-    app.all('*', (req, res, next) => {
-      // next(new AppError('The page was not found', 404));
-      if (req.accepts('html')) {
-        res.render('404', { url: req.url });
-        return;
+      const PayloadKenya = {
+        phone_number: phoneNumber,
+        network: network,
+        amount:1800,
+        currency: 'KES',
+        email: email,
+        tx_ref: uuidv4(),
       }
-    
-      // respond with json
-      if (req.accepts('json')) {
-        res.json({ error: 'Not found' });
-        return;
+
+      const payloadRwanda = {
+        phone_number: phoneNumber,
+        network: network,
+        amount: 17000,
+        currency: 'RWF',
+        email: email,
+        tx_ref: uuidv4(),
       }
+
+      if (country.toLowerCase() === 'uganda'){
+      const respond = await flw.MobileMoney.uganda(payloadUganda);
+      res.status(200).json(JSON.stringify(respond)).end();
+      }
+       if(country.toLowerCase() === 'kenya'){
+      const respond = await flw.MobileMoney.mpesa(PayloadKenya);
+      res.status(200).json(JSON.stringify(respond)).end();
+      }
+      if (country.toLowerCase() === 'rwanda'){
+        const respond = await flw.MobileMoney.rwanda(payloadRwanda);
+        res.status(200).json(JSON.stringify(respond)).end();
+      }
+      
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({status:'error'}).end();
+    }
+  }));
+
+  app.post("/flw-webhook", asyncWrapper(async(req, res) => {
+   try {
+    const expectedAmount  = 50000;
+    const expectedCurrency = 'UGX';
+    const secretHash = process.env.Flutter_Secret_Hash;
+    const signature = req.headers["verif-hash"];
+    if(!signature || signature !== secretHash){
+      return res.status(400).json({message: "Invalid Signature"}).end();
+    }
+    const payload = req.body;
+    const data = payload.data;
+    const response = await flw.Transaction.verify({id:data.id});
+    if(response.status === 'success'){
+      let user = await User.find({email: data.customer.email});
+      user = user[0];
+      let endDate = new Date();
+      endDate.setDate(endDate.getDate() + 30);
+      const payment = {
+        transactionId: response.data.id,
+        paymentAmount: response.data.amount,
+        paymentCurrency: response.data.currency,
+        status: response.data.status,
+        transactionDate: response.data.created_at,
+        paymentStartDate: response.data.created_at,
+        paymentEndDate: endDate,
+        paymentStatus: 'successful',
+      }
+
+      const newPayment = new Payment(payment);
+      newPayment.user = user;
+      user.payments.push(newPayment);
+      user.isPremium = true;
+      await newPayment.save();
+      await user.save();
+      return res.status(200).render('singles/payment_thankyou', {page:'payment_thankyou'});
+      
+    }
+
+   } catch (error) {
+      console.log(error);
+      return res.status(400).json({message: "Payment Failed"}).end();
     
-      // default to plain-text. send()
-      res.type('txt').send('Not found');
-    })
-    
-    app.use((err, req, res, next) => {
-      const { status = 500, message = 'Something went wrong' } = err
-      res.status(status).send(message)
-    })
+   }
+  }));
+
+  app.get('/guide', (req, res) => {
+    res.render('guide',{page:'guide'});
+  });
+
+  app.post("/pageviews", asyncWrapper(async(req, res) => {
+    try {
+      const {type} = req.query;
+     
+      if(type ==="pageView"){
+         const newPageView = new PageViews({
+           page: req.url,
+           visitorIP: req.ip,
+           visitorLocation: req.headers['user-agent'],
+           visitorIpAddress: req.ip,
+           visitorCountry: req.headers['x-forwarded-for'],
+           visitorRegion: req.headers['x-forwarded-for'],
+           visitorCity: req.headers['x-forwarded-for'],
+           visitorDevice: req.headers['user-agent'],
+         });
+         
+         const savedPageView = await newPageView.save();
+         res.status(200).json(savedPageView).end();
+         
+      }
+      if(type ==="visit-pageView"){
+       const newPageVisit = new PageVisits({
+         page: req.url,
+         visitorIP: req.ip,
+         visitorLocation: req.headers['user-agent'],
+         visitorIpAddress: req.ip,
+         visitorCountry: req.headers['x-forwarded-for'],
+         visitorRegion: req.headers['x-forwarded-for'],
+         visitorCity: req.headers['x-forwarded-for'],
+         visitorDevice: req.headers['user-agent'],
+       });
+       const newPageView = new PageViews({
+         page: req.url,
+         visitorIP: req.ip,
+         visitorLocation: req.headers['user-agent'],
+         visitorIpAddress: req.ip,
+         visitorCountry: req.headers['x-forwarded-for'],
+         visitorRegion: req.headers['x-forwarded-for'],
+         visitorCity: req.headers['x-forwarded-for'],
+         visitorDevice: req.headers['user-agent'],
+       });
+       
+       const savedPageVisit = await newPageVisit.save();
+       res.status(200).json(savedPageVisit).end();
+       
+       await newPageView.save();
+      }
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+     
+  }));
+
+
+  app.use('/', userRoutes);
+  app.use('/platformadmin', adminRoutes);
+
+  app.all('*', (req, res, next) => {
+    // next(new AppError('The page was not found', 404));
+    if (req.accepts('html')) {
+      res.render('404', { url: req.url, page:'404' });
+      return;
+    }
+  
+    // respond with json
+    if (req.accepts('json')) {
+      res.json({ error: 'Not found' });
+      return;
+    }
+  
+    // default to plain-text. send()
+    res.type('txt').send('Not found');
+  })
+  
+  app.use((err, req, res, next) => {
+    const { status = 500, message = 'Something went wrong' } = err
+    res.status(status).send(message)
+  })
 
 
 

@@ -1,0 +1,119 @@
+<% (layout('layout/boilerplate')) %>
+
+<div class="dashboardheader">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="userProfile">
+          <div class="userProfileImage">
+            <% if (currUser.profilePhoto) {%>
+            <img
+              src="/profilePhotos/<%=currUser.profilePhoto%>"
+              alt="userProfile"
+            />
+            <%}else{%>
+            <img src="https://placehold.co/70" alt="userProfile" />
+            <%} %>
+          </div>
+          <div class="userProfileName">
+            <% if (currUser.firstName && currUser.lastName) {%>
+            <h5><%=currUser.firstName%> <%=currUser.lastName%></h5>
+            <%}else {%>
+            <h5>Student</h5>
+            <% } %>
+          </div>
+          <div class="userProfileEmail">
+            <% if (currUser.username) {%>
+            <h6><%=currUser.username%></h6>
+            <%}%>
+          </div>
+          <div class="userProfileEmail">
+            <% if (currUser.studentLevel) {%>
+            <small><%=currUser.studentLevel%></small>
+            <%}%>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="searchOption">
+          <div class="searchOptionHeader">
+            <h5>Search</h5>
+          </div>
+          <div class="searchOptionBody">
+            <div class="searchbar">
+              <form
+                id="searchForm"
+                autocomplete="off"
+                action="/dashboard/<%=currUser.username%>/search"
+                method="GET"
+              >
+                <div class="autocomplete">
+                  <input
+                    id="searchInput"
+                    class="input-elevated"
+                    type="search"
+                    name="search"
+                    placeholder="Search by word"
+                  />
+                </div>
+                <button type="submit" class="btn secondary_button">
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container termContent">
+  <div class="row justify-content-center py-3">
+    <div class="lessonPath">
+      <h6>
+        <a href="/dashboard/<%=currUser.username%>">Dasboard</a>
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+        <a href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>"
+          ><%=subjectSelected%></a
+        >
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+        <a
+          href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>"
+          ><%=levelSelected%></a
+        >
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+      </h6>
+    </div>
+
+    <% if(schoolTerms.length){%> <% for(const term of schoolTerms){%>
+
+    <a
+      href="/dashboard/<%=currUser.username%>/<%=subjectSelected%>/<%=levelSelected%>/<%=term%>"
+      class="eachClass <%=subjectSelected%>"
+    >
+      <div class="className">
+        <%if (term === 'term1') {%>
+        <h3>Term 1</h3>
+        <%} else if(term ==='term2') {%>
+        <h3>Term 2</h3>
+        <% } else{%>
+        <h3>Term 3</h3>
+        <%}%>
+      </div>
+      <div class="eachclassIcon">
+        <span class="material-symbols-outlined"> school </span>
+      </div>
+      <button class="btn main_button">select</button>
+      <div class="classDescription <%=subjectSelected%>">
+        <p>
+          <strong><%=subjectSelected%></strong>
+          <span class="material-symbols-outlined"> arrow_forward_ios </span>
+          <%=levelSelected%>
+        </p>
+      </div>
+    </a>
+
+    <%} %> <% } %>
+  </div>
+</div>

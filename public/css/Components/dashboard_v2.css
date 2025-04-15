@@ -1,0 +1,578 @@
+.dashboardheader {
+  background-color: rgb(var(--mainColor));
+  padding: 2rem 1rem;
+  color: rgb(var(--mainwhite));
+}
+.dashboardheader .userProfile {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.dashboardheader .userProfile img {
+  border-radius: 50%;
+}
+.dashboardheader .userProfile h5 {
+  padding-top: 0.5rem;
+}
+.dashboardheader .userProfile h6 {
+  font-size: 0.9rem;
+  color: rgba(var(--mainwhite), 0.6);
+}
+
+.dashboardheader .searchbar {
+  display: flex;
+  width: 100%;
+}
+.dashboardheader .searchbar .form-group {
+  flex-grow: 2;
+  margin-bottom: 0rem;
+}
+
+.dashboardheader .searchbar .secondary_button,
+.adminSearchbar .secondary_button {
+  padding: 0.5rem 2rem;
+  margin-left: -1rem;
+}
+
+.dashboardContent .searchbar {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.searchbar form {
+  width: 100%;
+  display: flex;
+}
+
+.searchbar form input {
+  height: 44px;
+  border-right: 1px solid rgba(var(--mainColor), 0.2);
+}
+
+.resultDescription {
+  color: rgba(var(--mainwhite), 0.8);
+}
+
+.autocomplete {
+  width: 100%;
+}
+
+.input-elevated {
+  font-size: 16px;
+  line-height: 1.5;
+  border: none;
+  background: #ffffff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><path fill='%23838D99' d='M13.22 14.63a8 8 0 1 1 1.41-1.41l4.29 4.29a1 1 0 1 1-1.41 1.41l-4.29-4.29zm-.66-2.07a6 6 0 1 0-8.49-8.49 6 6 0 0 0 8.49 8.49z'></path></svg>");
+  background-repeat: no-repeat;
+  background-position: 10px 10px;
+  background-size: 20px 20px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  width: 100%;
+  padding: 0.5em 1em 0.5em 2.5em;
+}
+
+.input-elevated::placeholder {
+  color: #838d99;
+}
+
+.input-elevated:focus {
+  outline: none;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.16);
+}
+
+.input-inset {
+  font-size: 16px;
+  line-height: 1.5;
+  background: #ffffff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='19' height='19' viewBox='0 0 19 19'><path fill='%23838D99' d='M13.98 12.57a2 2 0 0 1 1.93.52l2.5 2.5a2 2 0 0 1-2.82 2.82l-2.5-2.5a2 2 0 0 1-.52-1.93l-1.38-1.37a7 7 0 1 1 1.42-1.42l1.37 1.38zm-3.37-2.03a5 5 0 1 0-7.08-7.08 5 5 0 0 0 7.08 7.08z'></path></svg>");
+  background-repeat: no-repeat;
+  background-position: 10px 10px;
+  background-size: 20px 20px;
+  border: 1px solid #c5cbd5;
+  box-shadow: inset 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  width: 300px;
+  padding: 0.5em 1em 0.5em 2.5em;
+}
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.search_suggestions {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: rgb(var(--mainwhite));
+  border: 1px solid rgba(var(--mainColor), 0.2);
+  border-top: none;
+  border-radius: 0px 0px 10px 10px;
+  padding: 1rem;
+  width: 100%;
+}
+
+.autocomplete-items {
+  position: absolute;
+  background-color: rgb(var(--mainwhite));
+  width: 100%;
+  padding: 1rem 0.5rem;
+  border-top: 1px solid rgba(var(--mainColor), 0.2);
+  z-index: 3;
+  box-shadow: rgb(0 0 0 / 25%) 0px 10px 15px -3px,
+    rgb(0 0 0 / 7%) 0px 40px 15px -2px;
+}
+.autocomplete-items div {
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 0px 10px 10px 0px;
+  transition: var(--themeTransition);
+  cursor: pointer;
+  color: rgb(var(--mainColor));
+}
+.autocomplete-items div:hover {
+  background-color: rgba(var(--mainColor), 0.4);
+  color: rgb(var(--mainwhite));
+}
+
+.resultDescription {
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.resultDescription h5 {
+  padding-right: 0.5rem;
+  margin-bottom: 0px;
+}
+.topicContent,
+.termContent,
+.classContent,
+.lessonContent {
+  min-height: 70vh;
+  padding-bottom: 2rem;
+}
+.eachSubject,
+.eachClass {
+  display: inline-block;
+  position: relative;
+  width: 300px;
+  min-width: 300px;
+  height: 300px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.3);
+  margin: 30px;
+  transition: var(--themeTransition);
+  position: relative;
+}
+
+.eachSubject:hover {
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
+}
+
+.eachSubject .topIcons {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.eachSubject .SubjectName {
+  height: 100%;
+  width: 100%;
+  color: rgb(var(--mainwhite));
+  padding-top: 30px;
+  text-align: center;
+  position: absolute;
+  top: 65%;
+  left: 0.2rem;
+  transform: rotate(-7deg);
+  border-radius: inherit;
+  transition: var(--themeTransition);
+}
+
+.eachSubject .SubjectName.chemistry,
+.eachClass.chemistry {
+  background-color: #272c46;
+}
+.eachSubject .SubjectName.physics,
+.eachClass.physics {
+  background-color: #985b1e;
+}
+.eachSubject .SubjectName.biology,
+.eachClass.biology {
+  background-color: #8f86e9;
+}
+.eachSubject .SubjectName.mathematics,
+.eachClass.mathematics {
+  background-color: #884044;
+}
+.eachSubject .SubjectName.english,
+.eachClass.english {
+  background-color: #61a398;
+}
+.eachSubject .SubjectName.history,
+.eachClass.history {
+  background-color: #363fe6;
+}
+.eachSubject:hover .SubjectName {
+  transform: rotate(0deg);
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+}
+
+.eachSubject .SubjectName h3,
+.eachSubject .SubjectName .bottomIcons {
+  transform: rotate(7deg);
+  transition: var(--themeTransition);
+}
+.eachSubject:hover .SubjectName h3,
+.eachSubject .SubjectName .bottomIcons {
+  transform: rotate(0deg);
+}
+
+.capitaliseText {
+  text-transform: capitalize;
+}
+
+.eachSubject .openSubject {
+  padding-top: 30%;
+}
+.eachSubject:hover .openSubject {
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+.eachSubject .bottomIcons {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.eachSubject .bottomicon {
+  height: 20%;
+  width: 20%;
+  padding: 0.3rem;
+}
+
+.eachSubject .bottomicon img {
+  height: 100%;
+  width: 100%;
+  opacity: 0.7;
+}
+
+.eachClass {
+  color: rgba(var(--mainwhite), 0.7);
+  text-align: center;
+  padding-top: 30px;
+  position: relative;
+}
+
+.eachClass:hover {
+  color: rgb(var(--mainwhite));
+}
+
+.eachClass span {
+  font-size: 4rem;
+}
+
+.eachClass .classDescription {
+  position: absolute;
+  height: max-content;
+  width: 100%;
+  background-color: rgb(var(--mainwhite));
+  left: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 1rem 2rem;
+}
+
+.eachClass .classDescription p {
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+.eachClass .classDescription p span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.eachClass .classDescription.chemistry {
+  color: #272c46;
+}
+.eachClass .classDescription.physics {
+  color: #985b1e;
+}
+.eachClass .classDescription.biology {
+  color: #8f86e9;
+}
+.eachClass .classDescription.mathematics {
+  color: #884044;
+}
+.eachClass .classDescription.english {
+  color: #61a398;
+}
+.eachClass .classDescription.history {
+  color: #363fe6;
+}
+
+.noVideosFound a {
+  display: inline-flex;
+  align-items: center;
+  transition: var(--themeTransition);
+}
+
+.noVideosFound a:hover {
+  color: rgb(var(--secondaryColor));
+}
+
+.lessonPath {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background-color: rgb(var(--mainwhite));
+}
+
+.lessonPath h6 {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.lessonPath a {
+  height: 100%;
+  padding: 0.4rem 0rem;
+  color: rgba(var(--mainColor), 0.8);
+  display: inline-block;
+  border-radius: 0px 10px 10px 0px;
+  transition: var(--themeTransition);
+  font-size: 0.85rem;
+}
+
+.lessonPath a:hover {
+  color: rgba(var(--secondaryColor), 0.8);
+}
+
+.lessonPath span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.lessons {
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0rem;
+  list-style-type: none;
+}
+
+.lessons li {
+  border-bottom: #ccc solid 1px;
+}
+
+.lessons li .lesson {
+  display: flex;
+  /* justify-content: space-between */
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 0.1rem;
+  cursor: pointer;
+  transition: var(--themeTransition);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.lessons li .lesson:hover {
+  background-color: rgba(var(--secondaryColor), 0.1);
+  color: rgb(var(--mainColor));
+}
+
+.lessons li .lesson .lessonImage span {
+  font-size: 2rem;
+  padding-right: 1rem;
+}
+
+.lessons .lessonFooter {
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.searchPage {
+  min-height: 70vh;
+  padding: 3rem 0rem;
+}
+
+.eachResult {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: rgba(var(--mainColor), 0.2);
+  padding: 1rem;
+  border-radius: var(--normalBorderRadius);
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  margin-bottom: 3rem;
+}
+
+.eachResult:hover {
+  background-color: rgba(var(--mainColor), 0.6);
+  color: rgba(var(--mainwhite), 0.9);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.eachResult:hover .lessonFooterRight span,
+.eachResult:hover .lessonFooterRight small {
+  color: rgba(var(--mainwhite), 0.7);
+}
+
+.eachResult .lesson {
+  display: inline-block;
+  width: 100%;
+}
+
+.eachResult:hover a {
+  color: rgb(var(--mainwhite));
+}
+
+.eachResultHeader {
+  display: flex;
+  align-items: center;
+}
+
+.eachResultHeader .lessonTitle {
+  padding-left: 0.5rem;
+  font-weight: bold;
+}
+
+.eachResult .lessonFooterRight {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.eachResult .lessonFooterRight span {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  text-transform: capitalize;
+  font-size: 0.8rem;
+  color: rgba(var(--mainColor), 0.5);
+}
+
+.eachResult .lessonFooterRight span:nth-of-type(1) {
+  font-weight: bold;
+}
+
+.eachResult .lessonFooterRight small {
+  font-weight: bold;
+  margin-left: auto;
+  color: rgba(var(--mainColor), 0.5);
+}
+
+.eachResult .actionButtons a {
+  padding: 0.2rem 1.2rem;
+  margin-left: 0.5rem;
+  width: max-content;
+}
+.eachResult .actionButtons a.secondary_button:hover {
+  color: rgb(var(--mainColor));
+}
+.eachResult .actionButtons a.main_button:hover {
+  color: rgb(var(--secondaryColor));
+}
+
+/* X-Large devices (large desktops, less than 1400px) */
+@media (max-width: 1399.98px) {
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+  .dashboardheader .container {
+    max-width: 100%;
+  }
+  .dashboardheader .userProfile {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .dashboardheader .userProfile > div {
+    margin-right: 0.5rem;
+    padding: 0.1rem 0.8rem;
+    background-color: white;
+    border-radius: var(--normalBorderRadius);
+  }
+  .dashboardheader .userProfile > div:nth-of-type(1) {
+    padding: 0rem;
+    background-color: transparent;
+  }
+  .dashboardheader .userProfile > div,
+  .dashboardheader .userProfile h6,
+  .dashboardheader .userProfile h5 {
+    color: rgba(var(--mainColor), 0.8);
+    margin-bottom: 0rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+  }
+  .noVideosFound a {
+    padding-top: 2rem;
+    font-size: 1rem;
+  }
+  .lessonTitle h6 {
+    font-size: 0.9rem;
+    margin-left: -0.5rem;
+  }
+  .lessonFooter {
+    align-self: flex-start;
+    padding-left: 0.5rem;
+    white-space: nowrap;
+  }
+  .lessonContent {
+    margin-left: 1rem;
+  }
+}
+
+/* X-Small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .dashboardheader .userProfile div,
+  .searchOptionHeader h5 {
+    display: none;
+  }
+  .dashboardheader .userProfile div:nth-of-type(1),
+  .dashboardheader .userProfile div:nth-of-type(2) {
+    display: inline-block;
+  }
+
+  .dashboardheader .searchOptionBody {
+    padding-top: 1rem;
+  }
+  .dashboardheader .searchbar .secondary_button {
+    padding: 0.5rem 1rem;
+    padding-left: 1.5rem;
+  }
+  .lessonContent {
+    margin-left: 0rem;
+  }
+  .searchPage {
+    padding: 2rem 1rem;
+  }
+  .eachResult {
+    margin-bottom: 1.5rem;
+  }
+
+  .eachResult .lessonFooterRight small {
+    margin-left: 0.5rem;
+  }
+  .autocomplete-items div {
+    font-size: 0.75rem;
+  }
+}

@@ -1,0 +1,323 @@
+<%(layout('layout/boilerplate'))%>
+<div class="dashboardheader">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="userProfile">
+          <div class="userProfileImage">
+            <% if (currUser.profilePhoto) {%>
+            <img
+              src="/profilePhotos/<%=currUser.profilePhoto%>"
+              alt="userProfile"
+            />
+            <%}else{%>
+            <img src="https://placehold.co/70" alt="userProfile" />
+            <%} %>
+          </div>
+          <div class="userProfileName">
+            <% if (currUser.firstName && currUser.lastName) {%>
+            <h5><%=currUser.firstName%> <%=currUser.lastName%></h5>
+            <%}else {%>
+            <h5>Student</h5>
+            <% } %>
+          </div>
+          <div class="userProfileEmail">
+            <% if (currUser.username) {%>
+            <h6><%=currUser.username%></h6>
+            <%}%>
+          </div>
+          <div class="userProfileEmail">
+            <% if (currUser.studentLevel) {%>
+            <small><%=currUser.studentLevel%></small>
+            <%}%>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="searchOption">
+          <div class="searchOptionHeader">
+            <h5>Search</h5>
+          </div>
+          <div class="searchOptionBody">
+            <div class="searchbar">
+              <form
+                id="searchForm"
+                autocomplete="off"
+                action="/dashboard/<%=currUser.username%>/search"
+                method="GET"
+              >
+                <div class="autocomplete">
+                  <input
+                    id="searchInput"
+                    class="input-elevated"
+                    type="search"
+                    name="search"
+                    placeholder="Search by word"
+                  />
+                </div>
+                <input
+                  type="submit"
+                  class="btn secondary_button"
+                  value="Search"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="subjectPage">
+    <div class="row justify-content-center py-3">
+      <a href="/dashboard/<%=currUser.username%>/chemistry" class="eachSubject">
+        <div class="topIcons">
+          <lottie-player
+            src="/public/images/lottiefiles/chemistry.json"
+            background="transparent"
+            speed="1"
+            style="width: 70%; height: 50%"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <div class="SubjectName chemistry">
+          <h3>Chemistry</h3>
+          <div class="openSubject">
+            <button class="btn main_button">Seclect</button>
+          </div>
+          <div class="bottomIcons">
+            <div class="bottomicon">
+              <img src="/public/images/subjectIcons/chemmy/chemy1.png" alt="" />
+            </div>
+            <div class="bottomicon">
+              <img src="/public/images/subjectIcons/chemmy/chemy2.png" alt="" />
+            </div>
+            <div class="bottomicon">
+              <img src="/public/images/subjectIcons/chemmy/chemy3.png" alt="" />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/chemmy/chemmy4.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+      <a href="/dashboard/<%=currUser.username%>/physics" class="eachSubject">
+        <div class="topIcons">
+          <lottie-player
+            src="/public/images/lottiefiles/physics.json"
+            background="transparent"
+            speed="1"
+            style="width: 70%; height: 50%"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <div class="SubjectName physics">
+          <h3>Physics</h3>
+          <div class="openSubject">
+            <button class="btn main_button">Seclect</button>
+          </div>
+          <div class="bottomIcons">
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/physics/physics1.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/physics/physics2.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/physics/physics3.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/physics/physics4.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+      <a href="/dashboard/<%=currUser.username%>/biology" class="eachSubject">
+        <div class="topIcons">
+          <lottie-player
+            src="/public/images/lottiefiles/biology.json"
+            background="transparent"
+            speed="1"
+            style="width: 70%; height: 50%"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <div class="SubjectName biology">
+          <h3>Biology</h3>
+          <div class="openSubject">
+            <button class="btn main_button">Seclect</button>
+          </div>
+          <div class="bottomIcons">
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/biology/biology1.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/biology/biology2.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/biology/biology3.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/biology/biology4.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        href="/dashboard/<%=currUser.username%>/mathematics"
+        class="eachSubject"
+      >
+        <div class="topIcons">
+          <lottie-player
+            src="/public/images/lottiefiles/mathematics2.json"
+            background="transparent"
+            speed="1"
+            style="width: 70%; height: 50%"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <div class="SubjectName mathematics">
+          <h3>Mathematics</h3>
+          <div class="openSubject">
+            <button class="btn main_button">Seclect</button>
+          </div>
+          <div class="bottomIcons">
+            <div class="bottomicon">
+              <img src="/public/images/subjectIcons/math/math1.png" alt="" />
+            </div>
+            <div class="bottomicon">
+              <img src="/public/images/subjectIcons/math/math2.png" alt="" />
+            </div>
+            <div class="bottomicon">
+              <img src="/public/images/subjectIcons/math/math3.png" alt="" />
+            </div>
+            <div class="bottomicon">
+              <img src="/public/images/subjectIcons/math/math4.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </a>
+      <a href="/dashboard/<%=currUser.username%>/english" class="eachSubject">
+        <div class="topIcons">
+          <lottie-player
+            src="/public/images/lottiefiles/English.json"
+            background="transparent"
+            speed="1"
+            style="width: 70%; height: 50%"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <div class="SubjectName english">
+          <h3>English</h3>
+          <div class="openSubject">
+            <button class="btn main_button">Seclect</button>
+          </div>
+          <div class="bottomIcons">
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/english/english1.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/english/english2.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/english/english3.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/english/english4.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+      <a href="/dashboard/<%=currUser.username%>/history" class="eachSubject">
+        <div class="topIcons">
+          <lottie-player
+            src="/public/images/lottiefiles/history.json"
+            background="transparent"
+            speed="1"
+            style="width: 70%; height: 50%"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <div class="SubjectName history">
+          <h3>History</h3>
+          <div class="openSubject">
+            <button class="btn main_button">Seclect</button>
+          </div>
+          <div class="bottomIcons">
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/history/history1.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/history/history2.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/history/history3.png"
+                alt=""
+              />
+            </div>
+            <div class="bottomicon">
+              <img
+                src="/public/images/subjectIcons/history/history4.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

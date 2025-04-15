@@ -1,10 +1,10 @@
 <%=(layout('layout/boilerplate')) %>
 
-<div class="dashboard">
+<div id="adminDashboard" class="dashboard">
   <div id="deleteVideoOverlay" class="deleteVideoOverlay">
     <div class="deleteVideoModal">
       <div class="deleteVideoBody">
-        <p>Are you sure you want to delete this video?</p>
+        <p>Are you sure you want to delete this <span id="metaTag"></span>?</p>
         <h6 id="videoName"><Strong>name:</Strong></h6>
         <div class="deleteVideoButtons">
           <a id="closeDeleteModal" class="btn secondary_button">Cancel</a>
@@ -15,8 +15,17 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="sidebar">
+  <div id="sidebarOverlay"></div>
+  <div class="container adminContainer">
+    <button id="openSidebar" class="openSidebar secondary_button">
+      open sidebar
+      <span class="material-symbols-outlined"> arrow_forward </span>
+    </button>
+    <div id="sidebar" class="sidebar">
+      <button id="closeSidebar" class="closeSidebar secondary_button">
+        close sidebar
+        <span class="material-symbols-outlined"> arrow_back </span>
+      </button>
       <div class="profile">
         <div class="profilepic">
           <img src="https://placehold.co/100" alt="profilepic" />
@@ -48,6 +57,49 @@
             </li>
 
             <li>
+              <% if(activeMenuItem && activeMenuItem ==='allMessages') {%>
+              <a
+                class="activesideMenu"
+                href="/platformadmin/allGuests/messages"
+              >
+                <span class="material-symbols-outlined"> forum </span>
+                All messages</a
+              >
+              <%} else{%>
+              <a href="/platformadmin/allGuests/messages">
+                <span class="material-symbols-outlined"> forum </span>
+                All messages</a
+              >
+              <% } %>
+            </li>
+            <li>
+              <% if(activeMenuItem && activeMenuItem ==='analytics') {%>
+              <a class="activesideMenu" href="/platformadmin/analytics">
+                <span class="material-symbols-outlined"> Analytics </span>
+                Analytics</a
+              >
+              <% }else{%>
+              <a class="" href="/platformadmin/analytics">
+                <span class="material-symbols-outlined"> Analytics </span>
+                Analytics</a
+              >
+              <%} %>
+            </li>
+            <li>
+              <% if(activeMenuItem && activeMenuItem ==='isFreeTime') {%>
+              <a class="activesideMenu" href="/platformadmin/setFreeTime">
+                <span class="material-symbols-outlined"> history </span>
+                Free time</a
+              >
+              <% }else{%>
+              <a class="" href="/platformadmin/setFreeTime">
+                <span class="material-symbols-outlined"> history </span>
+                Free time</a
+              >
+              <%} %>
+            </li>
+
+            <li>
               <% if(activeMenuItem && activeMenuItem ==='dashboard') {%>
               <a class="activesideMenu" href="/dashboard/<%=currUser.username%>"
                 ><span class="material-symbols-outlined"> team_dashboard </span
@@ -60,7 +112,6 @@
               >
               <% } %>
             </li>
-
             <li>
               <% if(activeMenuItem && activeMenuItem ==='adddata') {%>
               <a class="activesideMenu" href="/platformadmin/adddata">
@@ -505,44 +556,43 @@
     </div>
     <div class="dashboardContent">
       <div class="dashboardMenu">
-        <div class="searchbar">
-          <form action="" autocomplete="off" method="get">
-            <!-- solution1 -->
-            <!-- <div class="autocomplete" style="width: 300px">
-            <input
-              id="searchInput"
-              class="input-elevated"
-              type="search"
-              name="search"
-              placeholder="Search for a topic"
-            />
-            </div> -->
-
-            <div id="the-basics">
+        <div class="searchbar adminSearchbar">
+          <form id="searchForm" autocomplete="off" <% if (isAllUsers) { %>
+            action="/platformadmin/allusers/search" <% } %> <% if
+            (isAllMessages) { %>
+            action="/platformadmin/allGuests/messages/search" <% } else { %>
+            action="/dashboard/<%=currUser.username%>/search" <% } %>
+            method="GET" >
+            <div class="autocomplete">
               <input
-                class="typeahead"
-                type="text"
-                placeholder="search for a video"
+                id="searchInput"
+                class="input-elevated"
+                type="search"
                 name="search"
+                placeholder="Search for a topic"
               />
             </div>
+            <ul class="search_suggestions">
+              <hr />
+            </ul>
 
-            <button type="submit">search</button>
+            <button type="submit" class="btn secondary_button">search</button>
           </form>
         </div>
         <div class="container resultDescription">
-          <!-- <p>
+          <p>
             <strong class="pe-2">Showing results of:</strong>
-        
-          </p> -->
+          </p>
         </div>
       </div>
       <div class="dashboardBody">
         <div class="row">
           <% if (isAllUsers) {%> <%if(data.length){%> <%for(const user of
           data){%>
-          <div class="col-xl-4 col-sm-6">
-            <div class="dashboardUserElement">
+          <div class="col-sm-6">
+            <div
+              class="dashboardUserElement <%=user.isPremium?'premiumUser':''%>"
+            >
               <div class="userIcon">
                 <span class="material-symbols-outlined">
                   contact_emergency
@@ -550,14 +600,25 @@
               </div>
               <h5><%=user.username%></h5>
               <h6><%=user.email%></h6>
+              <h6 class="userName"><%=user.firstName%> <%=user.lastName%></h6>
+              <small class="pb-2"><%=user.buildsecretes%></small>
               <div class="userButtons">
+                <% if(user.isPremium){%>
                 <a
                   class="btn main_button"
-                  href="/platformadmin/edituser/<%=user._id%>"
+                  href="/platformadmin/edituser/<%=user._id%>/setSubscription"
+                  >Deactivate</a
+                >
+                <%} else {%>
+                <a
+                  class="btn main_button"
+                  href="/platformadmin/edituser/<%=user._id%>/setSubscription"
                   >Activate</a
                 >
+                <%}%>
                 <a
                   class="btn secondary_button openDeleteModal"
+                  metaName="user"
                   deleteUrl="/platformadmin/deleteuser/<%=user._id%>?_method=DELETE"
                   videoName="<%=user.username%>"
                   >Delete</a
@@ -566,9 +627,177 @@
             </div>
           </div>
 
-          <% } %> <% } %> <%} else {%> <% if (data.length) {%> <%for(const
-          videoLesson of data){%>
-          <div class="col-md-6">
+          <% } %> <% } %> <%} else if(isAllMessages){%> <% if (data.length) {%>
+          <%for(const message of data){%>
+          <div class="col-lg-12 mb-3">
+            <div
+              class="dashboardBodyElement <%=message.isRead==true? 'messageRead': ''%>"
+            >
+              <div class="row">
+                <div class="ElementDetails">
+                  <h5 class="pb-2"><%=message.guestName%></h5>
+                  <h6><%=message.guestPhone%></h6>
+                  <small> <%=message.guestMessage%> </small>
+                </div>
+                <div class="actionButtons justify-content-end">
+                  <a
+                    class="btn main_button"
+                    href="/platformadmin/allGuests/messages/<%=message._id%>"
+                    ><%=message.isRead==true? 'Read': 'Unread'%>
+                  </a>
+                  <a
+                    class="btn secondary_button openDeleteModal"
+                    metaName="message"
+                    deleteUrl="/platformadmin/allGuests/messages/<%=message._id%>?_method=DELETE"
+                    videoName="message from <%=message.guestName%>"
+                    >Delete</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <%}%> <%}%> <%}else if(isAnalytics){%>
+          <div class="analyticSection">
+            <div class="eachAnalytic">
+              <article>
+                <h5>Total viewers</h5>
+                <%if (data.pageViews.length) {%>
+                <h2><%=data.pageViews.length%></h2>
+                <%}%>
+              </article>
+              <article>
+                <h6>Daily</h6>
+                <%if (data.pageViews.length) {%>
+                <h3><%=data.pageViews.filter(view=>{
+                  const fullDay = 24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+
+                }).length%></h3>
+                <%}%>
+              </article>
+              <article>
+                <h6>Weekly</h6>
+                <%if (data.pageViews.length) {%>
+                  <h3><%=data.pageViews.filter(view=>{
+                  const fullDay = 7*24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+
+                }).length%></h3>
+                <%}%>
+              </article>
+              <article>
+                <h6>Monthly<h6>
+                <%if (data.pageViews.length) {%>
+                  <h3><%=data.pageViews.filter(view=>{
+                  const fullDay = 30*7*24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+                }).length%></h3>
+                <%}%>
+              </article>
+            </div>
+            <div class="eachAnalytic">
+              <article>
+                <h5>New visitors</h5>
+                <%if (data.pageVisits.length) {%>
+                <h2><%=data.pageVisits.length%></h2>
+                <%}%>
+              </article>
+              <article>
+                <h6>Daily</h6>
+                <%if (data.pageVisits.length) {%>
+                <h3><%=data.pageVisits.filter(view=>{
+                  const fullDay = 24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+
+                }).length%></h3>
+                <%}%>
+              </article>
+              <article>
+                <h6>Weekly</h6>
+                <%if (data.pageVisits.length) {%>
+                  <h3><%=data.pageVisits.filter(view=>{
+                  const fullDay = 7*24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+
+                }).length%></h3>
+                <%}%>
+              </article>
+              <article>
+                <h6>Monthly<h6>
+                <%if (data.pageVisits.length) {%>
+                  <h3><%=data.pageVisits.filter(view=>{
+                  const fullDay = 30*7*24*60*60*1000;
+                  const ellapsedTime = Date.now() - Date.parse(view.createdAt);
+                  return ellapsedTime<fullDay
+                }).length%></h3>
+                <%}%>
+              </article>
+            </div>
+          </div>
+          <%}else if(isFreeTime){%>
+            <%if (data || []) {%>
+              <div class="setFreeTime">
+            <h2>Set free time</h2>
+            <div class="d-flex justify-content-center pb-4">
+              <button id="clearAllTimers" class="secondary_button">Clear all timers</button>
+            </div>
+            <div class="freeTime">
+              <article>
+                <button class="timmerButtons" data-timmerId="30minutes">set 30 Minutes</button>
+                <h3 class="timmerOutputs text-center"><%if (data.timerRange ==="30minutes") {%> 
+                  Remaining: <span><%=Math.floor((data.endTime - new Date().getTime())/(1000*60))<=0?0:Math.floor((data.endTime - new Date().getTime())/(1000*60))%></span> minutes
+                  <small style="opacity: 0; display:block;" class="secret"><%= data.endTime - new Date().getTime()%></small>
+                  <%}else {%>
+                    No time set
+                    <%}%> </h3>
+                  <div style="font-weight: 700;" class="watchClock">
+                  </div>
+              </article>
+              <article>
+                <button class="timmerButtons" data-timmerId="1hour">set 1 hour</button>
+                <h3 class="timmerOutputs text-center"><%if (data.timerRange ==="1hour") {%> 
+                  Remaining: <span><%=Math.floor((data.endTime - new Date().getTime())/(1000*60))<=0?0:Math.floor((data.endTime - new Date().getTime())/(1000*60))%></span> minutes
+                  <small style="opacity: 0; display:block;" class="secret"><%= data.endTime - new Date().getTime()%></small>
+                  <%}else {%>
+                    No time set
+                    <%}%> </h3>
+                  <div style="font-weight: 700;" class="watchClock">
+                  </div>
+              </article>
+              <article>
+                <button class="timmerButtons" data-timmerId="2hours">set 2 hours</button>
+                <h3 class="timmerOutputs text-center"><%if (data.timerRange ==="2hours") {%> 
+                  Remaining: <span><%=Math.floor((data.endTime - new Date().getTime())/(1000*60))<=0?0:Math.floor((data.endTime - new Date().getTime())/(1000*60))%></span> minutes
+                  <small style="opacity: 0; display:block;" class="secret"><%= data.endTime - new Date().getTime()%></small>
+                  <%}else {%>
+                    No time set
+                    <%}%> </h3>
+                  <div style="font-weight: 700;" class="watchClock">
+                  </div>
+              </article>
+              <article>
+                <button class="timmerButtons" data-timmerId="1day">1 day</button>
+                <h3 class="timmerOutputs text-center"><%if (data.timerRange ==="1day") {%> 
+                  Remaining: <span><%=Math.floor((data.endTime - new Date().getTime())/(1000*60))<=0?0:Math.floor((data.endTime - new Date().getTime())/(1000*60))%></span> minutes
+                  <small style="opacity: 0; display:block;" class="secret"><%= data.endTime - new Date().getTime()%></small>
+                  <%}else {%>
+                    No time set
+                    <%}%> </h3>
+                  <div style="font-weight: 700;" class="watchClock">
+                  </div>
+              </article>
+            </div>
+          </div>
+            <%}%>
+  
+            
+          <%} else{%> <% if (data.length) {%> <%for(const videoLesson of data){%>
+          <div class="col-md-6 mb-3">
             <div class="dashboardBodyElement">
               <div class="row">
                 <div class="col-7 col-sm-12 col-lg-7">
@@ -582,10 +811,10 @@
                     <a
                       class="btn main_button"
                       href="/platformadmin/editdata/<%=videoLesson._id%>"
-                      >edit</a
-                    >
+                     >edit</a>
                     <a
                       class="btn secondary_button openDeleteModal"
+                      metaName="video"
                       deleteUrl="/platformadmin/deletedata/<%=videoLesson._id%>?_method=DELETE"
                       videoName="<%=videoLesson.title%>"
                       >Delete</a
@@ -598,12 +827,12 @@
                   <div class="videoImage">
                     <% if(videoLesson.cost === 'paid'){%>
                     <a
-                      class="play-btn"
+                      class="myPlayButton"
                       href="/dashboard/subscriptions/video/playnow/<%=videoLesson._id%>"
                     ></a>
                     <%} else {%>
                     <a
-                      class="play-btn"
+                      class="myPlayButton"
                       href="/dashboard/free/video/playnow/<%=videoLesson._id%>"
                     ></a>
                     <%}%>

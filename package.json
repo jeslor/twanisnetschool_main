@@ -2,10 +2,10 @@
   "name": "twanis-net-school",
   "version": "1.0.0",
   "description": "a digital school",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www",
+    "start": "nodemon app.js",
     "watch": "nodemon --ext *"
   },
   "repository": {
@@ -25,15 +25,18 @@
   },
   "homepage": "https://github.com/jeslor/twanisnetschool#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.391.0",
+    "@aws-sdk/s3-request-presigner": "^3.391.0",
     "aws-sdk": "^2.1419.0",
     "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "ejs-mate": "^4.0.0",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "express-flash": "^0.0.2",
     "express-session": "^1.17.3",
+    "flutterwave-node-v3": "^1.1.9",
     "helmet": "^7.0.0",
     "method-override": "^3.0.0",
     "mongodb": "^5.7.0",

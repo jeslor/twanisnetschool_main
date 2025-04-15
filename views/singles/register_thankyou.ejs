@@ -1,0 +1,41 @@
+<%(layout('layout/boilerplate'))%>
+<section class="thank_you_section">
+  <div class="thankyou-hero-bg">
+    <img src="/images/thankyoubg.webp" alt="" />
+  </div>
+  <div class="container thanks-content">
+    <div class="thankyou-hero-bg-ball"></div>
+    <div class="row">
+      <div class="col-md-8 col-lg-10">
+        <div class="register-thankyou">
+          <h1>Thank you for registering!</h1>
+          <p style="opacity: 0.7">
+            Thanks for joining Twani's Net School! We're thrilled to have you on
+            board.
+          </p>
+          <p style="opacity: 0.7">
+            Whether you're looking to upskill learning path, brush up on topics
+            you have already covered, or simply explore a new way of learning,
+            Twani's Net School is your one-stop education platform for online
+            learning.
+          </p>
+          <div class="actionButtons">
+            <% if(currUser && currUser.username) {%>
+            <a href="/dashboard/<%=currUser.username%>" class="btn main_button">
+              Go to Dashboard
+              <span class="material-symbols-outlined"> team_dashboard </span>
+            </a>
+            <% } else { %>
+            <a href="/login" class="btn secondary_button"
+              >Login
+              <span class="material-symbols-outlined">
+                lock_open_right
+              </span></a
+            >
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

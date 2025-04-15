@@ -35,11 +35,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0"
     />
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="/css/libs/owl.carousel.min.css" />
     <link rel="stylesheet" href="/css/libs/owl.theme.default.min.css" />
     <script src="/js/libs/lottie-player.min.js"></script>
@@ -55,8 +60,20 @@
     <%-include('../partials/Navbar') %> <% if(success.length){%>
     <%-include('../partials/successflash')%> <% } %> <% if(error.length){%>
     <%-include('../partials/errorflash')%> <% } %>
-    <main class="main-body-holder"><%- body %></main>
-    <%- include('../partials/Footer') %>
+    <main class="main-body-holder">
+      <div class="sendDataLoader">
+        <div class="loaderHeader">
+          <title>loader</title>
+        </div>
+        <div class="loaderBody">
+          <h5>Sending information ....</h5>
+          <div class="spin">
+            <div class="inner"></div>
+          </div>
+        </div>
+      </div>
+      <%- body %> <%- include('../partials/Footer') %>
+    </main>
     <!-- <script src="/js/libs/popper.min.js"></script> -->
     <script src="/js/libs/jquery-3.4.1.min.js"></script>
     <script src="/js/libs/typeahead.bundle.js"></script>
@@ -65,14 +82,18 @@
     <script src="/js/libs/bootstrap.min.js"></script>
 
     <script
-      src="https://unpkg.com/react@16/umd/react.production.min.js"
+      src="https://unpkg.com/react@18/umd/react.development.js"
       crossorigin
     ></script>
     <script
-      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
       crossorigin
     ></script>
+
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script src="/js/allvideos.js"></script>
+    <script src="/js/freeTime.js"></script>
 
     <script src="/js/main.js"></script>
     <script>
@@ -83,7 +104,9 @@
           "load",
           function () {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName("needs-validation");
+            const forms = document.getElementsByClassName("needs-validation");
+            const sendDataLoader = document.querySelector(".sendDataLoader");
+            const mainBodyHolder = document.querySelector(".main-body-holder");
             // Loop over them and prevent submission
             var validation = Array.prototype.filter.call(
               forms,
@@ -94,8 +117,14 @@
                     if (form.checkValidity() === false) {
                       event.preventDefault();
                       event.stopPropagation();
+                      form.classList.add("was-validated");
                     }
-                    form.classList.add("was-validated");
+                    if (form.checkValidity() === true) {
+                      mainBodyHolder.style.maxHeight = "100vh";
+                      mainBodyHolder.style.overflow = "hidden";
+                      sendDataLoader.style.top = "0";
+                      window.scrollTo(0, 0);
+                    }
                   },
                   false
                 );
