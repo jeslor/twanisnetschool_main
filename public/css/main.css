@@ -244,6 +244,7 @@
   font-size: 3rem;
   transition: var(--themeTransition);
   color: rgb(var(--secondaryColor));
+  position: absolute;
 }
 
 .sample_video .sample_video__image:hover span {
